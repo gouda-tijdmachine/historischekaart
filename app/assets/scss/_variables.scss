@@ -9,8 +9,10 @@
   --gouda-blue-light: #4299e1;
   --gouda-grey: #4a5568;
   --gouda-grey-light: #718096;
+  --white: #ffffff;
 
-  --background: #ffffff;
+  --border-color: #e2e8f0;
+
   --foreground: #2d3748;
 
   /* Spacing */
@@ -18,7 +20,8 @@
     --space-#{$i}: #{if($i == 0, 0, ($i * 0.25rem))};
   }
 
-  --max-container-width: 1200px;
+  --max-container-width: 75rem;
+  --max-sidebar-width: 30rem;
 
   /* Typography */
   // TODO!

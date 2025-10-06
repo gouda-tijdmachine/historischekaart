@@ -1,6 +1,6 @@
 <template>
   <div class="grid">
-    <div class="sidebar" />
+    <Sidebar class="sidebar" />
     <div class="main" />
   </div>
 </template>
@@ -15,7 +15,6 @@
   margin-inline: auto;
   max-width: var(--max-container-width);
   width: 100%;
-  background-color: var(--background);
 
   display: grid;
   grid-template-columns: auto 1fr;

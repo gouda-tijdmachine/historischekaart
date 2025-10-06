@@ -3,7 +3,12 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxtjs/leaflet',
+    '@nuxt/icon',
+    '@nuxtjs/google-fonts',
   ],
+
+  // Turn off server side rendering - Customer wants client side only
+  ssr: false,
 
   devtools: { enabled: true },
 
@@ -29,6 +34,12 @@ export default defineNuxtConfig({
   eslint: {
     config: {
       stylistic: true, // activeert Stylistic in plaats van Prettier
+    },
+  },
+
+  googleFonts: {
+    families: {
+      'Source Sans 3': true,
     },
   },
 })
