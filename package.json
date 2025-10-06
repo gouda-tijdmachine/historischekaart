@@ -1,0 +1,30 @@
+{
+  "name": "nuxt-app",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint './**/*.{vue,ts}'",
+    "lint:fix": "eslint --fix './**/*.{vue,ts}'",
+    "typecheck": "nuxt typecheck"
+  },
+  "dependencies": {
+    "@nuxtjs/leaflet": "^1.3.2",
+    "nuxt": "^4.1.2",
+    "ress": "^5.0.2",
+    "vue": "^3.5.22",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@nuxt/eslint": "^1.9.0",
+    "@stylistic/eslint-plugin": "^5.4.0",
+    "eslint": "^9.36.0",
+    "sass": "^1.93.2",
+    "typescript": "^5.9.3"
+  }
+}
