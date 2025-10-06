@@ -11,6 +11,8 @@
   --gouda-grey-light: #718096;
   --white: #ffffff;
 
+  --gray: #F8F9FA;
+
   --border-color: #e2e8f0;
 
   --foreground: #2d3748;
@@ -20,7 +22,7 @@
     --space-#{$i}: #{if($i == 0, 0, ($i * 0.25rem))};
   }
 
-  --max-container-width: 75rem;
+  --max-container-width: 150rem;
   --max-sidebar-width: 30rem;
 
   /* Typography */
@@ -44,4 +46,7 @@
   --leading-snug: 1.375;
   --leading-normal: 1.5;
   --leading-relaxed: 1.625;
+
+  /* Border radius */
+  --radius-1: 0.125rem;
 }

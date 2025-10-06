@@ -11,9 +11,23 @@
         />
         <span>Zoeken in de Gouda Tijdmachine</span>
       </div>
-      <div class="tabs" />
-      <div class="search" />
-      <div class="results" />
+
+      <Tabs
+        class="tabs"
+        :tabs="tabConfig"
+      >
+        <template #house>
+          <HouseTab />
+        </template>
+
+        <template #person>
+          <PersonTab />
+        </template>
+
+        <template #image>
+          <ImageTab />
+        </template>
+      </Tabs>
     </div>
     <div
       class="btn"
@@ -29,6 +43,12 @@
 
 <script setup lang="ts">
 const isOpen = ref(true)
+
+const tabConfig: Tab[] = [
+  { id: 'house', label: 'Panden', icon: 'lucide:home' },
+  { id: 'person', label: 'Personen', icon: 'octicon:people-24' },
+  { id: 'image', label: 'Foto\'s', icon: 'jam:picture' },
+]
 </script>
 
 <style lang="scss" scoped>
@@ -38,6 +58,7 @@ const isOpen = ref(true)
   min-width: 0;
   transition: width 300ms ease-in-out;
   border-right: 1px solid var(--border-color);
+  padding: var(--space-6) var(--space-6) 0 var(--space-6);
 
   &.is-open {
     width: var(--max-sidebar-width);
@@ -54,12 +75,10 @@ const isOpen = ref(true)
   height: 100dvh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(4, auto);
+  grid-template-rows: auto 1fr;
   grid-template-areas:
     "title"
-    "tabs"
-    "search"
-    "result";
+    "tabs";
   gap: var(--space-4);
   overflow: hidden;
   white-space: nowrap;
@@ -71,18 +90,14 @@ const isOpen = ref(true)
   justify-content: flex-start;
   align-items: center;
   gap: 1rem;
+
+  .icon {
+    color: var(--gouda-blue);
+  }
 }
 
 .tabs {
   grid-area: tabs;
-}
-
-.search {
-  grid-area: search;
-}
-
-.results {
-  grid-area: result;
 }
 
 .btn {
@@ -99,12 +114,5 @@ const isOpen = ref(true)
   .icon {
     color: var(--white);
   }
-}
-
-.icon {
-  display: block;
-  color: var(--gouda-blue);
-  width: var(--space-8);
-  height: var(--space-8);
 }
 </style>
