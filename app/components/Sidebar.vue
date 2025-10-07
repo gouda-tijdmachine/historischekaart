@@ -4,14 +4,12 @@
     :class="{ 'is-open': isOpen }"
   >
     <div class="sidebar-content">
-      <div class="title">
-        <Icon
-          class="icon"
-          name="material-symbols:database-outline"
-        />
-        <span>Zoeken in de Gouda Tijdmachine</span>
-      </div>
-
+      <TitleText
+        class="title"
+        icon-name="material-symbols:database-outline"
+      >
+        Zoeken in de Gouda Tijdmachine
+      </TitleText>
       <Tabs
         class="tabs"
         :tabs="tabConfig"
@@ -86,14 +84,6 @@ const tabConfig: Tab[] = [
 
 .title {
   grid-area: title;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 1rem;
-
-  .icon {
-    color: var(--gouda-blue);
-  }
 }
 
 .tabs {
@@ -106,10 +96,11 @@ const tabConfig: Tab[] = [
   right: calc(-1 * var(--space-4));
   width: var(--space-8);
   height: var(--space-8);
-  background-color: var(--gouda-blue-light);
+  background-color: var(--blue-light);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 401; // Higher than leaflet map
 
   .icon {
     color: var(--white);

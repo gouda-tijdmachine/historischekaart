@@ -1,17 +1,18 @@
 :root {
   /* Colors */
-  --gouda-red: #d22e25;
-  --gouda-red-dark: #b82520;
-  --gouda-red-light: #e54d45;
-  --gouda-gold: #c8960f;
-  --gouda-gold-light: #e6b429;
-  --gouda-blue: #3891b1;
-  --gouda-blue-light: #4299e1;
-  --gouda-grey: #4a5568;
-  --gouda-grey-light: #718096;
+  --red: #d22e25;
+  --red-dark: #b82520;
+  --red-light: #e54d45;
+  --gold: #c8960f;
+  --gold-light: #e6b429;
+  --blue: #3891b1;
+  --blue-light: #4299e1;
+  --grey: #4a5568;
+  --grey-light: #718096;
   --white: #ffffff;
 
-  --gray: #F8F9FA;
+  --gray-1: #F8F9FA;
+  --gray-2: #6C757D;
 
   --border-color: #e2e8f0;
 
@@ -49,4 +50,8 @@
 
   /* Border radius */
   --radius-1: 0.125rem;
+  --radius-2: 0.25rem;
+  --radius-3: 0.5rem;
+  --radius-4: 1rem;
+  --radius-full: 50%;
 }

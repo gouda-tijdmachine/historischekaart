@@ -65,7 +65,7 @@ onMounted(() => {
   grid-template-rows: 1fr;
   grid-template-columns: repeat(v-bind('props.tabs.length'), minmax(0, 1fr));
   border-radius: var(--radius-1);
-  background-color: var(--gray);
+  background-color: var(--gray-1);
 }
 
 .tab-header {

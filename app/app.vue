@@ -1,7 +1,7 @@
 <template>
   <div class="grid">
     <Sidebar class="sidebar" />
-    <div class="main" />
+    <Main class="main" />
   </div>
 </template>
 

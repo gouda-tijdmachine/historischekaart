@@ -12,3 +12,11 @@ body {
   width: var(--space-8);
   height: var(--space-8);
 }
+
+.label {
+  color: var(--gray-2);
+  font-size: var(--space-3);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem; /* 133.333% */
+}
