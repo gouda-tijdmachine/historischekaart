@@ -35,6 +35,27 @@ declare global {
     type: 'FeatureCollection'
     features: Feature[]
   }
+
+  interface Card {
+    id: string
+    address: string
+    notes?: string
+  }
+
+  interface PropertyCard extends Card {
+    title: string
+    streetName: string
+    yearBuilt: number
+    yearDemolished?: number
+  }
+
+  interface PersonCard extends Card {
+    name: string
+    year: number
+    buildingId: string
+    relation: string
+    source: string
+  }
 }
 
 declare module 'click-outside-vue3' {

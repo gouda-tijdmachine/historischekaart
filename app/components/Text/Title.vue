@@ -1,6 +1,7 @@
 <template>
   <div class="title">
     <Icon
+      v-if="iconName"
       class="icon"
       :name="iconName"
     />
@@ -12,7 +13,7 @@
 
 <script setup lang="ts">
 defineProps<{
-  iconName: string
+  iconName?: string
 }>()
 </script>
 
@@ -21,7 +22,7 @@ defineProps<{
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-4);
 
   .icon {
     color: var(--blue);

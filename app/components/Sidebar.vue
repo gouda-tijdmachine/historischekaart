@@ -14,16 +14,16 @@
         class="tabs"
         :tabs="tabConfig"
       >
-        <template #house>
-          <HouseTab />
+        <template #property>
+          <TabProperty />
         </template>
 
         <template #person>
-          <PersonTab />
+          <TabPerson />
         </template>
 
         <template #image>
-          <ImageTab />
+          <TabImage />
         </template>
       </Tabs>
     </div>
@@ -43,7 +43,7 @@
 const isOpen = ref(true)
 
 const tabConfig: Tab[] = [
-  { id: 'house', label: 'Panden', icon: 'lucide:home' },
+  { id: 'property', label: 'Panden', icon: 'lucide:home' },
   { id: 'person', label: 'Personen', icon: 'octicon:people-24' },
   { id: 'image', label: 'Foto\'s', icon: 'jam:picture' },
 ]
@@ -56,7 +56,7 @@ const tabConfig: Tab[] = [
   min-width: 0;
   transition: width 300ms ease-in-out;
   border-right: 1px solid var(--border-color);
-  padding: var(--space-6) var(--space-6) 0 var(--space-6);
+  padding: var(--space-6);
 
   &.is-open {
     width: var(--max-sidebar-width);
@@ -70,7 +70,7 @@ const tabConfig: Tab[] = [
 }
 
 .sidebar-content {
-  height: 100dvh;
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
