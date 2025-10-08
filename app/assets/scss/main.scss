@@ -70,6 +70,10 @@ body {
   color: var(--off-black);
 }
 
+ul {
+  list-style: none;
+}
+
 .icon {
   display: block;
   width: var(--space-8);

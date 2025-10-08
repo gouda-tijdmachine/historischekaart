@@ -78,15 +78,12 @@ const handleClick = (card: PersonCard) => {
 
 <style lang="scss" scoped>
 .property-tab {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   gap: var(--space-4);
 }
 
 .results {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   gap: var(--space-2);
 }
 </style>

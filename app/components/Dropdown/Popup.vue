@@ -108,16 +108,13 @@ const prev = () => {
   margin-top: var(--space-1);
   width: inherit;
   overflow: auto;
-  border: var(--border-with) solid var(--border-color);
+  border: var(--border-width) solid var(--border-color);
+  outline: none;
   background: var(--white);
   box-shadow: var(--shadow-1);
 
   &:focus-visible {
-    outline: var(--border-width) solid var(--blue);
-  }
-
-  ul {
-    list-style: none;
+    border-color: var(--blue);
   }
 }
 </style>

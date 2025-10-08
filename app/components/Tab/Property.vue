@@ -1,10 +1,6 @@
 <template>
   <div class="property-tab">
-    <div class="controls">
-      [search input]
-      [dropdown 1] [dropdown 1]
-      [button] [dropdown 3]
-    </div>
+    <ControlsSearch />
     <ul class="results">
       <li
         v-for="(card, index) in cards"
@@ -65,15 +61,12 @@ const handleClick = (card: PropertyCard) => {
 
 <style lang="scss" scoped>
 .property-tab {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   gap: var(--space-4);
 }
 
 .results {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   gap: var(--space-2);
 }
 </style>

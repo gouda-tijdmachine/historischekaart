@@ -6,6 +6,11 @@
     <template v-if="isGroup">
       <span class="label">{{ item.title }}</span>
     </template>
+
+    <template v-else-if="isItem">
+      <span class="label">{{ item.title }}</span>
+    </template>
+
     <template v-else>
       <div class="item-content">
         <div class="icon-area">
@@ -46,6 +51,10 @@ const props = withDefaults(defineProps<{
 
 const isGroup = computed<boolean>(() => {
   return props.item.type === 'group'
+})
+
+const isItem = computed<boolean>(() => {
+  return props.item.type === 'item'
 })
 </script>
 
@@ -112,6 +121,29 @@ const isGroup = computed<boolean>(() => {
   .label {
     color: var(--gray-3);
     @include text-sm;
+  }
+}
+
+/**
+ * Styling a simple item
+ */
+.item {
+  padding: var(--space-2);
+  margin: var(--border-width);
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  .label {
+    @include text-sm;
+  }
+
+  &.active {
+    background-color: var(--gray-1);
+  }
+
+  &:hover:not(.selected) {
+    background-color: var(--gray-1);
   }
 }
 </style>

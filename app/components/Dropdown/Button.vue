@@ -50,9 +50,9 @@ defineExpose({
   padding-inline: var(--space-3);
   justify-content: space-between;
   align-items: center;
-  flex-shrink: 0;
   align-self: stretch;
   border: var(--border-width) solid var(--border-color);
+  outline: none;
   cursor: pointer;
 
   &:disabled {
@@ -61,7 +61,7 @@ defineExpose({
   }
 
   &:focus-visible {
-    outline: var(--border-width) solid var(--blue);
+    border-color: var(--blue);
   }
 }
 
