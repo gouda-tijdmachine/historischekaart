@@ -3,12 +3,12 @@
     <div class="controls-area">
       <div class="top-area">
         <div class="title-area">
-          <TitleText icon-name="material-symbols:map-outline">
+          <TextTitle icon-name="material-symbols:map-outline">
             Interactieve historische kaart
-          </TitleText>
-          <span class="text-sm">
+          </TextTitle>
+          <TextLabel>
             Periode en Jaartal: [Franse tijd] {{ currentYear }}
-          </span>
+          </TextLabel>
         </div>
         <div class="layer-area">
           <Dropdown
@@ -17,9 +17,9 @@
             :selected-value="selectedValue"
             @update:selected-value="selectedValue = $event"
           />
-          <span class="text-sm">
+          <TextLabel>
             Attribution: © Gouda Tijdmachine, OpenStreetMap
-          </span>
+          </TextLabel>
         </div>
       </div>
       <div class="bottom-area">
@@ -30,7 +30,7 @@
           :step="step"
         />
         <SliderLabels
-          :current-year="currentYear"
+          v-model="currentYear"
           :min-year="minYear"
           :max-year="maxYear"
         />
@@ -55,12 +55,12 @@ const items = ref<Item[]>([
   {
     id: 'moderne-kaarten',
     title: 'Moderne kaarten',
-    type: 'label',
+    type: 'group',
   },
   {
     id: 'google-roadmap',
     title: 'Google Roadmap',
-    type: 'item',
+    type: 'layer',
     subtitle: 'Hedendaagse wegenkaart',
     icon: 'lucide-map',
     tag: '2024',
@@ -68,7 +68,7 @@ const items = ref<Item[]>([
   {
     id: 'openstreetmap',
     title: 'OpenStreetMap',
-    type: 'item',
+    type: 'layer',
     subtitle: 'Open-source kaart',
     icon: 'lucide-map',
     tag: '2024',
@@ -76,7 +76,7 @@ const items = ref<Item[]>([
   {
     id: 'mapbox-light',
     title: 'Mapbox Light',
-    type: 'item',
+    type: 'layer',
     subtitle: 'Lichte moderne kaart',
     icon: 'lucide-map',
     tag: '2024',
@@ -84,12 +84,12 @@ const items = ref<Item[]>([
   {
     id: 'historische-kaarten',
     title: 'Historische kaarten',
-    type: 'label',
+    type: 'group',
   },
   {
     id: 'kadaster-1832',
     title: 'Kadaster 1832',
-    type: 'item',
+    type: 'layer',
     subtitle: 'Eerste kadastrale opname',
     icon: 'lucide-building',
     tag: '1832',
@@ -97,7 +97,7 @@ const items = ref<Item[]>([
   {
     id: 'bonneblad-1865',
     title: 'Bonneblad 1865',
-    type: 'item',
+    type: 'layer',
     subtitle: 'Topografische kaart 19e eeuw',
     icon: 'lucide-calendar',
     tag: '1865',
@@ -105,12 +105,12 @@ const items = ref<Item[]>([
   {
     id: 'luchtfotos',
     title: 'Luchtfotos\'s',
-    type: 'label',
+    type: 'group',
   },
   {
     id: 'luchtfoto-2024',
     title: 'Luchtfoto 2024',
-    type: 'item',
+    type: 'layer',
     subtitle: 'Recente luchtopname',
     icon: 'lucide-camera',
     tag: '2024',
@@ -118,7 +118,7 @@ const items = ref<Item[]>([
   {
     id: 'luchtfoto-2010',
     title: 'Luchtfoto 2010',
-    type: 'item',
+    type: 'layer',
     subtitle: 'Luchtopname begin 21e eeuw',
     icon: 'lucide-camera',
     tag: '2010',
@@ -126,7 +126,7 @@ const items = ref<Item[]>([
   {
     id: 'luchtfoto-1990',
     title: 'Luchtfoto 1990',
-    type: 'item',
+    type: 'layer',
     subtitle: 'Luchtopname eind 20e eeuw',
     icon: 'lucide-camera',
     tag: '1990',
@@ -134,7 +134,7 @@ const items = ref<Item[]>([
   {
     id: 'luchtfoto-1977',
     title: 'Luchtfoto 1977',
-    type: 'item',
+    type: 'layer',
     subtitle: 'Vroegste beschikbare luchtfoto',
     icon: 'lucide-camera',
     tag: '1977',

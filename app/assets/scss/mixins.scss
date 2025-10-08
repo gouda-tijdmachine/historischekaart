@@ -1,0 +1,16 @@
+@mixin text-xs {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-base);
+  font-weight: var(--font-weight-normal);
+}
+@mixin text-sm {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-medium);
+  font-weight: var(--font-weight-medium);
+}
+
+@mixin text-lg {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+  font-weight: var(--font-weight-semibold);
+}

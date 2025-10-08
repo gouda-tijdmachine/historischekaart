@@ -3,8 +3,8 @@
     :is="as"
     :class="{ [item.type.toLocaleLowerCase()]: true, active: isActive, selected: selected }"
   >
-    <template v-if="isLabel">
-      <span class="text-md">{{ item.title }}</span>
+    <template v-if="isGroup">
+      <span class="label">{{ item.title }}</span>
     </template>
     <template v-else>
       <div class="item-content">
@@ -23,12 +23,9 @@
               :value="item.tag"
             />
           </div>
-          <div
-            v-if="item.subtitle && !selected"
-            class="text-sm"
-          >
+          <TextLabel v-if="item.subtitle && !selected">
             {{ item.subtitle }}
-          </div>
+          </TextLabel>
         </div>
       </div>
     </template>
@@ -47,8 +44,8 @@ const props = withDefaults(defineProps<{
   as: 'div',
 })
 
-const isLabel = computed<boolean>(() => {
-  return props.item.type === 'label'
+const isGroup = computed<boolean>(() => {
+  return props.item.type === 'group'
 })
 </script>
 
@@ -56,7 +53,7 @@ const isLabel = computed<boolean>(() => {
 /**
  * Styling for displaying an item or selected item
  */
-.item {
+.layer {
   margin: var(--border-width);
   border: none;
   outline: none;
@@ -108,9 +105,13 @@ const isLabel = computed<boolean>(() => {
 /**
  * Styling a group label
  */
-.label {
+.group {
   padding: var(--space-2);
   border-bottom: var(--border-width) solid var(--border-color);
-  color: var(--gray-3);
+
+  .label {
+    color: var(--gray-3);
+    @include text-sm;
+  }
 }
 </style>

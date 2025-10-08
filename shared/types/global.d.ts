@@ -15,6 +15,26 @@ declare global {
     icon?: string
     tag?: string
   }
+
+  interface Feature {
+    type: 'Feature'
+    properties: {
+      title: string
+      pid: string
+      yearFrom: number
+      id: string
+      [key: string]: string | number
+    }
+    geometry: {
+      type: 'Polygon' | 'Point' | 'LineString' | 'MultiPolygon' | 'MultiPoint' | 'MultiLineString'
+      coordinates: number[][] | number[][][]
+    }
+  }
+
+  interface FeatureCollection {
+    type: 'FeatureCollection'
+    features: Feature[]
+  }
 }
 
 declare module 'click-outside-vue3' {

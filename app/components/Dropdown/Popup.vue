@@ -115,5 +115,9 @@ const prev = () => {
   &:focus-visible {
     outline: var(--border-width) solid var(--blue);
   }
+
+  ul {
+    list-style: none;
+  }
 }
 </style>

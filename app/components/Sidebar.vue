@@ -4,12 +4,12 @@
     :class="{ 'is-open': isOpen }"
   >
     <div class="sidebar-content">
-      <TitleText
+      <TextTitle
         class="title"
         icon-name="material-symbols:database-outline"
       >
         Zoeken in de Gouda Tijdmachine
-      </TitleText>
+      </TextTitle>
       <Tabs
         class="tabs"
         :tabs="tabConfig"

@@ -4,7 +4,7 @@
       class="icon"
       :name="iconName"
     />
-    <span>
+    <span class="value">
       <slot />
     </span>
   </div>

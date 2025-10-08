@@ -31,6 +31,16 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-07-15',
 
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "~/assets/scss/mixins.scss" as *;',
+        },
+      },
+    },
+  },
+
   eslint: {
     config: {
       stylistic: true, // activeert Stylistic in plaats van Prettier

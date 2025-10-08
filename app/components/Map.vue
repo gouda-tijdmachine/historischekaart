@@ -28,14 +28,22 @@
         :options="geojsonOptions"
       />
     </LMap>
+
+    <!-- Custom Popup Panel -->
+    <MapPopup
+      v-if="selectedItem"
+      :item="selectedItem"
+      @close="selectedItem = null"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 const zoom = ref(15)
+const selectedItem = ref<Feature>(null)
 
 // GeoJSON data - you can load this from a file or API
-const geojsonData = ref(null)
+const geojsonData = ref<featureCollection>(null)
 
 // GeoJSON styling options
 const geojsonOptions = {
@@ -46,11 +54,30 @@ const geojsonOptions = {
     fillColor: '#ff0000',
     fillOpacity: 0.3,
   },
-  onEachFeature: (feature: any, layer: any) => {
-    // Add popups or other interactions here
-    if (feature.properties && feature.properties.name) {
-      layer.bindPopup(feature.properties.name)
-    }
+  onEachFeature: (feature: Feature, layer: any) => {
+    // Add click handler for custom popup
+    layer.on('click', (e: any) => {
+      selectedItem.value = feature
+      // Prevent map click event
+      e.originalEvent.stopPropagation()
+    })
+
+    // Optional: Add hover effects
+    layer.on('mouseover', (e: any) => {
+      e.target.setStyle({
+        weight: 3,
+        opacity: 1,
+        fillOpacity: 0.5,
+      })
+    })
+
+    layer.on('mouseout', (e: any) => {
+      e.target.setStyle({
+        weight: 2,
+        opacity: 0.8,
+        fillOpacity: 0.3,
+      })
+    })
   },
 }
 
@@ -58,7 +85,7 @@ const geojsonOptions = {
 onMounted(async () => {
   try {
     // Replace with your actual GeoJSON source
-    const response = await fetch('https://www.goudatijdmachine.nl/geojson/2')
+    const response = await fetch('https://www.goudatijdmachine.nl/geojson/45964')
     geojsonData.value = await response.json()
   }
   catch (error) {
@@ -69,6 +96,7 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .map-wrapper {
+  position:relative;
   height: 100%;
   width: 100%;
 }

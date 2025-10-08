@@ -3,7 +3,8 @@
     <div
       v-for="(label, index) in sliderLabels"
       :key="label"
-      :class="{ 'label': true, 'text-sm': true, 'active': index === activeRangeIndex }"
+      :class="{ label: true, active: index === activeRangeIndex }"
+      @click="$emit('update:modelValue', label)"
     >
       {{ label }}
     </div>
@@ -14,13 +15,16 @@
 /**
  * State & Props
  */
+const labelStep = ref<number>(50)
 const props = defineProps<{
-  currentYear: number
+  modelValue: number
   minYear: number
   maxYear: number
 }>()
 
-const labelStep = ref<number>(50)
+defineEmits<{
+  (e: 'update:modelValue', value: number): void
+}>()
 
 /**
  * Computed Properties
@@ -61,7 +65,7 @@ const activeRangeIndex = computed(() => {
   return sliderLabels.value
     .map((label, index) => ({
       index,
-      distance: Math.abs(label - props.currentYear),
+      distance: Math.abs(label - props.modelValue),
     }))
     .reduce((prev, current) =>
       current.distance < prev.distance ? current : prev,
@@ -77,12 +81,14 @@ const activeRangeIndex = computed(() => {
   margin-right: v-bind(rightMargin);
 
   .label {
+    @include text-xs;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: var(--space-1);
     color: var(--gray-3);
+    cursor: pointer;
 
     &:before {
       content: '';
