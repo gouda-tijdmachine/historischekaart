@@ -45,7 +45,7 @@ const handleInput = (event: Event) => {
   border: none;
   width: 100%;
   height: var(--space-4);
-  background: var(--gray-1);
+  background: var(--gray-2);
   border-radius: var(--radius-4);
 }
 

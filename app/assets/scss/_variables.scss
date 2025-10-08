@@ -11,8 +11,9 @@
   --grey-light: #718096;
   --white: #ffffff;
 
-  --gray-1: #F8F9FA;
-  --gray-2: #6C757D;
+  --gray-1: #f1f3f4;
+  --gray-2: #F8F9FA;
+  --gray-3: #6C757D;
 
   --border-color: #e2e8f0;
 
@@ -23,12 +24,16 @@
     --space-#{$i}: #{if($i == 0, 0, ($i * 0.25rem))};
   }
 
+  /* border */
+  --border-width: 0.0625rem;
+
+  /* specific widths */
   --max-container-width: 150rem;
   --max-sidebar-width: 30rem;
+  --layer-selector-width: 16rem;
 
   /* Typography */
   // TODO!
-
   --font-weight-light: 300;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
@@ -54,4 +59,7 @@
   --radius-3: 0.5rem;
   --radius-4: 1rem;
   --radius-full: 50%;
+
+  /* Shadows */
+  --shadow-1: 0 0.625rem 1rem -0.25rem rgba(0, 0, 0, 0.1), 0 0.25rem 0.5rem -0.25rem rgba(0, 0, 0, 0.05);
 }

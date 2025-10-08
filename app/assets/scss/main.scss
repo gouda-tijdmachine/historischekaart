@@ -13,10 +13,16 @@ body {
   height: var(--space-8);
 }
 
-.label {
-  color: var(--gray-2);
+.text-sm {
+  color: var(--gray-3);
   font-size: var(--space-3);
   font-style: normal;
   font-weight: 400;
   line-height: 1rem; /* 133.333% */
+}
+
+.text-md {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
 }

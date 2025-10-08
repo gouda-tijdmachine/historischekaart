@@ -3,7 +3,7 @@
     <div
       v-for="(label, index) in sliderLabels"
       :key="label"
-      :class="{ label: true, active: index === activeRangeIndex }"
+      :class="{ 'label': true, 'text-sm': true, 'active': index === activeRangeIndex }"
     >
       {{ label }}
     </div>
@@ -82,14 +82,14 @@ const activeRangeIndex = computed(() => {
     justify-content: center;
     align-items: center;
     gap: var(--space-1);
-    color: var(--gray-2);
+    color: var(--gray-3);
 
     &:before {
       content: '';
       width: var(--space-2);
       height: var(--space-2);
       border-radius: var(--radius-full);
-      background-color: var(--gray-2);
+      background-color: var(--gray-3);
     }
 
     &.active {
