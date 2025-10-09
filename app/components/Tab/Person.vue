@@ -20,11 +20,11 @@
 </template>
 
 <script setup lang="ts">
-const { people, selectedPersonId } = storeToRefs(usePropertyStore())
+const { people, selectedPersonId } = storeToRefs(usePersonStore())
 </script>
 
 <style lang="scss" scoped>
-.property-tab {
+.person-tab {
   @include flex-column;
   gap: var(--space-4);
 }

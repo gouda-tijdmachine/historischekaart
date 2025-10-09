@@ -86,7 +86,7 @@ export const usePersonStore = defineStore('person', () => {
 
     // Filter by streetName
     // TODO: Fix this, Mock data doesn't support this, turning it off on purpose
-    if (filterStore.activeFilters.type === 'disabled' && filterStore.activeFilters?.street && filterStore.activeFilters?.street !== 'Alle Straten') {
+    if (filterStore.activeFilters?.type === 'disabled' && filterStore.activeFilters?.street && filterStore.activeFilters?.street !== 'Alle Straten') {
       filtered = filtered.filter(card => card.address.contains(filterStore.activeFilters.street))
     }
 
