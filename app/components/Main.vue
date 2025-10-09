@@ -3,7 +3,7 @@
     <div class="controls-area">
       <div class="top-area">
         <div class="title-area">
-          <TextTitle icon-name="material-symbols:map-outline">
+          <TextTitle icon-name="lucide:map">
             Interactieve historische kaart
           </TextTitle>
           <TextLabel>
@@ -12,7 +12,6 @@
         </div>
         <div class="layer-area">
           <Dropdown
-            class="layer-selector"
             :items="items"
             :selected-value="selectedValue"
             @update:selected-value="selectedValue = $event"
@@ -62,7 +61,7 @@ const items = ref<Item[]>([
     title: 'Google Roadmap',
     type: 'layer',
     subtitle: 'Hedendaagse wegenkaart',
-    icon: 'lucide-map',
+    icon: 'lucide:map',
     tag: '2024',
   },
   {
@@ -70,7 +69,7 @@ const items = ref<Item[]>([
     title: 'OpenStreetMap',
     type: 'layer',
     subtitle: 'Open-source kaart',
-    icon: 'lucide-map',
+    icon: 'lucide:map',
     tag: '2024',
   },
   {
@@ -78,7 +77,7 @@ const items = ref<Item[]>([
     title: 'Mapbox Light',
     type: 'layer',
     subtitle: 'Lichte moderne kaart',
-    icon: 'lucide-map',
+    icon: 'lucide:map',
     tag: '2024',
   },
   {
@@ -91,7 +90,7 @@ const items = ref<Item[]>([
     title: 'Kadaster 1832',
     type: 'layer',
     subtitle: 'Eerste kadastrale opname',
-    icon: 'lucide-building',
+    icon: 'lucide:building',
     tag: '1832',
   },
   {
@@ -99,7 +98,7 @@ const items = ref<Item[]>([
     title: 'Bonneblad 1865',
     type: 'layer',
     subtitle: 'Topografische kaart 19e eeuw',
-    icon: 'lucide-calendar',
+    icon: 'lucide:calendar',
     tag: '1865',
   },
   {
@@ -112,7 +111,7 @@ const items = ref<Item[]>([
     title: 'Luchtfoto 2024',
     type: 'layer',
     subtitle: 'Recente luchtopname',
-    icon: 'lucide-camera',
+    icon: 'lucide:camera',
     tag: '2024',
   },
   {
@@ -120,7 +119,7 @@ const items = ref<Item[]>([
     title: 'Luchtfoto 2010',
     type: 'layer',
     subtitle: 'Luchtopname begin 21e eeuw',
-    icon: 'lucide-camera',
+    icon: 'lucide:camera',
     tag: '2010',
   },
   {
@@ -128,7 +127,7 @@ const items = ref<Item[]>([
     title: 'Luchtfoto 1990',
     type: 'layer',
     subtitle: 'Luchtopname eind 20e eeuw',
-    icon: 'lucide-camera',
+    icon: 'lucide:camera',
     tag: '1990',
   },
   {
@@ -136,7 +135,7 @@ const items = ref<Item[]>([
     title: 'Luchtfoto 1977',
     type: 'layer',
     subtitle: 'Vroegste beschikbare luchtfoto',
-    icon: 'lucide-camera',
+    icon: 'lucide:camera',
     tag: '1977',
   },
 ])
@@ -184,10 +183,6 @@ watch(selectedValue, (newValue) => {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-}
-
-.layer-selector {
-  width: var(--layer-selector-width);
 }
 
 .bottom-area {

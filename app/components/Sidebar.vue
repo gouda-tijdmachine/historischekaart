@@ -6,7 +6,7 @@
     <div class="sidebar-content">
       <TextTitle
         class="title"
-        icon-name="material-symbols:database-outline"
+        icon-name="lucide:database"
       >
         Zoeken in de Gouda Tijdmachine
       </TextTitle>
@@ -33,7 +33,7 @@
     >
       <Icon
         class="icon"
-        name="material-symbols:chevron-right"
+        name="lucide:chevron-right"
       />
     </div>
   </div>
@@ -44,8 +44,8 @@ const isOpen = ref(true)
 
 const tabConfig: Tab[] = [
   { id: 'property', label: 'Panden', icon: 'lucide:home' },
-  { id: 'person', label: 'Personen', icon: 'octicon:people-24' },
-  { id: 'image', label: 'Foto\'s', icon: 'jam:picture' },
+  { id: 'person', label: 'Personen', icon: 'lucide:users' },
+  { id: 'image', label: 'Foto\'s', icon: 'lucide:image' },
 ]
 </script>
 

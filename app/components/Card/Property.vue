@@ -33,7 +33,7 @@ const props = defineProps<{
 }>()
 
 const status = computed<string>(() => {
-  return props.card.yearDemolished ? 'Gesloopd' : 'Bestaand'
+  return props.card.yearDemolished ? 'Gesloopt' : 'Bestaand'
 })
 
 const statusColor = computed<string>(() => {

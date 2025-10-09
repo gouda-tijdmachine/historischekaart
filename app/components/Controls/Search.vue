@@ -1,140 +1,83 @@
 <template>
-  <div class="controls-search">
-    <div class="input-area" />
+  <div :class="{ 'controls-search': true, [type.toLowerCase]: true }">
+    <div class="input-area">
+      <input
+        type="text"
+        class="search-input"
+        :placeholder="placeholder"
+        :value="searchTerm"
+        @input="searchTerm = $event.target.value"
+      >
+    </div>
     <Dropdown
       class="street-area"
       :items="streets"
-      :selected-value="selectedStreet"
-      @update:selected-value="selectedStreet = $event"
+      :selected-value="streetId"
+      @update:selected-value="streetId = $event"
     />
     <Dropdown
       class="period-area"
       :items="periods"
-      :selected-value="selectedPeriod"
-      @update:selected-value="selectedPeriod = $event"
+      :selected-value="periodId"
+      @update:selected-value="periodId = $event"
     />
-    <div class="button-area" />
+    <div class="button-area">
+      <button
+        class="search"
+        @click="store.updateFilters"
+      >
+        <Icon
+          class="icon"
+          name="lucide:search"
+        />
+        Zoeken
+      </button>
+      <Dropdown
+        v-if="type === 'property'"
+        :items="statuses"
+        :selected-value="statusId"
+        @update:selected-value="statusId = $event"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const selectedStreet = ref<string | undefined>('all')
-const streets = ref([
-  {
-    id: 'all',
-    title: 'Alle Straten',
-    type: 'item',
-  },
-  {
-    id: 'item-1',
-    title: 'Markt',
-    type: 'item',
-  },
-  {
-    id: 'item-2',
-    title: 'Achter de Kerk',
-    type: 'item',
-  },
-  {
-    id: 'item-3',
-    title: 'NieuwHaven',
-    type: 'item',
-  },
-  {
-    id: 'item-4',
-    title: 'Spieringstraat',
-    type: 'item',
-  },
-  {
-    id: 'item-5',
-    title: 'Lange Groenendaal',
-    type: 'item',
-  },
-  {
-    id: 'item-6',
-    title: 'Nieuwstraat',
-    type: 'item',
-  },
-  {
-    id: 'item-7',
-    title: 'Oosthaven',
-    type: 'item',
-  },
-  {
-    id: 'item-8',
-    title: 'Nieuwe Gouwe',
-    type: 'item',
-  },
-  {
-    id: 'item-9',
-    title: 'Turfsingel',
-    type: 'item',
-  },
-  {
-    id: 'item-10',
-    title: 'Blekerssingel',
-    type: 'item',
-  },
-  {
-    id: 'item-11',
-    title: 'Korte Groenendaal',
-    type: 'item',
-  },
-  {
-    id: 'item-12',
-    title: 'Westhaven',
-    type: 'item',
-  },
-  {
-    id: 'item-13',
-    title: 'Kleiweg',
-    type: 'item',
-  },
-  {
-    id: 'item-14',
-    title: 'Korte Tiendeweg',
-    type: 'item',
-  },
-])
+/**
+ * Store Dependencies
+ */
+const store = useFilterStore()
 
-const selectedPeriod = ref<string | undefined>('all')
-const periods = ref([
-  {
-    id: 'all',
-    title: 'Alle perioden',
-    type: 'item',
-  },
-  {
-    id: '1400-1600',
-    title: 'Middeleeuwen/Renaissance (1400-1600)',
-    type: 'item',
-  },
-  {
-    id: '1600-1700',
-    title: '17e eeuw (1600-1700)',
-    type: 'item',
-  },
-  {
-    id: '1700-1800',
-    title: '18e eeuw (1700-1800)',
-    type: 'item',
-  },
-  {
-    id: '1800-1850',
-    title: 'Vroeg 19e eeuw (1800-1850)',
-    type: 'item',
-  },
-  {
-    id: '1850-1900',
-    title: 'Laat 19e eeuw (1850-1900)',
-    type: 'item',
-  },
-  {
-    id: '1900-1950',
-    title: 'Vroeg 20e eeuw (1900-1950)',
-    type: 'item',
-  },
-])
+/**
+ * State
+ */
+const {
+  // Data
+  statuses,
+  streets,
+  periods,
+
+  // States
+  searchTerm,
+  statusId,
+  streetId,
+  periodId,
+} = storeToRefs(store)
+
+// TODO: Define interface for Streets, Periods and Statusses
+withDefaults(defineProps<{
+  type: 'property' | 'person' | 'image'
+  placeholder?: string
+}>(), {
+  placeholder: 'Zoekterm invoeren...',
+})
+
+/**
+ * lifeCycle Methods
+ */
+onMounted(() => {
+  store.resetFilters()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -146,10 +89,21 @@ const periods = ref([
   "input input"
   "street period"
   "button button";
+  gap: var(--space-2);
 }
 
 .input-area {
   grid-area: input;
+
+  .search-input {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    height: var(--space-9);
+    width: 100%;
+    padding: var(--space-1) var(--space-3);
+    border: var(--border-width) solid var(--border-color);
+  }
 }
 
 .street-area {
@@ -163,5 +117,32 @@ const periods = ref([
 }
 .button-area {
   grid-area: button;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--space-2);
+
+  .search {
+    @include flex-center;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--space-4);
+    padding-block: var(--space-2);
+    width: 100%;
+    color: var(--white);
+    background-color: var(--blue);
+
+    .icon {
+      width: var(--space-4);
+      height: var(--space-4);
+    }
+
+    &:hover {
+      background-color: var(--red);
+    }
+
+    &:active {
+      background-color: var(--red-dark);
+    }
+  }
 }
 </style>

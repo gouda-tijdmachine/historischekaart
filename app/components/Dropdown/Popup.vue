@@ -17,6 +17,7 @@
         :id="`item-${index}`"
         :key="index"
         :is-active="isActive(index)"
+        :is-selected="modelValue === item.id"
         :item="item"
         as="li"
         @mouseenter="mouseEnter(index, item)"
@@ -104,9 +105,11 @@ const prev = () => {
 <style lang="scss" scoped>
 .popup {
   position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
   z-index: 401;
   margin-top: var(--space-1);
-  width: inherit;
   overflow: auto;
   border: var(--border-width) solid var(--border-color);
   outline: none;

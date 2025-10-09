@@ -2,9 +2,10 @@
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
-    '@nuxtjs/leaflet',
     '@nuxt/icon',
     '@nuxtjs/google-fonts',
+    '@nuxtjs/leaflet',
+    '@pinia/nuxt',
   ],
 
   // Turn off server side rendering - Customer wants client side only

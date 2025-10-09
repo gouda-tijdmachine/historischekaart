@@ -1,68 +1,60 @@
 <template>
   <component
     :is="as"
-    :class="{ [item.type.toLocaleLowerCase()]: true, active: isActive, selected: selected }"
+    :class="{ item: true, [item.type.toLocaleLowerCase()]: true, active: isActive, placeholder: asPlaceholder }"
   >
-    <template v-if="isGroup">
-      <span class="label">{{ item.title }}</span>
-    </template>
-
-    <template v-else-if="isItem">
-      <span class="label">{{ item.title }}</span>
-    </template>
-
-    <template v-else>
-      <div class="item-content">
-        <div class="icon-area">
-          <Icon
-            v-if="item.icon"
-            :name="item.icon"
-            class="icon"
+    <div class="item-content">
+      <div
+        v-if="item.icon"
+        class="icon-area"
+      >
+        <Icon
+          :name="item.icon"
+          class="icon"
+        />
+      </div>
+      <div class="content-area">
+        <div class="title">
+          {{ item.title }}
+          <Tag
+            v-if="item.tag"
+            :value="item.tag"
           />
         </div>
-        <div class="content-area">
-          <div class="title">
-            {{ item.title }}
-            <Tag
-              v-if="item.tag"
-              :value="item.tag"
-            />
-          </div>
-          <TextLabel v-if="item.subtitle && !selected">
-            {{ item.subtitle }}
-          </TextLabel>
-        </div>
+        <TextLabel v-if="item.subtitle && !asPlaceholder">
+          {{ item.subtitle }}
+        </TextLabel>
       </div>
-    </template>
+      <div
+        v-if="isSelected"
+        class="checked"
+      >
+        <Icon
+          name="lucide:check"
+          class="icon"
+        />
+      </div>
+    </div>
   </component>
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   item: Item
   as?: 'div' | 'li'
   isActive?: boolean
-  selected?: boolean
+  isSelected?: boolean
+  asPlaceholder?: boolean
 }>(), {
   selected: false,
   isActive: false,
+  isSelected: false,
   as: 'div',
-})
-
-const isGroup = computed<boolean>(() => {
-  return props.item.type === 'group'
-})
-
-const isItem = computed<boolean>(() => {
-  return props.item.type === 'item'
 })
 </script>
 
 <style lang="scss" scoped>
-/**
- * Styling for displaying an item or selected item
- */
-.layer {
+.item {
   margin: var(--border-width);
   border: none;
   outline: none;
@@ -72,17 +64,60 @@ const isItem = computed<boolean>(() => {
     background-color: var(--gray-1);
   }
 
-  &:hover:not(.selected) {
+  &:hover:not(.placeholder) {
     background-color: var(--gray-1);
   }
 
   .item-content {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: auto 1fr;
-    grid-template-areas: "icon content";
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "content checked";
     gap: var(--space-1);
+    padding: var(--space-2);
+
+    .content-area {
+      grid-area: content;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .title {
+        @include text-xs;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: var(--space-2)
+      }
+    }
+
+    .checked {
+      grid-area: checked;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .icon {
+        width: var(--space-4);
+        height: var(--space-4);
+      }
+    }
+  }
+}
+
+/**
+ * Styling for displaying an item or selected item
+ */
+.layer {
+  .item-content {
+    grid-template-columns: var(--space-4) 1fr auto;
+    grid-template-areas: "icon content checked";
     padding: var(--space-2) var(--space-3);
+
+    .content-area {
+      .title {
+        @include text-sm;
+      }
+    }
   }
 
   .icon-area {
@@ -96,54 +131,17 @@ const isItem = computed<boolean>(() => {
       height: var(--space-4);
     }
   }
-
-  .content-area {
-    grid-area: content;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .title {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: var(--space-2)
-  }
 }
 
 /**
  * Styling a group label
  */
 .group {
-  padding: var(--space-2);
   border-bottom: var(--border-width) solid var(--border-color);
 
-  .label {
+  .title {
+    @include text-sm;
     color: var(--gray-3);
-    @include text-sm;
-  }
-}
-
-/**
- * Styling a simple item
- */
-.item {
-  padding: var(--space-2);
-  margin: var(--border-width);
-  border: none;
-  outline: none;
-  cursor: pointer;
-
-  .label {
-    @include text-sm;
-  }
-
-  &.active {
-    background-color: var(--gray-1);
-  }
-
-  &:hover:not(.selected) {
-    background-color: var(--gray-1);
   }
 }
 </style>

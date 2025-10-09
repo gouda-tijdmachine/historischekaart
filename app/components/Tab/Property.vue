@@ -1,15 +1,18 @@
 <template>
   <div class="property-tab">
-    <ControlsSearch />
+    <ControlsSearch
+      type="property"
+      placeholder="Zoek op naam, adres of straatnaam..."
+    />
     <ul class="results">
       <li
-        v-for="(card, index) in cards"
+        v-for="(card, index) in properties"
         :key="index"
       >
         <CardProperty
           :card="card"
-          :selected="selectedId === card.id"
-          @click="handleClick(card)"
+          :selected="selectedProperty === card.id"
+          @click="selectedProperty = card.id"
         />
       </li>
     </ul>
@@ -17,46 +20,7 @@
 </template>
 
 <script setup lang="ts">
-const selectedId = ref<string>()
-const cards = ref<PropertyCard[]>([
-  {
-    id: 'building-1',
-    title: 'Het Stadshuis',
-    address: 'Verponding No. 156',
-    streetName: 'Markt',
-    yearBuilt: 1459,
-    notes: 'Gotisch stadhuis, later verbouwd in renaissancestijl',
-  },
-  {
-    id: 'building-2',
-    title: 'Sint-Janskerk',
-    address: 'Verponding No. 1',
-    streetName: 'Achter de Kerk',
-    yearBuilt: 1485,
-    notes: 'Laat-gotische kruiskerk, langste kerk van Nederland',
-  },
-  {
-    id: 'building-3',
-    title: 'De Goudse Waag',
-    address: 'Verponding No. 234',
-    streetName: 'NieuwHaven',
-    yearBuilt: 1668,
-    notes: 'Classicistisch weeggebouw door Pieter Post',
-  },
-  {
-    id: 'building-4',
-    title: 'Gasthuis',
-    address: 'Verponding No. 89',
-    streetName: 'Spieringstraat',
-    yearBuilt: 1592,
-    yearDemolished: 1886,
-    notes: 'Voormalig gasthuis, later armenvoorziening',
-  },
-])
-
-const handleClick = (card: PropertyCard) => {
-  selectedId.value = card.id
-}
+const { properties, selectedProperty } = storeToRefs(usePropertyStore())
 </script>
 
 <style lang="scss" scoped>

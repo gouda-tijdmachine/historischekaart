@@ -13,7 +13,7 @@
       <DropdownItem
         v-if="item"
         :item="item"
-        selected
+        as-placeholder
       />
       <span v-else>Select…</span>
       <Icon
@@ -45,7 +45,7 @@ defineExpose({
 
 <style lang="scss" scoped>
 .dropdown {
-  width: inherit;
+  width: 100%;
   display: flex;
   padding-inline: var(--space-3);
   justify-content: space-between;
