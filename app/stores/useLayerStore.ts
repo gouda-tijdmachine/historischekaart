@@ -5,7 +5,7 @@ export const useLayerStore = defineStore('layer', () => {
    * State
    */
   const token = useRuntimeConfig().app.token
-  const selectedLayerId = ref<string>('mapbox-light')
+  const selectedLayerId = ref<string>('openstreetmap')
 
   // Mock data
   const layers = ref<Item[]>([

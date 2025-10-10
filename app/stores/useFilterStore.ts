@@ -14,6 +14,18 @@ export const useFilterStore = defineStore('filter', () => {
   const periodId = ref<string>()
   const streetId = ref<string>()
   const statusId = ref<string>()
+  const currentYear = ref<number>(1430)
+
+  /**
+   * Computed Properties
+   */
+  const currentHistoricalPeriod = computed<string>(() => {
+    const activePeriod = historicalPeriods
+      .slice()
+      .reverse()
+      .find(period => currentYear.value >= period.year)
+    return activePeriod ? activePeriod.description : ''
+  })
 
   /**
    * Methods
@@ -42,6 +54,19 @@ export const useFilterStore = defineStore('filter', () => {
   /**
    * Mock data
    */
+  const historicalPeriods = [
+    { year: 1400, label: '1400', description: 'Late Middeleeuwen' },
+    { year: 1500, label: '1500', description: 'Renaissance' },
+    { year: 1600, label: '1600', description: 'Gouden Eeuw begin' },
+    { year: 1650, label: '1650', description: 'Gouden Eeuw hoogtij' },
+    { year: 1700, label: '1700', description: 'Achttiende eeuw' },
+    { year: 1800, label: '1800', description: 'Franse tijd' },
+    { year: 1850, label: '1850', description: 'Negentiende eeuw' },
+    { year: 1900, label: '1900', description: 'Industrialisatie' },
+    { year: 1950, label: '1950', description: 'Wederopbouw' },
+    { year: 2000, label: '2000', description: 'Hedendaags' },
+  ]
+
   const statuses = ref([
     {
       id: 'all',
@@ -183,6 +208,8 @@ export const useFilterStore = defineStore('filter', () => {
     periodId,
     streetId,
     statusId,
+    currentYear,
+    currentHistoricalPeriod,
 
     // Mock data
     statuses,

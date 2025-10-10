@@ -6,9 +6,18 @@
           <TextTitle icon-name="lucide:map">
             Interactieve historische kaart
           </TextTitle>
-          <TextLabel>
-            Periode en Jaartal: [Franse tijd] {{ currentYear }}
-          </TextLabel>
+          <div class="label-wrapper">
+            <TextLabel>
+              Periode en Jaartal:
+            </TextLabel>
+            <Tag
+              :value="currentHistoricalPeriod"
+              class="red"
+            />
+            <TextLabel>
+              {{ currentYear }}
+            </TextLabel>
+          </div>
         </div>
         <div class="layer-area">
           <Dropdown
@@ -40,12 +49,17 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * Store Dependencies
+ */
+const { currentYear, currentHistoricalPeriod } = storeToRefs(useFilterStore())
 const { selectedLayerId, layers } = storeToRefs(useLayerStore())
+
 /**
  * State & Props
- * TODO: Use real data
+ * TODO: Determine the minYear and maxYear based on the data
+ * TODO: Determine where to put "step"
  */
-const currentYear = ref<number>(1430)
 const minYear = ref<number>(1430)
 const maxYear = ref<number>(2025)
 const step = ref<number>(5)
@@ -94,5 +108,12 @@ const step = ref<number>(5)
 .bottom-area {
   grid-area: bottom;
   margin-inline: var(--space-3);
+}
+
+.label-wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: var(--space-1);
 }
 </style>
