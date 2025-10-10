@@ -9,11 +9,19 @@ declare global {
 
   interface Item {
     id: string
-    type: string
     title: string
+    type: 'group' | 'layer' | 'item'
     subtitle?: string
     icon?: string
     tag?: string
+    layerConfig?: {
+      type: 'tile' | 'wms'
+      url: string
+      layers?: string
+      attribution: string
+      format?: string
+      transparent?: boolean
+    }
   }
 
   interface Feature {

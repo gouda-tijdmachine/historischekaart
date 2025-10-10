@@ -109,6 +109,7 @@ const prev = () => {
   right: 0;
   left: 0;
   z-index: 401;
+  max-height: 50vh;
   margin-top: var(--space-1);
   overflow: auto;
   border: var(--border-width) solid var(--border-color);

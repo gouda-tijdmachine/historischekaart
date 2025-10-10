@@ -3,23 +3,28 @@
     <LMap
       ref="map"
       :zoom="zoom"
+      :min-zoom="minZoom"
+      :max-zoom="maxZoom"
       :center="[52.0115, 4.7077]"
       :use-global-leaflet="false"
     >
       <LTileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
+        :key="selectedTileLayer.id"
         layer-type="base"
-        name="OpenStreetMap"
+        :url="selectedTileLayer.url"
+        :attribution="selectedTileLayer.attribution"
+        :title="selectedTileLayer.title"
       />
 
       <LWmsTileLayer
-        url="https://gis.gouda.nl/geoserver/CHRASTER/wms"
-        :layers="'Jacob_van_Deventer'"
-        attribution="<a href='https://gis.gouda.nl'>Gemeente Gouda</a>"
-        :format="'image/png'"
-        :transparent="true"
-        name="Jacob_van_Deventer"
+        v-if="selectedWmsLayer"
+        :key="selectedWmsLayer.id"
+        :url="selectedWmsLayer.url"
+        :layers="selectedWmsLayer.layers"
+        :attribution="selectedWmsLayer.attribution"
+        :format="selectedWmsLayer.format || 'image/png'"
+        :transparent="selectedWmsLayer.transparent !== false"
+        :name="selectedWmsLayer.title"
       />
 
       <LGeoJson
@@ -39,7 +44,12 @@
 </template>
 
 <script setup lang="ts">
+const layerStore = useLayerStore()
+const { selectedTileLayer, selectedWmsLayer } = storeToRefs(layerStore)
+
 const zoom = ref(15)
+const minZoom = ref(15)
+const maxZoom = ref(17)
 const selectedItem = ref<Feature>(null)
 
 // GeoJSON data - you can load this from a file or API
@@ -57,26 +67,11 @@ const geojsonOptions = {
   onEachFeature: (feature: Feature, layer: any) => {
     // Add click handler for custom popup
     layer.on('click', (e: any) => {
+      // Set the selected Item to the current feature
       selectedItem.value = feature
+
       // Prevent map click event
       e.originalEvent.stopPropagation()
-    })
-
-    // Optional: Add hover effects
-    layer.on('mouseover', (e: any) => {
-      e.target.setStyle({
-        weight: 3,
-        opacity: 1,
-        fillOpacity: 0.5,
-      })
-    })
-
-    layer.on('mouseout', (e: any) => {
-      e.target.setStyle({
-        weight: 2,
-        opacity: 0.8,
-        fillOpacity: 0.3,
-      })
     })
   },
 }
@@ -84,9 +79,25 @@ const geojsonOptions = {
 // Load GeoJSON data (example)
 onMounted(async () => {
   try {
-    // Replace with your actual GeoJSON source
-    const response = await fetch('https://www.goudatijdmachine.nl/geojson/45964')
-    geojsonData.value = await response.json()
+    // List of GeoJSON URLs to fetch
+    const urls = [
+      // 'https://www.goudatijdmachine.nl/omeka/files/datasets/panden_1830.geojson', // Panden
+      // 'https://www.goudatijdmachine.nl/geojson/92169', // Gebouwen
+      // 'https://www.goudatijdmachine.nl/geojson/45964', // Wijken
+      // 'https://www.goudatijdmachine.nl/geojson/2', // Streets
+    ]
+
+    // Fetch all GeoJSON files in parallel
+    if (urls.length) {
+      const responses = await Promise.all(urls.map(url => fetch(url)))
+      const geojsons = await Promise.all(responses.map(res => res.json()))
+      const merged = {
+        type: 'FeatureCollection',
+        features: geojsons.flatMap(gj => gj.features || []),
+      }
+
+      geojsonData.value = merged
+    }
   }
   catch (error) {
     console.error('Error loading GeoJSON:', error)

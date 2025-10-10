@@ -30,6 +30,12 @@ export default defineNuxtConfig({
     '~/assets/scss/main.scss',
   ],
 
+  runtimeConfig: {
+    app: {
+      token: '',
+    },
+  },
+
   compatibilityDate: '2025-07-15',
 
   vite: {
