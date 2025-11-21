@@ -23,6 +23,7 @@ defineProps<{
   justify-content: flex-start;
   align-items: center;
   gap: var(--space-4);
+  white-space: break-spaces;
 
   .icon {
     color: var(--blue);

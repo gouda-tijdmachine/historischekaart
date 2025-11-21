@@ -4,7 +4,7 @@ export const useLayerStore = defineStore('layer', () => {
   /**
    * State
    */
-  const token = useRuntimeConfig().app.token
+  const token = useRuntimeConfig().public.token
   const selectedLayerId = ref<string>('openstreetmap')
 
   // Mock data

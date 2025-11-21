@@ -80,14 +80,14 @@ export const usePersonStore = defineStore('person', () => {
     if (filterStore.activeFilters?.period && filterStore.activeFilters?.period !== 'all') {
       const [startYear, endYear] = filterStore.activeFilters.period.split('-').map(Number)
       filtered = filtered.filter(card =>
-        card.year >= startYear && card.year <= endYear,
+        card.year >= startYear! && card.year <= endYear!,
       )
     }
 
     // Filter by streetName
     // TODO: Fix this, Mock data doesn't support this, turning it off on purpose
     if (filterStore.activeFilters?.type === 'disabled' && filterStore.activeFilters?.street && filterStore.activeFilters?.street !== 'Alle Straten') {
-      filtered = filtered.filter(card => card.address.contains(filterStore.activeFilters.street))
+      filtered = filtered.filter(card => card.address.includes(filterStore.activeFilters!.street!))
     }
 
     return filtered

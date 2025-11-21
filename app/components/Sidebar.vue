@@ -72,22 +72,23 @@ const tabConfig: Tab[] = [
 .sidebar-content {
   height: 100%;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: calc(var(--max-sidebar-width) - 2 * var(--space-6) - 1px);
   grid-template-rows: auto 1fr;
   grid-template-areas:
     "title"
     "tabs";
   gap: var(--space-4);
-  overflow: hidden;
-  white-space: nowrap;
 }
 
 .title {
   grid-area: title;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .tabs {
   grid-area: tabs;
+  min-height: 0;
 }
 
 .btn {

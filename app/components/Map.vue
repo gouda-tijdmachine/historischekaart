@@ -38,22 +38,26 @@
     <MapPopup
       v-if="selectedItem"
       :item="selectedItem"
-      @close="selectedItem = null"
+      @close="selectedItem = undefined"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 const layerStore = useLayerStore()
+const filterStore = useFilterStore()
+const propertyStore = usePropertyStore()
 const { selectedTileLayer, selectedWmsLayer } = storeToRefs(layerStore)
+const { currentYear } = storeToRefs(filterStore)
+const { selectedPropertyId } = storeToRefs(propertyStore)
 
 const zoom = ref(15)
 const minZoom = ref(15)
 const maxZoom = ref(17)
-const selectedItem = ref<Feature>(null)
+const selectedItem = ref<Feature>()
 
 // GeoJSON data - you can load this from a file or API
-const geojsonData = ref<featureCollection>(null)
+const geojsonData = ref<FeatureCollection>()
 
 // GeoJSON styling options
 const geojsonOptions = {
@@ -76,32 +80,14 @@ const geojsonOptions = {
   },
 }
 
-// Load GeoJSON data (example)
-onMounted(async () => {
-  try {
-    // List of GeoJSON URLs to fetch
-    const urls = [
-      // 'https://www.goudatijdmachine.nl/omeka/files/datasets/panden_1830.geojson', // Panden
-      // 'https://www.goudatijdmachine.nl/geojson/92169', // Gebouwen
-      // 'https://www.goudatijdmachine.nl/geojson/45964', // Wijken
-      // 'https://www.goudatijdmachine.nl/geojson/2', // Streets
-    ]
+watch(currentYear, async (newValue) => {
+  geojsonData.value = await useCallApi(`pandgeometrieen/${newValue}`)
+}, { immediate: true })
 
-    // Fetch all GeoJSON files in parallel
-    if (urls.length) {
-      const responses = await Promise.all(urls.map(url => fetch(url)))
-      const geojsons = await Promise.all(responses.map(res => res.json()))
-      const merged = {
-        type: 'FeatureCollection',
-        features: geojsons.flatMap(gj => gj.features || []),
-      }
-
-      geojsonData.value = merged
-    }
-  }
-  catch (error) {
-    console.error('Error loading GeoJSON:', error)
-  }
+watch(selectedPropertyId, (newValue) => {
+  const features = unref(geojsonData)?.features
+  const feature = features?.find((feature: Feature) => feature.properties.identifier === newValue)
+  selectedItem.value = feature
 })
 </script>
 

@@ -16,8 +16,7 @@
 </template>
 
 <script setup lang="ts">
-const selectedImageId = ref()
-const images = ref([])
+const images = ref<Record<string, string>[]>([])
 </script>
 
 <style lang="scss" scoped>

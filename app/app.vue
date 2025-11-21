@@ -6,7 +6,8 @@
 </template>
 
 <script setup lang="ts">
-
+const store = useFilterStore()
+await store.fetchData()
 </script>
 
 <style lang="scss" scoped>
@@ -17,8 +18,8 @@
   width: 100%;
 
   display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: 1fr;
+  grid-template-columns: auto minmax(35rem, 1fr);
+  grid-template-rows: 100dvh;
   grid-template-areas: "sidebar main";
 }
 

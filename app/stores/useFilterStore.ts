@@ -5,7 +5,7 @@ export const useFilterStore = defineStore('filter', () => {
   /**
    * State
    */
-  const activeFilters = ref<Record<string, string> | undefined>()
+  const activeFilters = ref<Record<string, string | undefined> | undefined>()
 
   /**
    * Selected states
@@ -27,10 +27,17 @@ export const useFilterStore = defineStore('filter', () => {
     return activePeriod ? activePeriod.description : ''
   })
 
+  const streetIndex = computed<Record<string, string[]>>(() => {
+    return unref(streets).reduce((prev: Record<string, string[]>, current: Item) => {
+      prev[current.id] = [current.title, ...(current.alternatives ?? [])]
+      return prev
+    }, {})
+  })
+
   /**
    * Methods
    */
-  const findById = (data: Ref, id: string) => {
+  const findById = (data: Item[], id?: string) => {
     return data.find(item => item.id === id)
   }
 
@@ -38,7 +45,7 @@ export const useFilterStore = defineStore('filter', () => {
     activeFilters.value = {
       searchTerm: unref(searchTerm),
       period: unref(periodId),
-      street: findById(unref(streets), unref(streetId))?.title,
+      street: unref(streetId),
       status: findById(unref(statuses), unref(statusId))?.id,
     }
   }
@@ -46,9 +53,9 @@ export const useFilterStore = defineStore('filter', () => {
   const resetFilters = () => {
     activeFilters.value = undefined
     searchTerm.value = ''
-    periodId.value = unref(periods)[0].id
-    streetId.value = unref(streets)[0].id
-    statusId.value = unref(statuses)[0].id
+    periodId.value = unref(periods)[0]!.id
+    streetId.value = unref(streets)[0]!.id
+    statusId.value = unref(statuses)[0]!.id
   }
 
   /**
@@ -67,7 +74,7 @@ export const useFilterStore = defineStore('filter', () => {
     { year: 2000, label: '2000', description: 'Hedendaags' },
   ]
 
-  const statuses = ref([
+  const statuses = ref<Item[]>([
     {
       id: 'all',
       title: 'Alle statussen',
@@ -85,85 +92,9 @@ export const useFilterStore = defineStore('filter', () => {
     },
   ])
 
-  const streets = ref([
-    {
-      id: 'all',
-      title: 'Alle Straten',
-      type: 'item',
-    },
-    {
-      id: 'item-1',
-      title: 'Markt',
-      type: 'item',
-    },
-    {
-      id: 'item-2',
-      title: 'Achter de Kerk',
-      type: 'item',
-    },
-    {
-      id: 'item-3',
-      title: 'NieuwHaven',
-      type: 'item',
-    },
-    {
-      id: 'item-4',
-      title: 'Spieringstraat',
-      type: 'item',
-    },
-    {
-      id: 'item-5',
-      title: 'Lange Groenendaal',
-      type: 'item',
-    },
-    {
-      id: 'item-6',
-      title: 'Nieuwstraat',
-      type: 'item',
-    },
-    {
-      id: 'item-7',
-      title: 'Oosthaven',
-      type: 'item',
-    },
-    {
-      id: 'item-8',
-      title: 'Nieuwe Gouwe',
-      type: 'item',
-    },
-    {
-      id: 'item-9',
-      title: 'Turfsingel',
-      type: 'item',
-    },
-    {
-      id: 'item-10',
-      title: 'Blekerssingel',
-      type: 'item',
-    },
-    {
-      id: 'item-11',
-      title: 'Korte Groenendaal',
-      type: 'item',
-    },
-    {
-      id: 'item-12',
-      title: 'Westhaven',
-      type: 'item',
-    },
-    {
-      id: 'item-13',
-      title: 'Kleiweg',
-      type: 'item',
-    },
-    {
-      id: 'item-14',
-      title: 'Korte Tiendeweg',
-      type: 'item',
-    },
-  ])
+  const streets = ref<Item[]>([])
 
-  const periods = ref([
+  const periods = ref<Item[]>([
     {
       id: 'all',
       title: 'Alle perioden',
@@ -201,6 +132,42 @@ export const useFilterStore = defineStore('filter', () => {
     },
   ])
 
+  /**
+   * Methods
+   */
+  const fetchData = async () => {
+    // Fetch the street data
+    const data = await useCallApi('straten')
+    if (Array.isArray(data)) {
+      const options = [{
+        type: 'item',
+        id: 'all',
+        title: 'Alle Straten',
+      } as Item]
+
+      options.push(...data.map((street: StreetResponse) => {
+        return {
+          type: 'item',
+          id: street.identifier,
+          title: street.naam,
+          alternatives: street.naam_alt?.split(', '),
+        } as Item
+      }))
+
+      streets.value = options
+    }
+  }
+
+  const findStreetNamesByID = (ids: string[]) => {
+    return unref(streets)
+      .filter((street) => {
+        return ids.includes(street.id)
+      })
+      .map((street) => {
+        return street.title
+      })
+  }
+
   return {
     // State
     activeFilters,
@@ -211,6 +178,8 @@ export const useFilterStore = defineStore('filter', () => {
     currentYear,
     currentHistoricalPeriod,
 
+    streetIndex,
+
     // Mock data
     statuses,
     streets,
@@ -219,5 +188,7 @@ export const useFilterStore = defineStore('filter', () => {
     // Methods
     updateFilters,
     resetFilters,
+    fetchData,
+    findStreetNamesByID,
   }
 })

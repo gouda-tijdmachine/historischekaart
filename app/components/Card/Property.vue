@@ -5,38 +5,44 @@
     icon-name="lucide:house"
   >
     <template #subtitle>
-      <CardSubtitle>
+      <!-- <CardSubtitle>
         {{ card.address }}
-      </CardSubtitle>
+      </CardSubtitle> -->
     </template>
 
     <template #meta-content>
       <CardMeta>
-        Straat: {{ card.streetName }}
+        Straat: {{ streets.join(', ') }}
       </CardMeta>
     </template>
 
     <template #badges>
-      <Tag :value="card.yearBuilt" />
-      <Tag
+      <!-- <Tag :value="card.yearBuilt" /> -->
+      <!-- <Tag
         :value="status"
         :class="statusColor"
-      />
+      /> -->
     </template>
   </CardBase>
 </template>
 
 <script setup lang="ts">
+const filterStore = useFilterStore()
+
 const props = defineProps<{
   selected?: boolean
   card: PropertyCard
 }>()
 
-const status = computed<string>(() => {
-  return props.card.yearDemolished ? 'Gesloopt' : 'Bestaand'
+const streets = computed<string[]>(() => {
+  return filterStore.findStreetNamesByID(props.card.streets)
 })
 
-const statusColor = computed<string>(() => {
-  return props.card.yearDemolished ? 'red' : 'green'
-})
+// const status = computed<string>(() => {
+//   return props.card.yearDemolished ? 'Gesloopt' : 'Bestaand'
+// })
+
+// const statusColor = computed<string>(() => {
+//   return props.card.yearDemolished ? 'red' : 'green'
+// })
 </script>

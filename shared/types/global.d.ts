@@ -1,6 +1,9 @@
 export {}
 
 declare global {
+  type tabType = 'property' | 'person' | 'image'
+  type ItemType = 'group' | 'layer' | 'item' | 'label'
+
   interface Tab {
     id: string
     label: string
@@ -10,7 +13,7 @@ declare global {
   interface Item {
     id: string
     title: string
-    type: 'group' | 'layer' | 'item'
+    type: ItemType
     subtitle?: string
     icon?: string
     tag?: string
@@ -18,10 +21,12 @@ declare global {
       type: 'tile' | 'wms'
       url: string
       layers?: string
+      version?: string
       attribution: string
       format?: string
       transparent?: boolean
     }
+    alternatives?: string[]
   }
 
   interface Feature {
@@ -46,27 +51,33 @@ declare global {
 
   interface Card {
     id: string
-    address: string
     notes?: string
   }
 
   interface PropertyCard extends Card {
     title: string
-    streetName: string
-    yearBuilt: number
-    yearDemolished?: number
+    streets: string[]
   }
 
   interface PersonCard extends Card {
     name: string
+    address: string
     year: number
     buildingId: string
     relation: string
     source: string
   }
-}
 
-declare module 'click-outside-vue3' {
-  const vClickOutside: any
-  export default vClickOutside
+  interface StreetResponse {
+    identifier: string
+    naam: string
+    naam_alt: string
+  }
+
+  interface PandResponse {
+    identifier: string
+    naam: string
+    straten: StreetResponse[]
+  }
+
 }

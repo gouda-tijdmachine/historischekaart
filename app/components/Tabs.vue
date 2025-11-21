@@ -55,6 +55,7 @@ onMounted(() => {
   flex-direction: column;
   gap: var(--space-6);
   width: 100%;
+  height: 100%;
 }
 
 .tab-headers {
@@ -66,6 +67,12 @@ onMounted(() => {
   grid-template-columns: repeat(v-bind('props.tabs.length'), minmax(0, 1fr));
   border-radius: var(--radius-1);
   background-color: var(--gray-2);
+  flex-shrink: 0;
+}
+
+.tab-content {
+  flex: 1;
+  min-height: 0;
 }
 
 .tab-header {

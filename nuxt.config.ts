@@ -31,8 +31,9 @@ export default defineNuxtConfig({
   ],
 
   runtimeConfig: {
-    app: {
-      token: '',
+    public: {
+      baseUrl: 'https://www.goudatijdmachine.nl/api-viewer',
+      token: 'sk.eyJ1IjoidG90YWxhY3RpdmVtZWRpYSIsImEiOiJjbWdrbHI1N2kwbHpjMm5va2tuM3Fhdm5kIn0.9EwQAsbzCK8PrQnORKhxoA',
     },
   },
 

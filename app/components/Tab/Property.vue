@@ -11,8 +11,8 @@
       >
         <CardProperty
           :card="card"
-          :selected="selectedProperty === card.id"
-          @click="selectedProperty = card.id"
+          :selected="selectedPropertyId === card.id"
+          @click="selectedPropertyId = card.id"
         />
       </li>
     </ul>
@@ -20,17 +20,23 @@
 </template>
 
 <script setup lang="ts">
-const { properties, selectedProperty } = storeToRefs(usePropertyStore())
+const propertyStore = usePropertyStore()
+const { properties, selectedPropertyId } = storeToRefs(propertyStore)
+await propertyStore.fetchData()
 </script>
 
 <style lang="scss" scoped>
 .property-tab {
   @include flex-column;
   gap: var(--space-4);
+  height: 100%;
 }
 
 .results {
   @include flex-column;
   gap: var(--space-2);
+  flex: 1;
+  overflow-y: auto;
+  max-height: 100%;
 }
 </style>

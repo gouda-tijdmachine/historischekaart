@@ -1,12 +1,12 @@
 <template>
-  <div :class="{ 'controls-search': true, [type.toLowerCase]: true }">
+  <div :class="{ 'controls-search': true, [type.toLowerCase()]: true }">
     <div class="input-area">
       <input
         type="text"
         class="search-input"
         :placeholder="placeholder"
         :value="searchTerm"
-        @input="searchTerm = $event.target.value"
+        @input="searchTerm = ($event.target as HTMLInputElement)?.value ?? ''"
       >
     </div>
     <Dropdown
@@ -32,12 +32,13 @@
         />
         Zoeken
       </button>
-      <Dropdown
+      <!-- Note: Disabled the status dropdown due to missing data -->
+      <!-- <Dropdown
         v-if="type === 'property'"
         :items="statuses"
         :selected-value="statusId"
         @update:selected-value="statusId = $event"
-      />
+      /> -->
     </div>
   </div>
 </template>
@@ -53,20 +54,20 @@ const store = useFilterStore()
  */
 const {
   // Data
-  statuses,
+  // statuses,
   streets,
   periods,
 
   // States
   searchTerm,
-  statusId,
+  // statusId,
   streetId,
   periodId,
 } = storeToRefs(store)
 
 // TODO: Define interface for Streets, Periods and Statusses
 withDefaults(defineProps<{
-  type: 'property' | 'person' | 'image'
+  type: tabType
   placeholder?: string
 }>(), {
   placeholder: 'Zoekterm invoeren...',
