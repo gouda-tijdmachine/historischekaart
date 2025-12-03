@@ -29,17 +29,19 @@
 
       <LGeoJson
         v-if="geojsonData"
+        ref="geojson"
         :geojson="geojsonData"
         :options="geojsonOptions"
       />
     </LMap>
 
     <!-- Custom Popup Panel -->
-    <MapPopup
-      v-if="selectedItem"
-      :item="selectedItem"
-      @close="selectedItem = undefined"
-    />
+    <!-- Temporary disabled - until stores are fixed -->
+    <!-- <MapPopup
+      v-if="selectedPropertyId"
+      :id="selectedPropertyId"
+      @close="selectedPropertyId = undefined"
+    /> -->
   </div>
 </template>
 
@@ -51,33 +53,60 @@ const { selectedTileLayer, selectedWmsLayer } = storeToRefs(layerStore)
 const { currentYear } = storeToRefs(filterStore)
 const { selectedPropertyId } = storeToRefs(propertyStore)
 
-const zoom = ref(15)
-const minZoom = ref(15)
+const zoom = ref(17)
+const minZoom = ref(16)
 const maxZoom = ref(17)
-const selectedItem = ref<Feature>()
+const map = ref()
+const geojson = ref()
 
 // GeoJSON data - you can load this from a file or API
 const geojsonData = ref<FeatureCollection>()
 
 // GeoJSON styling options
 const geojsonOptions = {
-  style: {
-    color: '#ff0000',
-    weight: 2,
-    opacity: 0.8,
-    fillColor: '#ff0000',
-    fillOpacity: 0.3,
-  },
   onEachFeature: (feature: Feature, layer: any) => {
-    // Add click handler for custom popup
-    layer.on('click', (e: any) => {
-      // Set the selected Item to the current feature
-      selectedItem.value = feature
+    layer.on('click', (_: any) => {
+      handleActiveState(feature.properties.identifier)
+    })
 
-      // Prevent map click event
-      e.originalEvent.stopPropagation()
+    layer.on('mouseout', (_: any) => {
+      if (feature.properties.identifier !== selectedPropertyId.value) {
+        layer.setStyle({
+          fillOpacity: 0.2,
+        })
+      }
+    })
+
+    layer.on('mouseover', (_: any) => {
+      layer.setStyle({
+        fillOpacity: 1,
+      })
     })
   },
+}
+
+/**
+ * Methods
+ */
+const handleActiveState = (id: any) => {
+  const leaflet = geojson.value?.leafletObject
+  if (leaflet) {
+    // Reset any other styling
+    leaflet.resetStyle()
+
+    // Iterate over object entries and break early
+    const layer: any = Object.values(leaflet._layers).find((layer: any) => layer.feature?.properties.identifier === id)
+
+    if (layer) {
+      // Store the crrent item
+      selectedPropertyId.value = id
+
+      // Set the color of the current item
+      layer.setStyle({
+        color: 'var(--red)',
+      })
+    }
+  }
 }
 
 /**
@@ -88,9 +117,7 @@ watch(currentYear, async (newValue) => {
 }, { immediate: true })
 
 watch(selectedPropertyId, (newValue) => {
-  const features = unref(geojsonData)?.features
-  const feature = features?.find((feature: Feature) => feature.properties.identifier === newValue)
-  selectedItem.value = feature
+  handleActiveState(newValue)
 })
 </script>
 
