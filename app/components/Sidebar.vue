@@ -61,6 +61,10 @@ const tabConfig: Tab[] = [
   &.is-open {
     width: var(--max-sidebar-width);
 
+    .sidebar-content {
+      opacity: 1;
+    }
+
     .btn {
       .icon {
         transform: scaleX(-1);
@@ -78,6 +82,8 @@ const tabConfig: Tab[] = [
     "title"
     "tabs";
   gap: var(--space-4);
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
 }
 
 .title {

@@ -26,6 +26,8 @@ declare global {
       format?: string
       transparent?: boolean
     }
+    begin_year?: number
+    end_year?: number
     alternatives?: string[]
   }
 
@@ -78,6 +80,22 @@ declare global {
     identifier: string
     naam: string
     straten: StreetResponse[]
+  }
+
+  interface PersonResponse {
+    identifier: string
+    beroep: string
+    datering: string
+    naam: string
+    pandidentifiers: string[]
+  }
+
+  interface PeriodResponse {
+    identifier: string
+    naam: string
+    omschrijving?: string
+    jaar_start: string
+    jaar_einde: string
   }
 
 }

@@ -56,7 +56,7 @@ defineProps<{
 }
 
 .map-text {
-  color: #d22e25;
+  color: var(--red);
   font-weight: var(--font-weight-medium);
 }
 </style>
