@@ -20,11 +20,14 @@ export const useFilterStore = defineStore('filter', () => {
    * Computed Properties
    */
   const currentHistoricalPeriod = computed<string>(() => {
-    const activePeriod = historicalPeriods
-      .slice()
-      .reverse()
-      .find(period => currentYear.value >= period.year)
-    return activePeriod ? activePeriod.description : ''
+    const activePeriod = periods
+      .value
+      .find(period =>
+        period.begin_year && period.end_year
+        && currentYear.value >= period.begin_year
+        && currentYear.value <= period.end_year,
+      )
+    return activePeriod ? activePeriod.title : ''
   })
 
   const streetIndex = computed<Record<string, string[]>>(() => {
@@ -58,22 +61,6 @@ export const useFilterStore = defineStore('filter', () => {
     statusId.value = unref(statuses)[0]!.id
   }
 
-  /**
-   * Mock data
-   */
-  const historicalPeriods = [
-    { year: 1400, label: '1400', description: 'Late Middeleeuwen' },
-    { year: 1500, label: '1500', description: 'Renaissance' },
-    { year: 1600, label: '1600', description: 'Gouden Eeuw begin' },
-    { year: 1650, label: '1650', description: 'Gouden Eeuw hoogtij' },
-    { year: 1700, label: '1700', description: 'Achttiende eeuw' },
-    { year: 1800, label: '1800', description: 'Franse tijd' },
-    { year: 1850, label: '1850', description: 'Negentiende eeuw' },
-    { year: 1900, label: '1900', description: 'Industrialisatie' },
-    { year: 1950, label: '1950', description: 'Wederopbouw' },
-    { year: 2000, label: '2000', description: 'Hedendaags' },
-  ]
-
   const statuses = ref<Item[]>([
     {
       id: 'all',
@@ -94,58 +81,22 @@ export const useFilterStore = defineStore('filter', () => {
 
   const streets = ref<Item[]>([])
 
-  const periods = ref<Item[]>([
-    {
-      id: 'all',
-      title: 'Alle perioden',
-      type: 'item',
-    },
-    {
-      id: '1400-1600',
-      title: 'Middeleeuwen/Renaissance (1400-1600)',
-      type: 'item',
-    },
-    {
-      id: '1600-1700',
-      title: '17e eeuw (1600-1700)',
-      type: 'item',
-    },
-    {
-      id: '1700-1800',
-      title: '18e eeuw (1700-1800)',
-      type: 'item',
-    },
-    {
-      id: '1800-1850',
-      title: 'Vroeg 19e eeuw (1800-1850)',
-      type: 'item',
-    },
-    {
-      id: '1850-1900',
-      title: 'Laat 19e eeuw (1850-1900)',
-      type: 'item',
-    },
-    {
-      id: '1900-1950',
-      title: 'Vroeg 20e eeuw (1900-1950)',
-      type: 'item',
-    },
-  ])
+  const periods = ref<Item[]>([])
 
   /**
    * Methods
    */
   const fetchData = async () => {
     // Fetch the street data
-    const data = await useCallApi('straten')
-    if (Array.isArray(data)) {
-      const options = [{
+    const streetData = await useCallApi('straten')
+    if (Array.isArray(streetData)) {
+      const streetOptions = [{
         type: 'item',
         id: 'all',
         title: 'Alle Straten',
       } as Item]
 
-      options.push(...data.map((street: StreetResponse) => {
+      streetOptions.push(...streetData.map((street: StreetResponse) => {
         return {
           type: 'item',
           id: street.identifier,
@@ -154,7 +105,29 @@ export const useFilterStore = defineStore('filter', () => {
         } as Item
       }))
 
-      streets.value = options
+      streets.value = streetOptions
+    }
+
+    // Fetch the periods
+    const data = await useCallApi('tijdvakken')
+    if (Array.isArray(data)) {
+      const periodOptions = [{
+        type: 'item',
+        id: 'all',
+        title: 'Alle Perioden',
+      } as Item]
+
+      periodOptions.push(...data.map((period: PeriodResponse) => {
+        return {
+          type: 'item',
+          id: period.identifier,
+          title: period.naam,
+          begin_year: parseInt(period.jaar_start, 10),
+          end_year: parseInt(period.jaar_einde, 10),
+        } as Item
+      }))
+
+      periods.value = periodOptions
     }
   }
 
