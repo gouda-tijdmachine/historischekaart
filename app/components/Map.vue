@@ -47,7 +47,6 @@
 const layerStore = useLayerStore()
 const filterStore = useFilterStore()
 const propertyStore = usePropertyStore()
-const cacheStore = useCacheStore()
 const { selectedTileLayer, selectedWmsLayer } = storeToRefs(layerStore)
 const { currentYear } = storeToRefs(filterStore)
 const { selectedPropertyId } = storeToRefs(propertyStore)
@@ -81,16 +80,11 @@ const geojsonOptions = {
   },
 }
 
+/**
+ * Watchers
+ */
 watch(currentYear, async (newValue) => {
-  const cacheKey = `geo-${newValue}`
-  let cachedData = cacheStore.getCache(cacheKey)
-
-  if (!cachedData) {
-    cachedData = await useCallApi(`pandgeometrieen/${newValue}`)
-    cacheStore.storeCache(cacheKey, cachedData)
-  }
-
-  geojsonData.value = cachedData
+  geojsonData.value = await useCallApi(`pandgeometrieen/${newValue}`)
 }, { immediate: true })
 
 watch(selectedPropertyId, (newValue) => {
