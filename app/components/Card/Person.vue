@@ -12,8 +12,10 @@
 
     <template #badges>
       <Tag :value="card.year" />
-      <!-- TODO: Figure out what to do with this -->
-      <div class="map-status">
+      <div
+        v-if="onMap"
+        class="map-status"
+      >
         <Icon
           name="lucide:house"
           class="map-icon"
@@ -25,10 +27,17 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   selected?: boolean
   card: PersonCard
 }>()
+
+/**
+ * Computed Properties
+ */
+const onMap = computed<boolean>(() => {
+  return !!useFilterStore().geoJsonData?.features.find((feature: Feature) => props.card.propertyIds.includes(feature.properties.identifier))
+})
 </script>
 
 <style lang="scss" scoped>

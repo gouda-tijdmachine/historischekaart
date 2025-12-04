@@ -49,7 +49,7 @@ defineProps<{
 
   display: grid;
   grid-template-columns: auto 1fr auto;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: 1fr var(--space-2) auto;
   grid-template-areas:
    "icon title badge"
    "icon subtitle selected"

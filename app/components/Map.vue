@@ -28,9 +28,9 @@
       />
 
       <LGeoJson
-        v-if="geojsonData"
+        v-if="geoJsonData"
         ref="geojson"
-        :geojson="geojsonData"
+        :geojson="geoJsonData"
         :options="geojsonOptions"
       />
     </LMap>
@@ -50,7 +50,7 @@ const layerStore = useLayerStore()
 const filterStore = useFilterStore()
 const propertyStore = usePropertyStore()
 const { selectedTileLayer, selectedWmsLayer } = storeToRefs(layerStore)
-const { currentYear } = storeToRefs(filterStore)
+const { currentYear, geoJsonData } = storeToRefs(filterStore)
 const { selectedPropertyId } = storeToRefs(propertyStore)
 
 const zoom = ref(17)
@@ -58,9 +58,6 @@ const minZoom = ref(16)
 const maxZoom = ref(17)
 const map = ref()
 const geojson = ref()
-
-// GeoJSON data - you can load this from a file or API
-const geojsonData = ref<FeatureCollection>()
 
 // GeoJSON styling options
 const geojsonOptions = {
@@ -113,7 +110,7 @@ const handleActiveState = (id: any) => {
  * Watchers
  */
 watch(currentYear, async (newValue) => {
-  geojsonData.value = await useCallApi(`pandgeometrieen/${newValue}`)
+  filterStore.fetchGeoJson(newValue)
 }, { immediate: true })
 
 watch(selectedPropertyId, (newValue) => {

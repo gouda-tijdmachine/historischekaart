@@ -4,7 +4,7 @@
       :type="searchType"
       :placeholder="placeholder"
     />
-    <ul :class="{ results: true, wrapped: searchType === 'image' }">
+    <ul :class="['results', searchType === 'image' ? 'images' : 'cards']">
       <li
         v-for="(card, index) in items"
         :key="index"
@@ -103,27 +103,27 @@ onMounted(async () => {
 }
 
 .results {
-  @include flex-column;
-  gap: var(--space-2);
   flex: 1;
   overflow-y: auto;
   max-height: 100%;
-
-  li {
-    flex: 0 0 100%;
-  }
+  gap: var(--space-2);
 
   .load-more {
-    margin-top: var(--space-2);
+    margin-top: auto;
   }
-}
 
-.wrapped {
-  flex-direction: row;
-  flex-wrap: wrap;
+  &.cards {
+    @include flex-column;
+  }
 
-  li:not(.load-more, .spinner-container) {
-    flex: 0 0 calc(50% - var(--space-4));
+  &.images {
+    display: grid;
+    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(auto-fill, var(--image-card-size));
+
+    .load-more {
+      grid-column: span 2;
+    }
   }
 }
 

@@ -6,6 +6,7 @@ export const useFilterStore = defineStore('filter', () => {
    * State
    */
   const activeFilters = ref<Record<string, string | undefined> | undefined>()
+  const geoJsonData = ref<FeatureCollection>()
 
   /**
    * Selected states
@@ -152,6 +153,10 @@ export const useFilterStore = defineStore('filter', () => {
     selectedType.value = type
   }
 
+  const fetchGeoJson = async (year: number) => {
+    geoJsonData.value = await useCallApi(`pandgeometrieen/${year}`)
+  }
+
   const fetchSearch = async (endpoint: string, offset: number = 0, limit: number = 10) => {
     // construct the url params
     const params = {
@@ -197,9 +202,10 @@ export const useFilterStore = defineStore('filter', () => {
     findStreetNamesByID,
 
     // New
-
+    geoJsonData,
     selectedId,
     updateSelected,
+    fetchGeoJson,
     fetchSearch,
   }
 })
