@@ -14,7 +14,6 @@ export const useFilterStore = defineStore('filter', () => {
   const searchTerm = ref<string>()
   const periodId = ref<string>()
   const streetId = ref<string>()
-  const statusId = ref<string>()
   const currentYear = ref<number>(1430)
 
   /**
@@ -56,7 +55,6 @@ export const useFilterStore = defineStore('filter', () => {
       searchTerm: unref(searchTerm),
       period: unref(periodId),
       street: unref(streetId),
-      status: findById(unref(statuses), unref(statusId))?.id,
     }
   }
 
@@ -65,26 +63,7 @@ export const useFilterStore = defineStore('filter', () => {
     searchTerm.value = ''
     periodId.value = unref(periods)[0]!.id
     streetId.value = unref(streets)[0]!.id
-    statusId.value = unref(statuses)[0]!.id
   }
-
-  const statuses = ref<Item[]>([
-    {
-      id: 'all',
-      title: 'Alle statussen',
-      type: 'item',
-    },
-    {
-      id: 'demolished',
-      title: 'Gesloopt',
-      type: 'item',
-    },
-    {
-      id: 'existing',
-      title: 'Bestaand',
-      type: 'item',
-    },
-  ])
 
   const streets = ref<Item[]>([])
 
@@ -184,14 +163,12 @@ export const useFilterStore = defineStore('filter', () => {
     searchTerm,
     periodId,
     streetId,
-    statusId,
     currentYear,
     currentHistoricalPeriod,
 
     streetIndex,
 
     // Mock data
-    statuses,
     streets,
     periods,
 

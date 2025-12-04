@@ -27,13 +27,6 @@
         icon="lucide:search"
         @click="store.updateFilters"
       />
-      <!-- Note: Disabled the status dropdown due to missing data -->
-      <!-- <Dropdown
-        v-if="type === 'property'"
-        :items="statuses"
-        :selected-value="statusId"
-        @update:selected-value="statusId = $event"
-      /> -->
     </div>
   </div>
 </template>
@@ -49,18 +42,16 @@ const store = useFilterStore()
  */
 const {
   // Data
-  // statuses,
   streets,
   periods,
 
   // States
   searchTerm,
-  // statusId,
   streetId,
   periodId,
 } = storeToRefs(store)
 
-// TODO: Define interface for Streets, Periods and Statusses
+// TODO: Define interface for Streets, Periods
 withDefaults(defineProps<{
   type: tabType
   placeholder?: string
