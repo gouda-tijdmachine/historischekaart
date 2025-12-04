@@ -22,16 +22,11 @@
       @update:selected-value="periodId = $event"
     />
     <div class="button-area">
-      <button
-        class="search"
+      <BaseButton
+        title="Zoeken"
+        icon="lucide:search"
         @click="store.updateFilters"
-      >
-        <Icon
-          class="icon"
-          name="lucide:search"
-        />
-        Zoeken
-      </button>
+      />
       <!-- Note: Disabled the status dropdown due to missing data -->
       <!-- <Dropdown
         v-if="type === 'property'"
@@ -121,29 +116,5 @@ onMounted(() => {
   display: flex;
   flex-wrap: nowrap;
   gap: var(--space-2);
-
-  .search {
-    @include flex-center;
-    display: flex;
-    flex-wrap: nowrap;
-    gap: var(--space-4);
-    padding-block: var(--space-2);
-    width: 100%;
-    color: var(--white);
-    background-color: var(--blue);
-
-    .icon {
-      width: var(--space-4);
-      height: var(--space-4);
-    }
-
-    &:hover {
-      background-color: var(--red);
-    }
-
-    &:active {
-      background-color: var(--red-dark);
-    }
-  }
 }
 </style>
