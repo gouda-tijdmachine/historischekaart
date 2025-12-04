@@ -1,32 +1,31 @@
 <template>
-  <div class="image-tab">
-    <ControlsSearch
-      type="image"
-      placeholder="Zoek op titel, beschrijving, straat of pand..."
-    />
-    <ul class="results">
-      <li
-        v-for="(card, index) in images"
-        :key="index"
-      >
-        {{ card.id }} - {{ card.title }}
-      </li>
-    </ul>
-  </div>
+  <BaseTab
+    search-type="image"
+    placeholder="Zoek op titel, beschrijving, straat of pand..."
+    endpoint="fotos"
+    :transform-function="transform"
+  >
+    <template #card="{ card, selected, onSelect }">
+      <CardImage
+        :card="card"
+        :selected="selected"
+        @click="onSelect"
+      />
+    </template>
+  </BaseTab>
 </template>
 
 <script setup lang="ts">
-const images = ref<Record<string, string>[]>([])
+const transform = (image: ImageResponse): ImageCard => {
+  return {
+    id: image.identifier!,
+    title: image.titel!,
+    thumbnail: image.thumbnail,
+    author: image.vervaardiger,
+    year: parseInt(image.datering, 10),
+    source: image.bronorganisatie,
+    streets: (image.straten ?? []).map((street: StreetResponse) => street.identifier),
+    propertyIds: image.pandidentifiers,
+  }
+}
 </script>
-
-<style lang="scss" scoped>
-.person-tab {
-  @include flex-column;
-  gap: var(--space-4);
-}
-
-.results {
-  @include flex-column;
-  gap: var(--space-2);
-}
-</style>

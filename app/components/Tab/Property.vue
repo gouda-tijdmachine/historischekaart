@@ -1,42 +1,26 @@
 <template>
-  <div class="property-tab">
-    <ControlsSearch
-      type="property"
-      placeholder="Zoek op naam, adres of straatnaam..."
-    />
-    <ul class="results">
-      <li
-        v-for="(card, index) in properties"
-        :key="index"
-      >
-        <CardProperty
-          :card="card"
-          :selected="selectedPropertyId === card.id"
-          @click="selectedPropertyId = card.id"
-        />
-      </li>
-    </ul>
-  </div>
+  <BaseTab
+    search-type="property"
+    placeholder="Zoek op naam, adres of straatnaam..."
+    endpoint="panden"
+    :transform-function="transform"
+  >
+    <template #card="{ card, selected, onSelect }">
+      <CardProperty
+        :card="card"
+        :selected="selected"
+        @click="onSelect"
+      />
+    </template>
+  </BaseTab>
 </template>
 
 <script setup lang="ts">
-const propertyStore = usePropertyStore()
-const { properties, selectedPropertyId } = storeToRefs(propertyStore)
-await propertyStore.fetchData()
+const transform = (pand: PropertyResponse): PropertyCard => {
+  return {
+    id: pand.identifier!,
+    title: pand.naam!,
+    streets: (pand.straten ?? []).map((street: StreetResponse) => street.identifier),
+  }
+}
 </script>
-
-<style lang="scss" scoped>
-.property-tab {
-  @include flex-column;
-  gap: var(--space-4);
-  height: 100%;
-}
-
-.results {
-  @include flex-column;
-  gap: var(--space-2);
-  flex: 1;
-  overflow-y: auto;
-  max-height: 100%;
-}
-</style>

@@ -80,7 +80,7 @@ export const usePropertyStore = defineStore('property', () => {
   const fetchData = async () => {
     const data = await useCallApi('panden')
     if (data.aantal > 0 && Array.isArray(data.panden)) {
-      _properties.value = data.panden.map((pand: PandResponse) => {
+      _properties.value = data.panden.map((pand: PropertyResponse) => {
         const output: PropertyCard = {
           id: pand.identifier!,
           title: pand.naam!,
@@ -91,9 +91,15 @@ export const usePropertyStore = defineStore('property', () => {
     }
   }
 
+  const fetchDetails = async (id: string) => {
+    const data = await useCallApi(`pand/${encodeURIComponent(id)}`)
+    console.warn(data)
+  }
+
   return {
     selectedPropertyId,
     properties,
     fetchData,
+    fetchDetails,
   }
 })

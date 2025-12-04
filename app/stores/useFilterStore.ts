@@ -17,6 +17,12 @@ export const useFilterStore = defineStore('filter', () => {
   const currentYear = ref<number>(1430)
 
   /**
+   * Selected item
+   */
+  const selectedType = ref<string>()
+  const selectedId = ref<string>()
+
+  /**
    * Computed Properties
    */
   const currentHistoricalPeriod = computed<string>(() => {
@@ -141,6 +147,32 @@ export const useFilterStore = defineStore('filter', () => {
       })
   }
 
+  const updateSelected = (type: string, id: string) => {
+    selectedId.value = id
+    selectedType.value = type
+  }
+
+  const fetchSearch = async (endpoint: string, offset: number = 0, limit: number = 10) => {
+    // construct the url params
+    const params = {
+      q: searchTerm.value,
+      tijdvak: periodId.value,
+      straat: streetId.value,
+      limit,
+      offset,
+    }
+
+    const urlParams = new URLSearchParams()
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '' && value !== 'all') {
+        urlParams.append(key, String(value))
+      }
+    })
+    const queryString = urlParams.toString()
+    const url = queryString ? `${endpoint}?${queryString}` : endpoint
+    return await useCallApi(url)
+  }
+
   return {
     // State
     activeFilters,
@@ -163,5 +195,11 @@ export const useFilterStore = defineStore('filter', () => {
     resetFilters,
     fetchData,
     findStreetNamesByID,
+
+    // New
+
+    selectedId,
+    updateSelected,
+    fetchSearch,
   }
 })

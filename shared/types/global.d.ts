@@ -63,20 +63,32 @@ declare global {
 
   interface PersonCard extends Card {
     name: string
-    address: string
+    address?: string
     year: number
-    buildingId: string
-    relation: string
+    buildingId?: string
+    relation?: string
+    source?: string
+    profession: string
+    propertyIds: string[]
+  }
+
+  interface ImageCard extends Card {
+    title: string
+    thumbnail: string
+    author: string
+    year: number
     source: string
+    streets: string[]
+    propertyIds: string[]
   }
 
   interface StreetResponse {
     identifier: string
     naam: string
-    naam_alt: string
+    naam_alt?: string
   }
 
-  interface PandResponse {
+  interface PropertyResponse {
     identifier: string
     naam: string
     straten: StreetResponse[]
@@ -98,4 +110,14 @@ declare global {
     jaar_einde: string
   }
 
+  interface ImageResponse {
+    identifier: string
+    titel: string
+    thumbnail: string
+    vervaardiger: string
+    datering: string
+    bronorganisatie: string
+    straten: StreetResponse[]
+    pandidentifiers: string[]
+  }
 }

@@ -4,18 +4,9 @@
     :selected="selected"
     icon-name="lucide:user"
   >
-    <template #subtitle>
-      <CardSubtitle>
-        {{ card.address }}
-      </CardSubtitle>
-    </template>
-
     <template #meta-content>
       <CardMeta>
-        {{ card.relation }}
-      </CardMeta>
-      <CardMeta>
-        {{ card.source }}
+        {{ card.profession }}
       </CardMeta>
     </template>
 
