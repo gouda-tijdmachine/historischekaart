@@ -2,7 +2,6 @@
   <BaseTab
     search-type="image"
     placeholder="Zoek op titel, beschrijving, straat of pand..."
-    endpoint="fotos"
     :transform-function="transform"
   >
     <template #card="{ card, selected, onSelect }">

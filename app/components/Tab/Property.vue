@@ -2,7 +2,6 @@
   <BaseTab
     search-type="property"
     placeholder="Zoek op naam, adres of straatnaam..."
-    endpoint="panden"
     :transform-function="transform"
   >
     <template #card="{ card, selected, onSelect }">

@@ -32,7 +32,7 @@
       @click="isOpen = !isOpen"
     >
       <Icon
-        class="icon"
+        class="icon-lg"
         name="lucide:chevron-right"
       />
     </div>
@@ -66,7 +66,7 @@ const tabConfig: Tab[] = [
     }
 
     .btn {
-      .icon {
+      .icon-lg {
         transform: scaleX(-1);
       }
     }
@@ -109,8 +109,12 @@ const tabConfig: Tab[] = [
   align-items: center;
   z-index: 401; // Higher than leaflet map
 
-  .icon {
+  .icon-lg {
     color: var(--white);
+  }
+
+  &:hover {
+    background-color: var(--red);
   }
 }
 </style>

@@ -2,10 +2,10 @@
   <div class="map-popup">
     <div class="header">
       <TextTitle
-        icon-name="lucide-house"
+        :icon-name="filterStore.iconName(filterStore.selectedType!)"
         class="title"
       >
-        {{ item.properties.title }}
+        {{ filterStore.selectedTitle }}
       </TextTitle>
       <button
         class="close-button"
@@ -16,27 +16,48 @@
     </div>
 
     <div class="content">
-      <!-- TODO: Fix this! -->
-      <div
-        v-for="(value, key) in item.properties"
-        :key="key"
-        class="property-row"
-      >
-        <span class="property-key">{{ key }}:</span>
-        <span class="property-value">{{ value }}</span>
-      </div>
+      <BaseSpinner v-if="isLoading" />
+      <component
+        :is="contentComponent"
+        v-else
+        :data="data"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  item: Feature
-}>()
+const filterStore = useFilterStore()
+const { selectedId } = storeToRefs(filterStore)
+const data = ref()
+const isLoading = ref<boolean>(true)
 
 defineEmits<{
   (e: 'close'): void
 }>()
+
+const contentComponent = computed(() => {
+  switch (filterStore.selectedType) {
+    case 'property':
+      return resolveComponent('PopupProperty')
+    case 'image':
+      return resolveComponent('PopupImage')
+    case 'person':
+      return resolveComponent('PopupPerson')
+    default:
+      return 'div'
+  }
+})
+
+watch(selectedId, async () => {
+  try {
+    isLoading.value = true
+    data.value = await filterStore.fetchDetails()
+  }
+  finally {
+    isLoading.value = false
+  }
+}, { immediate: true })
 </script>
 
 <style lang="scss" scoped>
@@ -81,6 +102,7 @@ defineEmits<{
 }
 
 .content {
+  @include flex-column;
   flex: 1;
   padding: var(--space-4);
   overflow-y: auto;

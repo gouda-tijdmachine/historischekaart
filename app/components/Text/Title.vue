@@ -2,7 +2,7 @@
   <div class="title">
     <Icon
       v-if="iconName"
-      class="icon"
+      class="icon-lg"
       :name="iconName"
     />
     <span class="value">
@@ -25,7 +25,7 @@ defineProps<{
   gap: var(--space-4);
   white-space: break-spaces;
 
-  .icon {
+  .icon-lg {
     color: var(--blue);
   }
 }

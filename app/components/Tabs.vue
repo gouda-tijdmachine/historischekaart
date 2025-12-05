@@ -83,11 +83,6 @@ onMounted(() => {
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
-
-  .icon {
-    width: var(--space-4);
-    height: var(--space-4);
-  }
 }
 
 .tab-header.active {

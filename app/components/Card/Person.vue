@@ -1,8 +1,8 @@
 <template>
   <CardBase
-    :title="card.name"
+    :title="card.title"
     :selected="selected"
-    icon-name="lucide:user"
+    :icon-name="filterStore.iconName('person')"
   >
     <template #meta-content>
       <CardMeta>
@@ -17,7 +17,7 @@
         class="map-status"
       >
         <Icon
-          name="lucide:house"
+          :name="filterStore.iconName('property')"
           class="map-icon"
         />
         <span class="map-text">Op kaart</span>
@@ -27,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+const filterStore = useFilterStore()
 const props = defineProps<{
   selected?: boolean
   card: PersonCard
@@ -36,7 +37,7 @@ const props = defineProps<{
  * Computed Properties
  */
 const onMap = computed<boolean>(() => {
-  return !!useFilterStore().geoJsonData?.features.find((feature: Feature) => props.card.propertyIds.includes(feature.properties.identifier))
+  return !!filterStore.geoJsonData?.features.find((feature: Feature) => props.card.propertyIds.includes(feature.properties.identifier))
 })
 </script>
 

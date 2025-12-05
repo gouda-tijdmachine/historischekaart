@@ -4,6 +4,12 @@ declare global {
   type tabType = 'property' | 'person' | 'image'
   type ItemType = 'group' | 'layer' | 'item' | 'label'
 
+  interface EndpointType {
+    icon: string
+    details: string
+    search: string
+  }
+
   interface Tab {
     id: string
     label: string
@@ -52,18 +58,20 @@ declare global {
     features: Feature[]
   }
 
+  /**
+   * Cards
+   */
   interface Card {
     id: string
+    title: string
     notes?: string
   }
 
   interface PropertyCard extends Card {
-    title: string
     streets: string[]
   }
 
   interface PersonCard extends Card {
-    name: string
     address?: string
     year: number
     buildingId?: string
@@ -74,7 +82,6 @@ declare global {
   }
 
   interface ImageCard extends Card {
-    title: string
     thumbnail: string
     author: string
     year: number
@@ -83,36 +90,38 @@ declare global {
     propertyIds: string[]
   }
 
-  interface StreetResponse {
+  /**
+   * Search Responses
+   */
+  interface Response {
     identifier: string
+  }
+
+  interface StreetResponse extends Response {
     naam: string
     naam_alt?: string
   }
 
-  interface PropertyResponse {
-    identifier: string
+  interface PropertyResponse extends Response {
     naam: string
     straten: StreetResponse[]
   }
 
-  interface PersonResponse {
-    identifier: string
+  interface PersonResponse extends Response {
     beroep: string
     datering: string
     naam: string
     pandidentifiers: string[]
   }
 
-  interface PeriodResponse {
-    identifier: string
+  interface PeriodResponse extends Response {
     naam: string
     omschrijving?: string
     jaar_start: string
     jaar_einde: string
   }
 
-  interface ImageResponse {
-    identifier: string
+  interface ImageResponse extends Response {
     titel: string
     thumbnail: string
     vervaardiger: string
@@ -120,5 +129,31 @@ declare global {
     bronorganisatie: string
     straten: StreetResponse[]
     pandidentifiers: string[]
+  }
+
+  /**
+   * Detail Responses
+   */
+  interface PropertyDetailResponse {
+    address: {
+      type: 'StraatNummerAanduiding' | 'PlaatselijkeAanduiding'
+      naam: string
+      datering: string
+      wijk: string
+    }[]
+    datering: string
+    fotos: {
+      identifier: string
+      thumbnail: string
+      titel: string
+    }[]
+    identifier: string
+    naam: string
+    personen: {
+      beroep: string
+      datering: string
+      identifier: string
+      naam: string
+    }[]
   }
 }

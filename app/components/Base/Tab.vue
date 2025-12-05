@@ -13,17 +13,11 @@
           name="card"
           :card="card"
           :selected="selectedId === card.id"
-          :on-select="() => filterStore.updateSelected(searchType, card.id)"
+          :on-select="() => filterStore.updateSelected(searchType, card.id, card.title)"
         />
       </li>
-      <li
-        v-if="isLoading"
-        class="spinner-container"
-      >
-        <Icon
-          name="lucide:loader-2"
-          class="spinner"
-        />
+      <li v-if="isLoading">
+        <BaseSpinner />
       </li>
       <li
         v-else-if="hasMore"
@@ -38,21 +32,20 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="TCard extends Card = Card, TResponse extends Response = Response">
 /**
  * State & Props
  */
 const filterStore = useFilterStore()
 const { selectedId } = storeToRefs(filterStore)
-const items = ref<Card[]>([])
+const items = shallowRef<TCard[]>([])
 const totalItems = ref<number>(0)
 const isLoading = ref<boolean>(false)
 
 const props = defineProps<{
   searchType: tabType
   placeholder: string
-  endpoint: string
-  transformFunction: (item: any) => Card
+  transformFunction: (item: TResponse) => TCard
 }>()
 
 /**
@@ -70,16 +63,19 @@ const loadMore = async () => {
 
   try {
     const loaded = unref(items).length || 0
-    const result = await filterStore.fetchSearch(props.endpoint, loaded, 5)
+    const result = await filterStore.fetchSearch(props.searchType, loaded, 5)
+    for (const key in result) {
+      // If the key is aantal, update totalItems
+      if (key === 'aantal') {
+        totalItems.value = result.aantal
+      }
 
-    // Update the total items
-    totalItems.value = result.aantal
-
-    // Transform and add new results
-    const responseItems = result[props.endpoint]
-    if (Array.isArray(responseItems)) {
-      const transformedItems = responseItems.map(props.transformFunction)
-      items.value.push(...transformedItems)
+      // Check if we have another property that is an array, use that as itemz
+      else if (Array.isArray(result[key])) {
+        result[key].forEach((item: TResponse) => {
+          items.value.push(props.transformFunction(item))
+        })
+      }
     }
   }
   finally {
@@ -124,26 +120,10 @@ onMounted(async () => {
     .load-more {
       grid-column: span 2;
     }
-  }
-}
 
-.spinner-container {
-  display: flex;
-  justify-content: center;
-  padding: var(--space-4);
-}
-
-.spinner {
-  animation: spin 1s linear infinite;
-  color: var(--blue-light);
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+    li:has(.spinner-container) {
+      grid-column: span 2;
+    }
   }
 }
 </style>

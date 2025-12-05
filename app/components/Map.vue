@@ -36,22 +36,18 @@
     </LMap>
 
     <!-- Custom Popup Panel -->
-    <!-- Temporary disabled - until stores are fixed -->
-    <!-- <MapPopup
-      v-if="selectedPropertyId"
-      :id="selectedPropertyId"
-      @close="selectedPropertyId = undefined"
-    /> -->
+    <MapPopup
+      v-if="selectedId"
+      @close="filterStore.resetSelected"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 const layerStore = useLayerStore()
 const filterStore = useFilterStore()
-const propertyStore = usePropertyStore()
 const { selectedTileLayer, selectedWmsLayer } = storeToRefs(layerStore)
-const { currentYear, geoJsonData } = storeToRefs(filterStore)
-const { selectedPropertyId } = storeToRefs(propertyStore)
+const { currentYear, geoJsonData, selectedId } = storeToRefs(filterStore)
 
 const zoom = ref(17)
 const minZoom = ref(16)
@@ -67,7 +63,7 @@ const geojsonOptions = {
     })
 
     layer.on('mouseout', (_: any) => {
-      if (feature.properties.identifier !== selectedPropertyId.value) {
+      if (feature.properties.identifier !== selectedId.value) {
         layer.setStyle({
           fillOpacity: 0.2,
         })
@@ -96,7 +92,7 @@ const handleActiveState = (id: any) => {
 
     if (layer) {
       // Store the crrent item
-      selectedPropertyId.value = id
+      filterStore.updateSelected('property', id, layer.feature.properties.naam)
 
       // Set the color of the current item
       layer.setStyle({
@@ -113,7 +109,7 @@ watch(currentYear, async (newValue) => {
   filterStore.fetchGeoJson(newValue)
 }, { immediate: true })
 
-watch(selectedPropertyId, (newValue) => {
+watch(selectedId, (newValue) => {
   handleActiveState(newValue)
 })
 </script>

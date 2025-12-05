@@ -8,6 +8,24 @@ export const useFilterStore = defineStore('filter', () => {
   const activeFilters = ref<Record<string, string | undefined> | undefined>()
   const geoJsonData = ref<FeatureCollection>()
 
+  const endpoints: Record<tabType, EndpointType> = {
+    property: {
+      icon: 'lucide:house',
+      details: 'pand',
+      search: 'panden',
+    },
+    person: {
+      icon: 'lucide:user',
+      details: 'persoon',
+      search: 'personen',
+    },
+    image: {
+      icon: 'lucide:image',
+      details: 'foto',
+      search: 'fotos',
+    },
+  }
+
   /**
    * Selected states
    */
@@ -19,8 +37,9 @@ export const useFilterStore = defineStore('filter', () => {
   /**
    * Selected item
    */
-  const selectedType = ref<string>()
   const selectedId = ref<string>()
+  const selectedType = ref<tabType>()
+  const selectedTitle = ref<string>()
 
   /**
    * Computed Properties
@@ -127,16 +146,23 @@ export const useFilterStore = defineStore('filter', () => {
       })
   }
 
-  const updateSelected = (type: string, id: string) => {
+  const updateSelected = (type: tabType, id: string, title: string) => {
     selectedId.value = id
     selectedType.value = type
+    selectedTitle.value = title
+  }
+
+  const resetSelected = () => {
+    selectedId.value = undefined
+    selectedType.value = undefined
+    selectedTitle.value = undefined
   }
 
   const fetchGeoJson = async (year: number) => {
     geoJsonData.value = await useCallApi(`pandgeometrieen/${year}`)
   }
 
-  const fetchSearch = async (endpoint: string, offset: number = 0, limit: number = 10) => {
+  const fetchSearch = async (type: tabType, offset: number = 0, limit: number = 10) => {
     // construct the url params
     const params = {
       q: searchTerm.value,
@@ -153,8 +179,24 @@ export const useFilterStore = defineStore('filter', () => {
       }
     })
     const queryString = urlParams.toString()
+    const endpoint = endpoints[type].search
     const url = queryString ? `${endpoint}?${queryString}` : endpoint
     return await useCallApi(url)
+  }
+
+  const fetchDetails = async () => {
+    const id = unref(selectedId)
+    const type = unref(selectedType)
+
+    if (id && type) {
+      const endpoint = endpoints[type].details
+      return await useCallApi(`${endpoint}/${encodeURIComponent(id)}`)
+    }
+    return false
+  }
+
+  const iconName = (type: tabType) => {
+    return endpoints[type].icon
   }
 
   return {
@@ -181,8 +223,13 @@ export const useFilterStore = defineStore('filter', () => {
     // New
     geoJsonData,
     selectedId,
+    selectedType,
+    selectedTitle,
     updateSelected,
+    resetSelected,
     fetchGeoJson,
     fetchSearch,
+    fetchDetails,
+    iconName,
   }
 })

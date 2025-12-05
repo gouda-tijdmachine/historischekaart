@@ -11,7 +11,7 @@
     <div class="icon-area">
       <Icon
         class="icon"
-        name="lucide:image"
+        :name="filterStore.iconName('image')"
         :style="{ color: iconColor }"
       />
       <Tag
@@ -95,11 +95,6 @@ const streets = computed<string[]>(() => {
   grid-area: icons;
   display: flex;
   justify-content: space-between;
-
-  .icon {
-    width: var(--space-4);
-    height: var(--space-4);
-  }
 
   .badge {
     display: flex;

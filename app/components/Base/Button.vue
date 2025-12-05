@@ -34,11 +34,6 @@ defineEmits<{
   color: var(--white);
   background-color: var(--blue);
 
-  .icon {
-    width: var(--space-4);
-    height: var(--space-4);
-  }
-
   &:hover {
     background-color: var(--red);
   }

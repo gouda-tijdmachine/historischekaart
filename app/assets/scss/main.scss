@@ -74,8 +74,14 @@ ul {
   list-style: none;
 }
 
-.icon {
+.icon-lg {
   display: block;
   width: var(--space-8);
   height: var(--space-8);
+}
+
+.icon {
+  display: block;
+  width: var(--space-4);
+  height: var(--space-4);
 }

@@ -75,8 +75,6 @@ defineExpose({
 
   .icon {
     background-color: var(--border-color);
-    width: var(--space-4);
-    height: var(--space-4);
   }
 }
 </style>

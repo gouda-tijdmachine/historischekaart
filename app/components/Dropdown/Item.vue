@@ -95,11 +95,6 @@ withDefaults(defineProps<{
       display: flex;
       flex-direction: column;
       justify-content: center;
-
-      .icon {
-        width: var(--space-4);
-        height: var(--space-4);
-      }
     }
   }
 }
