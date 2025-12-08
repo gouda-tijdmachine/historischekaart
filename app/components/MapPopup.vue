@@ -65,7 +65,6 @@ watch(selectedId, async () => {
   background-color: var(--white);
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
   position: absolute;
   top: var(--space-4);
   left: var(--space-4);

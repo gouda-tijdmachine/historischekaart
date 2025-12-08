@@ -135,7 +135,7 @@ declare global {
    * Detail Responses
    */
   interface PropertyDetailResponse {
-    address: {
+    adressen: {
       type: 'StraatNummerAanduiding' | 'PlaatselijkeAanduiding'
       naam: string
       datering: string
@@ -156,4 +156,26 @@ declare global {
       naam: string
     }[]
   }
+
+  interface PersonDetailResponse {
+    identifier: string
+    naam: string
+    geboortedatum: string
+    geboorteplaats: string
+    overlijdensdatum: string
+    overlijdensplaats: string
+    leeftijd: string
+    beroep: string
+    panden: {
+      identifier: string
+      naam: string
+      bron: {
+        naam: string
+        naam_kort: string
+        datering: string
+        url: string
+      }
+    }[]
+  }
+
 }

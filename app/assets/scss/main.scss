@@ -85,3 +85,18 @@ ul {
   width: var(--space-4);
   height: var(--space-4);
 }
+
+.link {
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--blue);
+  cursor: pointer;
+  text-align: start;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--red);
+    text-decoration: underline;
+  }
+}

@@ -1,7 +1,11 @@
 <template>
   <div class="list">
-    <div class="header">
+    <div
+      v-if="title"
+      class="header"
+    >
       <Icon
+        v-if="icon"
         :name="icon"
         class="icon"
       />
@@ -26,9 +30,9 @@
 
 <script setup lang="ts">
 defineProps<{
-  icon: string
-  title: string
   items: any[]
+  icon?: string
+  title?: string
   useDiv?: boolean
 }>()
 </script>
