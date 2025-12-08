@@ -49,9 +49,9 @@ const filterStore = useFilterStore()
 const { selectedTileLayer, selectedWmsLayer } = storeToRefs(layerStore)
 const { currentYear, geoJsonData, selectedId } = storeToRefs(filterStore)
 
-const zoom = ref(17)
+const zoom = ref(16)
 const minZoom = ref(16)
-const maxZoom = ref(17)
+const maxZoom = ref(18)
 const map = ref()
 const geojson = ref()
 

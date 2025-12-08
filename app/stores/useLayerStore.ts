@@ -54,8 +54,22 @@ export const useLayerStore = defineStore('layer', () => {
         attribution: '&copy; <a href="https://www.mapbox.com/feedback/">Mapbox</a>',
       },
     },
+    {
+      id: 'knaw-huc',
+      title: 'KNAW / HUC',
+      type: 'layer',
+      subtitle: '',
+      icon: 'lucide:map',
+      tag: '2024',
+      layerConfig: {
+        type: 'tile',
+        url: `https://tileserver.huc.knaw.nl/{z}/{x}/{y}`,
+        attribution: 'KNAW / HUC',
+      },
+    },
 
     // Historical maps
+    // TODO: Add "https://www.goudatijdmachine.nl/omeka/map-proxy/?url=" before gis.gouda.nl once it works
     {
       id: 'historische-kaarten',
       title: 'Historische kaarten',

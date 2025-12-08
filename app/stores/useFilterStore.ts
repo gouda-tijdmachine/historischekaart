@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 
-// TODO: Use live data to fill the different refs but also create menu items based on the input.
 export const useFilterStore = defineStore('filter', () => {
   /**
    * Constants
@@ -154,7 +153,6 @@ export const useFilterStore = defineStore('filter', () => {
     return false
   }
 
-  // TODO: Check if this is actually useful, either remove or implement it everywhere
   const iconName = (type: tabType) => {
     return endpoints[type].icon
   }
