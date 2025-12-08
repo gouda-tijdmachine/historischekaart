@@ -25,7 +25,7 @@
       <BaseButton
         title="Zoeken"
         icon="lucide:search"
-        @click="store.updateFilters"
+        @click="$emit('search', { searchTerm, streetId, periodId })"
       />
     </div>
   </div>
@@ -37,19 +37,14 @@
  */
 const store = useFilterStore()
 
+const searchTerm = ref<string>('')
+const streetId = ref<string>('all')
+const periodId = ref<string>('all')
+
 /**
  * State
  */
-const {
-  // Data
-  streets,
-  periods,
-
-  // States
-  searchTerm,
-  streetId,
-  periodId,
-} = storeToRefs(store)
+const { streets, periods } = storeToRefs(store)
 
 // TODO: Define interface for Streets, Periods
 withDefaults(defineProps<{
@@ -59,12 +54,9 @@ withDefaults(defineProps<{
   placeholder: 'Zoekterm invoeren...',
 })
 
-/**
- * lifeCycle Methods
- */
-onMounted(() => {
-  store.resetFilters()
-})
+defineEmits<{
+  search: [{ searchTerm?: string, streetId?: string, periodId?: string }]
+}>()
 </script>
 
 <style lang="scss" scoped>

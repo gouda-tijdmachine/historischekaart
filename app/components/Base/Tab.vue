@@ -3,8 +3,15 @@
     <ControlsSearch
       :type="searchType"
       :placeholder="placeholder"
+      @search="loadMore"
     />
     <ul :class="['results', searchType === 'image' ? 'images' : 'cards']">
+      <li
+        v-if="noResults"
+        class="no-results"
+      >
+        Geen resultaten gevonden
+      </li>
       <li
         v-for="(card, index) in items"
         :key="index"
@@ -42,6 +49,7 @@ const items = shallowRef<TCard[]>([])
 const totalItems = ref<number>(0)
 const isLoading = ref<boolean>(false)
 const hasMore = ref<boolean>(false)
+const noResults = ref<boolean>(false)
 
 const props = defineProps<{
   searchType: tabType
@@ -52,12 +60,25 @@ const props = defineProps<{
 /**
  * Methods
  */
-const loadMore = async () => {
+const loadMore = async (options: Record<string, string | number> = {}) => {
   isLoading.value = true
+  noResults.value = false
+
+  // If options is filled, reset the items and totalItems
+  if (Object.keys(options).length > 0) {
+    items.value = []
+    totalItems.value = 0
+  }
+
+  // Create the params
+  const params = {
+    limit: 10,
+    offset: unref(items).length || 0,
+    ...options,
+  }
 
   try {
-    const loaded = unref(items).length || 0
-    const result = await filterStore.fetchSearch(props.searchType, loaded, 5)
+    const result = await filterStore.fetchSearch(props.searchType, params)
     for (const key in result) {
       // If the key is aantal, update totalItems
       if (key === 'aantal') {
@@ -71,6 +92,9 @@ const loadMore = async () => {
         })
       }
     }
+  }
+  catch {
+    noResults.value = true
   }
   finally {
     hasMore.value = totalItems.value > (items.value || []).length
@@ -98,6 +122,12 @@ onMounted(async () => {
   overflow-y: auto;
   max-height: 100%;
   gap: var(--space-2);
+
+  .no-results {
+    @include text-sm;
+    color: var(--gray-3);
+    text-align: center;
+  }
 
   .load-more {
     margin-top: auto;

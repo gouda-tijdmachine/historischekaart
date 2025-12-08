@@ -1,19 +1,21 @@
 <template>
   <div
     class="grid"
-    :inert="!!store.selectedImage"
+    :inert="showModal"
   >
     <Sidebar class="sidebar" />
     <Main class="main" />
   </div>
-  <Lightbox v-if="!!store.selectedImage" />
+
+  <Lightbox v-if="showModal" />
 </template>
 
 <script setup lang="ts">
-const store = useFilterStore()
+// Support the lightbox
+const { showModal } = storeToRefs(useLightboxStore())
 
 // Initialize the store
-await store.initializeData()
+await useFilterStore().initializeData()
 </script>
 
 <style lang="scss" scoped>

@@ -105,6 +105,10 @@ const step = ref<number>(5)
   gap: 0.5rem;
 }
 
+.layer-area .dropdown-container {
+  min-width: 23rem;
+}
+
 .bottom-area {
   grid-area: bottom;
   margin-inline: var(--space-3);

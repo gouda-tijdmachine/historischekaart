@@ -1,7 +1,7 @@
 <template>
   <li class="address-item">
     <Icon
-      name="lucide:house"
+      :name="useFilterStore().iconName('property')"
       class="icon"
     />
     <div class="title-area">

@@ -2,7 +2,7 @@
   <CardBase
     :title="card.title"
     :selected="selected"
-    icon-name="lucide:house"
+    :icon-name="useFilterStore().iconName('property')"
   >
     <template #meta-content>
       <CardMeta>

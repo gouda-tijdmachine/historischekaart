@@ -1,7 +1,7 @@
 <template>
   <li class="property-item">
     <Icon
-      name="lucide:house"
+      :name="filterStore.iconName('property')"
       class="icon"
     />
     <button

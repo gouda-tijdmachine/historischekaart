@@ -1,7 +1,7 @@
 <template>
   <li class="user-item">
     <Icon
-      name="lucide:user"
+      :name="filterStore.iconName('person')"
       class="icon"
     />
     <button

@@ -1,7 +1,7 @@
 <template>
   <li class="image-item">
     <Icon
-      name="lucide:image"
+      :name="filterStore.iconName('image')"
       class="icon"
     />
     <button

@@ -3,11 +3,8 @@ import { defineStore } from 'pinia'
 // TODO: Use live data to fill the different refs but also create menu items based on the input.
 export const useFilterStore = defineStore('filter', () => {
   /**
-   * State
+   * Constants
    */
-  const activeFilters = ref<Record<string, string | undefined> | undefined>()
-  const geoJsonData = ref<FeatureCollection>()
-
   const endpoints: Record<tabType, EndpointType> = {
     property: {
       icon: 'lucide:house',
@@ -27,23 +24,15 @@ export const useFilterStore = defineStore('filter', () => {
   }
 
   /**
-   * Selected states
+   * State
    */
-  const searchTerm = ref<string>()
-  const periodId = ref<string>()
-  const streetId = ref<string>()
   const currentYear = ref<number>(1430)
-
-  /**
-   * Selected item
-   */
+  const geoJsonData = ref<FeatureCollection>()
+  const streets = ref<Item[]>([])
+  const periods = ref<Item[]>([])
   const selectedId = ref<string>()
   const selectedType = ref<tabType>()
   const selectedTitle = ref<string>()
-  const selectedImage = ref<ImageDetailResponse>()
-
-  const streets = ref<Item[]>([])
-  const periods = ref<Item[]>([])
 
   /**
    * Computed Properties
@@ -58,25 +47,6 @@ export const useFilterStore = defineStore('filter', () => {
       )
     return activePeriod ? activePeriod.title : ''
   })
-
-  /**
-   * Methods
-   */
-  // TODO: Remove this, let search handle values locally, only store it after button press
-  const updateFilters = () => {
-    activeFilters.value = {
-      searchTerm: unref(searchTerm),
-      period: unref(periodId),
-      street: unref(streetId),
-    }
-  }
-
-  const resetFilters = () => {
-    activeFilters.value = undefined
-    searchTerm.value = ''
-    periodId.value = unref(periods)[0]!.id
-    streetId.value = unref(streets)[0]!.id
-  }
 
   /**
    * Methods
@@ -152,20 +122,19 @@ export const useFilterStore = defineStore('filter', () => {
     geoJsonData.value = await useCallApi(`pandgeometrieen/${year}`)
   }
 
-  const fetchSearch = async (type: tabType, offset: number = 0, limit: number = 10) => {
-    // construct the url params
-    const params = {
-      q: searchTerm.value,
-      tijdvak: periodId.value,
-      straat: streetId.value,
-      limit,
-      offset,
+  const fetchSearch = async (type: tabType, params: Record<string, string | number>) => {
+    const translationIndex: Record<string, string> = {
+      searchTerm: 'q',
+      periodId: 'tijdvak',
+      streetId: 'straat',
+      limit: 'limit',
+      offset: 'offset',
     }
 
     const urlParams = new URLSearchParams()
     Object.entries(params).forEach(([key, value]) => {
-      if (value !== undefined && value !== null && value !== '' && value !== 'all') {
-        urlParams.append(key, String(value))
+      if (value !== undefined && value !== null && value !== '' && value !== 'all' && translationIndex[key] !== undefined) {
+        urlParams.append(translationIndex[key], String(value))
       }
     })
     const queryString = urlParams.toString()
@@ -192,34 +161,25 @@ export const useFilterStore = defineStore('filter', () => {
 
   return {
     // State
-    activeFilters,
-    searchTerm,
-    periodId,
-    streetId,
-    currentYear,
     currentHistoricalPeriod,
-
-    // Mock data
-    streets,
-    periods,
-
-    // Methods
-    updateFilters,
-    resetFilters,
-    initializeData,
-    findStreetNamesByID,
-
-    // New
+    currentYear,
     geoJsonData,
     selectedId,
-    selectedType,
     selectedTitle,
-    selectedImage,
-    updateSelected,
-    resetSelected,
+    selectedType,
+
+    // Data
+    periods,
+    streets,
+
+    // Methods
+    fetchDetails,
     fetchGeoJson,
     fetchSearch,
-    fetchDetails,
+    findStreetNamesByID,
     iconName,
+    initializeData,
+    resetSelected,
+    updateSelected,
   }
 })

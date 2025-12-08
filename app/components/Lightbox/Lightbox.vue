@@ -29,7 +29,7 @@
           <BaseButton
             class="btn-osd icon-lg"
             icon="lucide:x"
-            @click="filterStore.selectedImage = undefined"
+            @click="lightboxStore.data = undefined"
           />
         </div>
       </div>
@@ -38,21 +38,21 @@
         class="viewer"
       />
       <div class="notion">
-        <span v-if="selectedImage?.informatie_auteursrechten">Auteurs Rechten: {{ selectedImage?.informatie_auteursrechten }}</span>
-        <span v-if="selectedImage?.bronbronorganisatie">
+        <span v-if="data?.informatie_auteursrechten">Auteurs Rechten: {{ data?.informatie_auteursrechten }}</span>
+        <span v-if="data?.bronbronorganisatie">
           Bron:
-          <template v-if="selectedImage?.url">
+          <template v-if="data?.url">
             <a
-              :href="selectedImage?.url"
+              :href="data?.url"
               target="_blank"
               rel="noopener noreferrer"
               class="link"
             >
-              {{ selectedImage?.bronbronorganisatie }}
+              {{ data?.bronbronorganisatie }}
             </a>
           </template>
           <template v-else>
-            {{ selectedImage?.bronbronorganisatie }}
+            {{ data?.bronbronorganisatie }}
           </template>
         </span>
         <CardSubtitle>{{ streets.join(', ') }}</CardSubtitle>
@@ -67,8 +67,8 @@ import type { Viewer } from 'openseadragon'
 /**
  * State & Props
  */
-const filterStore = useFilterStore()
-const { selectedImage } = storeToRefs(filterStore)
+const lightboxStore = useLightboxStore()
+const { data } = storeToRefs(lightboxStore)
 const viewer = ref<Viewer>()
 const zoomFactor = ref<number>(1.0)
 
@@ -76,15 +76,15 @@ const zoomFactor = ref<number>(1.0)
  * Computed Properties
  */
 const IIIFEndpoint = computed<string>(() => {
-  return unref(selectedImage)!.iiif_info_json
+  return unref(data)!.iiif_info_json
 })
 
 const title = computed<string>(() => {
-  return unref(selectedImage)!.titel
+  return unref(data)!.titel
 })
 
 const extra_info = computed<string>(() => {
-  const image = unref(selectedImage)!
+  const image = unref(data)!
   const extra_info = [image.datering, image.vervaardiger]
   return extra_info.join(' • ')
 })
@@ -102,8 +102,7 @@ const zoomPercentage = computed<string>(() => {
 })
 
 const streets = computed<string[]>(() => {
-  const image = unref(selectedImage)!
-  return image.straten.map((straat: Record<string, string>) => {
+  return unref(data)!.straten.map((straat: Record<string, string>) => {
     return straat.naam!
   })
 })
@@ -141,28 +140,30 @@ onMounted(async () => {
     immediateRender: false,
     sequenceMode: false,
     tileSources: IIIFEndpoint.value,
+
     // Disable ALL zoom interactions
     zoomPerScroll: 1.0,
     zoomPerClick: 1.0,
     zoomPerSecond: 1.0,
     gestureSettingsTouch: {
       pinchToZoom: false,
-      flickEnabled: true, // Allow flick for panning
+      flickEnabled: true,
     },
     gestureSettingsMouse: {
       scrollToZoom: false,
       clickToZoom: false,
       dblClickToZoom: false,
     },
+
     // Prevent boundary zoom-out behavior
     visibilityRatio: 1.0,
     constrainDuringPan: true,
-    minZoomLevel: 0.1, // Set minimum zoom to prevent going too far out
-    maxZoomLevel: 5, // Set reasonable maximum
+    minZoomLevel: 0.1,
+    maxZoomLevel: 5,
     wrapHorizontal: false,
     wrapVertical: false,
-    panHorizontal: true, // Allow horizontal panning
-    panVertical: true, // Allow vertical panning
+    panHorizontal: true,
+    panVertical: true,
   })
 })
 </script>

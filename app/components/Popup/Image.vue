@@ -35,11 +35,16 @@
 </template>
 
 <script setup lang="ts">
-const filterStore = useFilterStore()
+/**
+ * State & Props
+ */
 const props = defineProps<{
   data: ImageDetailResponse
 }>()
 
+/**
+ * Computed properties
+ */
 const supportedProperties = computed<string[]>(() => {
   return ['datering', 'vervaardiger']
 })
@@ -57,8 +62,11 @@ const panden = computed(() => {
   })
 })
 
+/**
+ * Methods
+ */
 const open = () => {
-  filterStore.selectedImage = props.data
+  useLightboxStore().data = props.data
 }
 </script>
 

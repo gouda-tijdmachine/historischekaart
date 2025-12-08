@@ -86,7 +86,8 @@ withDefaults(defineProps<{
         @include text-xs;
         display: flex;
         flex-wrap: nowrap;
-        gap: var(--space-2)
+        gap: var(--space-2);
+        white-space: nowrap;
       }
     }
 
