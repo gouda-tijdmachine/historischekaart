@@ -41,19 +41,13 @@ const { selectedId } = storeToRefs(filterStore)
 const items = shallowRef<TCard[]>([])
 const totalItems = ref<number>(0)
 const isLoading = ref<boolean>(false)
+const hasMore = ref<boolean>(false)
 
 const props = defineProps<{
   searchType: tabType
   placeholder: string
   transformFunction: (item: TResponse) => TCard
 }>()
-
-/**
- * Computed Properties
- */
-const hasMore = computed<boolean>(() => {
-  return unref(totalItems) > unref(items)?.length
-})
 
 /**
  * Methods
@@ -79,6 +73,7 @@ const loadMore = async () => {
     }
   }
   finally {
+    hasMore.value = totalItems.value > (items.value || []).length
     isLoading.value = false
   }
 }

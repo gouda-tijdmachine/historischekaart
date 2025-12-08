@@ -6,7 +6,8 @@
         class="thumbnail"
       >
       <BaseButton
-        title="Bekijk foto's"
+        title="Vergroot"
+        icon="lucide:eye"
         @click="open"
       />
     </div>
@@ -57,7 +58,7 @@ const panden = computed(() => {
 })
 
 const open = () => {
-  filterStore.openModal(props.data.fotos_dichtbij)
+  filterStore.selectedImage = props.data
 }
 </script>
 
@@ -75,10 +76,11 @@ const open = () => {
 
   .btn {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: var(--space-2);
+    right: var(--space-2);
     width: unset;
     padding: var(--space-1) var(--space-2);
+    gap: var(--space-2);
   }
 }
 </style>

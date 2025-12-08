@@ -6,7 +6,6 @@
       <Icon
         :name="iconName"
         class="icon"
-        :style="{ color: iconColor }"
       />
     </div>
     <TextTitle class="title-area">
@@ -36,7 +35,6 @@
 defineProps<{
   title: string
   iconName: string
-  iconColor?: string
   selected?: boolean
 }>()
 </script>

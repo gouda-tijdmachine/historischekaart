@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 defineProps<{
-  title: string
+  title?: string
   icon?: string
 }>()
 

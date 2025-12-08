@@ -59,6 +59,15 @@ declare global {
   }
 
   /**
+   * Reusable interfaces
+   */
+  interface ImageResponse {
+    identifier: string
+    thumbnail: string
+    titel: string
+  }
+
+  /**
    * Cards
    */
   interface Card {
@@ -178,4 +187,21 @@ declare global {
     }[]
   }
 
+  interface ImageDetailResponse {
+    identifier: string
+    titel: string
+    thumbnail: string
+    iiif_info_json: string
+    vervaardiger: string
+    informatie_auteursrechten: string
+    url: string
+    datering: string
+    bronbronorganisatie: string
+    straten: {
+      identifier: string
+      naam: string
+    }[]
+    pandidentifiers: string[]
+    fotos_dichtbij: ImageResponse[]
+  }
 }

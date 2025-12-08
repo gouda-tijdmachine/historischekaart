@@ -1,13 +1,19 @@
 <template>
-  <div class="grid">
+  <div
+    class="grid"
+    :inert="!!store.selectedImage"
+  >
     <Sidebar class="sidebar" />
     <Main class="main" />
   </div>
+  <Lightbox v-if="!!store.selectedImage" />
 </template>
 
 <script setup lang="ts">
 const store = useFilterStore()
-await store.fetchData()
+
+// Initialize the store
+await store.initializeData()
 </script>
 
 <style lang="scss" scoped>

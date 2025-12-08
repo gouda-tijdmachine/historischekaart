@@ -12,7 +12,6 @@
       <Icon
         class="icon"
         :name="filterStore.iconName('image')"
-        :style="{ color: iconColor }"
       />
       <Tag
         :value="card.year"
@@ -43,7 +42,6 @@
 const filterStore = useFilterStore()
 const props = defineProps<{
   selected?: boolean
-  iconColor?: string
   card: ImageCard
 }>()
 

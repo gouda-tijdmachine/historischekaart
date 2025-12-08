@@ -40,6 +40,10 @@ export const useFilterStore = defineStore('filter', () => {
   const selectedId = ref<string>()
   const selectedType = ref<tabType>()
   const selectedTitle = ref<string>()
+  const selectedImage = ref<ImageDetailResponse>()
+
+  const streets = ref<Item[]>([])
+  const periods = ref<Item[]>([])
 
   /**
    * Computed Properties
@@ -55,20 +59,10 @@ export const useFilterStore = defineStore('filter', () => {
     return activePeriod ? activePeriod.title : ''
   })
 
-  const streetIndex = computed<Record<string, string[]>>(() => {
-    return unref(streets).reduce((prev: Record<string, string[]>, current: Item) => {
-      prev[current.id] = [current.title, ...(current.alternatives ?? [])]
-      return prev
-    }, {})
-  })
-
   /**
    * Methods
    */
-  const findById = (data: Item[], id?: string) => {
-    return data.find(item => item.id === id)
-  }
-
+  // TODO: Remove this, let search handle values locally, only store it after button press
   const updateFilters = () => {
     activeFilters.value = {
       searchTerm: unref(searchTerm),
@@ -84,14 +78,10 @@ export const useFilterStore = defineStore('filter', () => {
     streetId.value = unref(streets)[0]!.id
   }
 
-  const streets = ref<Item[]>([])
-
-  const periods = ref<Item[]>([])
-
   /**
    * Methods
    */
-  const fetchData = async () => {
+  const initializeData = async () => {
     // Fetch the street data
     const streetData = await useCallApi('straten')
     if (Array.isArray(streetData)) {
@@ -195,6 +185,7 @@ export const useFilterStore = defineStore('filter', () => {
     return false
   }
 
+  // TODO: Check if this is actually useful, either remove or implement it everywhere
   const iconName = (type: tabType) => {
     return endpoints[type].icon
   }
@@ -208,8 +199,6 @@ export const useFilterStore = defineStore('filter', () => {
     currentYear,
     currentHistoricalPeriod,
 
-    streetIndex,
-
     // Mock data
     streets,
     periods,
@@ -217,7 +206,7 @@ export const useFilterStore = defineStore('filter', () => {
     // Methods
     updateFilters,
     resetFilters,
-    fetchData,
+    initializeData,
     findStreetNamesByID,
 
     // New
@@ -225,6 +214,7 @@ export const useFilterStore = defineStore('filter', () => {
     selectedId,
     selectedType,
     selectedTitle,
+    selectedImage,
     updateSelected,
     resetSelected,
     fetchGeoJson,
