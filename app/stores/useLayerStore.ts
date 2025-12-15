@@ -5,7 +5,8 @@ export const useLayerStore = defineStore('layer', () => {
    * State
    */
   const token = useRuntimeConfig().public.token
-  const selectedLayerId = ref<string>('openstreetmap')
+  const selectedLayerId = ref<string>('knaw-huc')
+  const proxyUrl = ''
 
   // Mock data
   const layers = ref<Item[]>([
@@ -54,22 +55,8 @@ export const useLayerStore = defineStore('layer', () => {
         attribution: '&copy; <a href="https://www.mapbox.com/feedback/">Mapbox</a>',
       },
     },
-    {
-      id: 'knaw-huc',
-      title: 'KNAW / HUC',
-      type: 'layer',
-      subtitle: '',
-      icon: 'lucide:map',
-      tag: '2024',
-      layerConfig: {
-        type: 'tile',
-        url: `https://tileserver.huc.knaw.nl/{z}/{x}/{y}`,
-        attribution: 'KNAW / HUC',
-      },
-    },
 
     // Historical maps
-    // TODO: Add "https://www.goudatijdmachine.nl/omeka/map-proxy/?url=" before gis.gouda.nl once it works
     {
       id: 'historische-kaarten',
       title: 'Historische kaarten',
@@ -84,7 +71,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '1572',
       layerConfig: {
         type: 'wms',
-        url: 'https://gis.gouda.nl/geoserver/CHRASTER/wms',
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms`,
         layers: 'Jacob_van_Deventer',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -99,27 +86,27 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '1585',
       layerConfig: {
         type: 'wms',
-        url: 'https://gis.gouda.nl/geoserver/CHRASTER/wms',
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms`,
         layers: 'braun_hogenberg',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
       },
     },
-    {
-      id: 'kadastrale-kaart-1613',
-      title: 'Kadastrale kaart 1613',
-      type: 'layer',
-      subtitle: 'Vroege kadastrale opname',
-      icon: 'lucide:calendar',
-      tag: '1613',
-      layerConfig: {
-        type: 'wms',
-        url: 'https://gis.gouda.nl/geoserver/CHRASTER/wms',
-        layers: 'Kadastrale_kaart_1613',
-        transparent: true,
-        attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
-      },
-    },
+    // {
+    //   id: 'kadastrale-kaart-1613',
+    //   title: 'Kadastrale kaart 1613',
+    //   type: 'layer',
+    //   subtitle: 'Vroege kadastrale opname',
+    //   icon: 'lucide:calendar',
+    //   tag: '1613',
+    //   layerConfig: {
+    //     type: 'wms',
+    //     url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms`,
+    //     layers: 'Kadastrale_kaart_1613',
+    //     transparent: true,
+    //     attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
+    //   },
+    // },
     {
       id: 'blaeu-1649',
       title: 'Blaeu 1649',
@@ -129,25 +116,37 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '1649',
       layerConfig: {
         type: 'wms',
-        url: 'https://gis.gouda.nl/geoserver/CHRASTER/wms',
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms`,
         layers: 'StadsplattegrondBlaeu1649',
-        format: 'image/png',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
       },
     },
+    // {
+    //   id: 'minuutplannen-1832',
+    //   title: 'Gecombineerde minuutplannen 1832',
+    //   type: 'layer',
+    //   subtitle: 'Kadastrale minuutplannen',
+    //   icon: 'lucide:calendar',
+    //   tag: '1832',
+    //   layerConfig: {
+    //     type: 'tile',
+    //     url: 'https://mapwarper.net/maps/tile/62081/{z}/{x}/{y}.png',
+    //     transparent: true,
+    //     attribution: '<a href="https://www.goudatijdmachine.nl">Gouda Tijdmachine</a>',
+    //   },
+    // },
     {
-      id: 'minuutplannen-1832',
-      title: 'Gecombineerde minuutplannen 1832',
+      id: 'knaw-huc',
+      title: 'KNAW / HUC',
       type: 'layer',
-      subtitle: 'Kadastrale minuutplannen',
-      icon: 'lucide:calendar',
-      tag: '1832',
+      subtitle: '',
+      icon: 'lucide:map',
+      tag: '1850',
       layerConfig: {
         type: 'tile',
-        url: 'https://mapwarper.net/maps/tile/62081/{z}/{x}/{y}.png',
-        transparent: true,
-        attribution: '<a href="https://www.goudatijdmachine.nl">Gouda Tijdmachine</a>',
+        url: `https://tileserver.huc.knaw.nl/{z}/{x}/{y}`,
+        attribution: 'KNAW / HUC',
       },
     },
     {
@@ -159,57 +158,57 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '1832',
       layerConfig: {
         type: 'wms',
-        url: 'https://gis.gouda.nl/geoserver/CHRASTER/wms',
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms`,
         layers: 'Kadastrale_kaart_1832',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
       },
     },
-    {
-      id: 'tmk-kleur-1850',
-      title: 'Topografische Kaart 1850 (TMK Kleur)',
-      type: 'layer',
-      subtitle: 'Militaire kaart in kleur',
-      icon: 'lucide:calendar',
-      tag: '1850',
-      layerConfig: {
-        type: 'wms',
-        url: 'https://geo.rug.nl/image/services/HistorischeKaarten/TMK_Kleur/ImageServer/WMSServer',
-        layers: '0',
-        transparent: true,
-        attribution: '<a href="https://geo.rug.nl/portal/home/">Universiteit Groningen</a>',
-      },
-    },
-    {
-      id: 'tmk-grijs-1850',
-      title: 'Topografische Kaart 1850 (TMK Z/W)',
-      type: 'layer',
-      subtitle: 'Militaire kaart zwart/wit',
-      icon: 'lucide:calendar',
-      tag: '1850',
-      layerConfig: {
-        type: 'wms',
-        url: 'https://geo.rug.nl/image/services/HistorischeKaarten/TMKZwartWit/ImageServer/WMSServer',
-        layers: '0',
-        transparent: true,
-        attribution: '<a href="https://geo.rug.nl/portal/home/">Universiteit Groningen</a>',
-      },
-    },
-    {
-      id: 'bonnebladen-1865',
-      title: 'Bonnebladen 1865',
-      type: 'layer',
-      subtitle: 'Topografische kaart 19e eeuw',
-      icon: 'lucide:calendar',
-      tag: '1865',
-      layerConfig: {
-        type: 'wms',
-        url: 'https://geo.rug.nl/image/services/HistorischeKaarten/Bonnebladen/ImageServer/WMSServer',
-        layers: '0',
-        transparent: true,
-        attribution: '<a href="https://geo.rug.nl/portal/home/">Universiteit Groningen</a>',
-      },
-    },
+    // {
+    //   id: 'tmk-kleur-1850',
+    //   title: 'Topografische Kaart 1850 (TMK Kleur)',
+    //   type: 'layer',
+    //   subtitle: 'Militaire kaart in kleur',
+    //   icon: 'lucide:calendar',
+    //   tag: '1850',
+    //   layerConfig: {
+    //     type: 'wms',
+    //     url: 'https://geo.rug.nl/image/services/HistorischeKaarten/TMK_Kleur/ImageServer/WMSServer',
+    //     layers: '0',
+    //     transparent: true,
+    //     attribution: '<a href="https://geo.rug.nl/portal/home/">Universiteit Groningen</a>',
+    //   },
+    // },
+    // {
+    //   id: 'tmk-grijs-1850',
+    //   title: 'Topografische Kaart 1850 (TMK Z/W)',
+    //   type: 'layer',
+    //   subtitle: 'Militaire kaart zwart/wit',
+    //   icon: 'lucide:calendar',
+    //   tag: '1850',
+    //   layerConfig: {
+    //     type: 'wms',
+    //     url: 'https://geo.rug.nl/image/services/HistorischeKaarten/TMKZwartWit/ImageServer/WMSServer',
+    //     layers: '0',
+    //     transparent: true,
+    //     attribution: '<a href="https://geo.rug.nl/portal/home/">Universiteit Groningen</a>',
+    //   },
+    // },
+    // {
+    //   id: 'bonnebladen-1865',
+    //   title: 'Bonnebladen 1865',
+    //   type: 'layer',
+    //   subtitle: 'Topografische kaart 19e eeuw',
+    //   icon: 'lucide:calendar',
+    //   tag: '1865',
+    //   layerConfig: {
+    //     type: 'wms',
+    //     url: 'https://geo.rug.nl/image/services/HistorischeKaarten/Bonnebladen/ImageServer/WMSServer',
+    //     layers: '0',
+    //     transparent: true,
+    //     attribution: '<a href="https://geo.rug.nl/portal/home/">Universiteit Groningen</a>',
+    //   },
+    // },
 
     // Aerial photos
     {
@@ -226,7 +225,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '1977',
       layerConfig: {
         type: 'wms',
-        url: 'https://gis.gouda.nl/geoserver/RASTER/wms',
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/RASTER/wms`,
         layers: 'Lufo_1977_Binnenstad',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -241,7 +240,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '1987',
       layerConfig: {
         type: 'wms',
-        url: 'https://gis.gouda.nl/geoserver/RASTER/wms',
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/RASTER/wms`,
         layers: 'Lufo_1987_Binnenstad',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -256,7 +255,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '2005',
       layerConfig: {
         type: 'wms',
-        url: 'https://gis.gouda.nl/geoserver/Luchtfoto/wms',
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/Luchtfoto/wms`,
         layers: 'lufo_2005',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -271,7 +270,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '2010',
       layerConfig: {
         type: 'wms',
-        url: 'https://gis.gouda.nl/geoserver/Luchtfoto/wms',
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/Luchtfoto/wms`,
         layers: 'lufo_2010',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -286,7 +285,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '2015',
       layerConfig: {
         type: 'wms',
-        url: 'https://gis.gouda.nl/geoserver/Luchtfoto/wms',
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/Luchtfoto/wms`,
         layers: 'lufo_2015',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -306,34 +305,34 @@ export const useLayerStore = defineStore('layer', () => {
         attribution: '<a href="https://www.pdok.nl/">PDOK</a>',
       },
     },
-    {
-      id: 'lufo-2022',
-      title: 'Luchtfoto 2022',
-      type: 'layer',
-      subtitle: 'PDOK luchtfoto 2022',
-      icon: 'lucide:camera',
-      tag: '2022',
-      layerConfig: {
-        type: 'wms',
-        url: 'https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0',
-        layers: '2022_orthoHR',
-        attribution: '<a href="https://www.pdok.nl/">PDOK</a>',
-      },
-    },
-    {
-      id: 'lufo-2023',
-      title: 'Luchtfoto 2023',
-      type: 'layer',
-      subtitle: 'PDOK luchtfoto 2023',
-      icon: 'lucide:camera',
-      tag: '2023',
-      layerConfig: {
-        type: 'wms',
-        url: 'https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0',
-        layers: '2023_orthoHR',
-        attribution: '<a href="https://www.pdok.nl/">PDOK</a>',
-      },
-    },
+    // {
+    //   id: 'lufo-2022',
+    //   title: 'Luchtfoto 2022',
+    //   type: 'layer',
+    //   subtitle: 'PDOK luchtfoto 2022',
+    //   icon: 'lucide:camera',
+    //   tag: '2022',
+    //   layerConfig: {
+    //     type: 'wms',
+    //     url: 'https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0',
+    //     layers: '2022_orthoHR',
+    //     attribution: '<a href="https://www.pdok.nl/">PDOK</a>',
+    //   },
+    // },
+    // {
+    //   id: 'lufo-2023',
+    //   title: 'Luchtfoto 2023',
+    //   type: 'layer',
+    //   subtitle: 'PDOK luchtfoto 2023',
+    //   icon: 'lucide:camera',
+    //   tag: '2023',
+    //   layerConfig: {
+    //     type: 'wms',
+    //     url: 'https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0',
+    //     layers: '2023_orthoHR',
+    //     attribution: '<a href="https://www.pdok.nl/">PDOK</a>',
+    //   },
+    // },
     {
       id: 'lufo-2024',
       title: 'Luchtfoto 2024',
@@ -349,77 +348,77 @@ export const useLayerStore = defineStore('layer', () => {
       },
     },
 
-    // Data layers
-    {
-      id: 'data-lagen',
-      title: 'Data lagen',
-      type: 'group',
-    },
-    {
-      id: 'rijksmonumenten',
-      title: 'Rijksmonumenten',
-      type: 'layer',
-      subtitle: 'Beschermde rijksmonumenten',
-      icon: 'lucide:landmark',
-      tag: '2024',
-      layerConfig: {
-        type: 'wms',
-        url: 'https://gis.gouda.nl/geoserver/Bouwen/wms',
-        layers: 'Rijksmonumenten',
-        format: 'image/png',
-        transparent: true,
-        attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
-      },
-    },
-    {
-      id: 'gemeentelijke-monumenten',
-      title: 'Gemeentelijke monumenten',
-      type: 'layer',
-      subtitle: 'Beschermde gemeentelijke monumenten',
-      icon: 'lucide:landmark',
-      tag: '2024',
-      layerConfig: {
-        type: 'wms',
-        url: 'https://gis.gouda.nl/geoserver/Bouwen/wms',
-        layers: 'WKPB_Gemeentelijke_monumenten',
-        format: 'image/png',
-        transparent: true,
-        attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
-      },
-    },
-    {
-      id: 'bag-gebouwen',
-      title: 'Gebouwen (BAG)',
-      type: 'layer',
-      subtitle: 'Huidige gebouwen',
-      icon: 'lucide:building',
-      tag: '2024',
-      layerConfig: {
-        type: 'wms',
-        url: 'https://service.pdok.nl/lv/bag/wms/v2_0',
-        layers: 'pand',
-        transparent: true,
-        format: 'image/png',
-        attribution: '<a href="https://www.pdok.nl/">PDOK</a>',
-      },
-    },
-    {
-      id: 'kadastrale-percelen',
-      title: 'Kadastrale percelen (BRK)',
-      type: 'layer',
-      subtitle: 'Huidige percelen',
-      icon: 'lucide:square',
-      tag: '2024',
-      layerConfig: {
-        type: 'wms',
-        url: 'https://service.pdok.nl/kadaster/cp/wms/v1_0',
-        layers: 'CP.CadastralParcel',
-        transparent: true,
-        version: '1.3.0',
-        format: 'image/png',
-        attribution: '<a href="https://www.pdok.nl/">PDOK</a>',
-      },
-    },
+    // // Data layers
+    // {
+    //   id: 'data-lagen',
+    //   title: 'Data lagen',
+    //   type: 'group',
+    // },
+    // {
+    //   id: 'rijksmonumenten',
+    //   title: 'Rijksmonumenten',
+    //   type: 'layer',
+    //   subtitle: 'Beschermde rijksmonumenten',
+    //   icon: 'lucide:landmark',
+    //   tag: '2024',
+    //   layerConfig: {
+    //     type: 'wms',
+    //     url: `${proxyUrl}https://gis.gouda.nl/geoserver/Bouwen/wms`,
+    //     layers: 'Rijksmonumenten',
+    //
+    //     transparent: true,
+    //     attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
+    //   },
+    // },
+    // {
+    //   id: 'gemeentelijke-monumenten',
+    //   title: 'Gemeentelijke monumenten',
+    //   type: 'layer',
+    //   subtitle: 'Beschermde gemeentelijke monumenten',
+    //   icon: 'lucide:landmark',
+    //   tag: '2024',
+    //   layerConfig: {
+    //     type: 'wms',
+    //     url: `${proxyUrl}https://gis.gouda.nl/geoserver/Bouwen/wms`,
+    //     layers: 'WKPB_Gemeentelijke_monumenten',
+    //
+    //     transparent: true,
+    //     attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
+    //   },
+    // },
+    // {
+    //   id: 'bag-gebouwen',
+    //   title: 'Gebouwen (BAG)',
+    //   type: 'layer',
+    //   subtitle: 'Huidige gebouwen',
+    //   icon: 'lucide:building',
+    //   tag: '2024',
+    //   layerConfig: {
+    //     type: 'wms',
+    //     url: 'https://service.pdok.nl/lv/bag/wms/v2_0',
+    //     layers: 'pand',
+    //     transparent: true,
+    //
+    //     attribution: '<a href="https://www.pdok.nl/">PDOK</a>',
+    //   },
+    // },
+    // {
+    //   id: 'kadastrale-percelen',
+    //   title: 'Kadastrale percelen (BRK)',
+    //   type: 'layer',
+    //   subtitle: 'Huidige percelen',
+    //   icon: 'lucide:square',
+    //   tag: '2024',
+    //   layerConfig: {
+    //     type: 'wms',
+    //     url: 'https://service.pdok.nl/kadaster/cp/wms/v1_0',
+    //     layers: 'CP.CadastralParcel',
+    //     transparent: true,
+    //     version: '1.3.0',
+    //
+    //     attribution: '<a href="https://www.pdok.nl/">PDOK</a>',
+    //   },
+    // },
   ])
 
   /**

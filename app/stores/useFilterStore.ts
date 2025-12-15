@@ -25,7 +25,7 @@ export const useFilterStore = defineStore('filter', () => {
   /**
    * State
    */
-  const currentYear = ref<number>(1430)
+  const currentYear = ref<number>(1550)
   const geoJsonData = ref<FeatureCollection>()
   const streets = ref<Item[]>([])
   const periods = ref<Item[]>([])

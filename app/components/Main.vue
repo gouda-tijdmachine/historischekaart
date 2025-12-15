@@ -19,7 +19,7 @@
             </TextLabel>
           </div>
         </div>
-        <div class="layer-area">
+        <div class="dropdown-area">
           <Dropdown
             :items="layers"
             :selected-value="selectedLayerId"
@@ -28,6 +28,10 @@
           <TextLabel>
             Attribution: © Gouda Tijdmachine, OpenStreetMap
           </TextLabel>
+          <BaseButton
+            icon="lucide:circle-question-mark"
+            class="icon-lg"
+          />
         </div>
       </div>
       <div class="bottom-area">
@@ -62,7 +66,7 @@ const { selectedLayerId, layers } = storeToRefs(useLayerStore())
  */
 const minYear = ref<number>(1430)
 const maxYear = ref<number>(2025)
-const step = ref<number>(5)
+const step = ref<number>(10)
 </script>
 
 <style lang="scss" scoped>
@@ -99,14 +103,33 @@ const step = ref<number>(5)
   align-items: center;
 }
 
-.title-area, .layer-area {
+.title-area {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.layer-area .dropdown-container {
-  min-width: 23rem;
+.dropdown-area {
+  display: grid;
+  grid-template-columns: minmax(23rem, 1fr) var(--space-8);
+  grid-template-areas:
+    "dropdown icon"
+    "label .";
+    align-items: center;
+  gap: var(--space-1);
+
+  .dropdown-container {
+    grid-area: dropdown;
+  }
+
+  .label {
+    grid-area: label;
+  }
+
+  .btn {
+    grid-area: icon;
+    aspect-ratio: 1;
+  }
 }
 
 .bottom-area {
