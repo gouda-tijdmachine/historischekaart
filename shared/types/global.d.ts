@@ -31,6 +31,7 @@ declare global {
       attribution: string
       format?: string
       transparent?: boolean
+      maxZoom?: number
     }
     begin_year?: number
     end_year?: number

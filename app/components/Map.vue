@@ -7,6 +7,7 @@
       :max-zoom="maxZoom"
       :center="[52.0115, 4.7077]"
       :use-global-leaflet="false"
+      :options="{ zoomSnap: 0 }"
     >
       <LTileLayer
         :key="selectedTileLayer.id"
@@ -14,6 +15,7 @@
         :url="selectedTileLayer.url"
         :attribution="selectedTileLayer.attribution"
         :title="selectedTileLayer.title"
+        :max-zoom="selectedTileLayer.maxZoom || maxZoom"
       />
 
       <LWmsTileLayer
@@ -22,9 +24,11 @@
         :url="selectedWmsLayer.url"
         :layers="selectedWmsLayer.layers"
         :attribution="selectedWmsLayer.attribution"
+        :version="selectedWmsLayer.version || '1.1.1'"
         :format="selectedWmsLayer.format || 'image/png'"
         :transparent="selectedWmsLayer.transparent !== false"
         :name="selectedWmsLayer.title"
+        :max-zoom="selectedWmsLayer.maxZoom || maxZoom"
       />
 
       <LGeoJson
@@ -51,7 +55,7 @@ const { currentYear, geoJsonData, selectedId } = storeToRefs(filterStore)
 
 const zoom = ref(16)
 const minZoom = ref(16)
-const maxZoom = ref(18)
+const maxZoom = ref(19)
 const map = ref()
 const geojson = ref()
 

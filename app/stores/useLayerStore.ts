@@ -6,7 +6,7 @@ export const useLayerStore = defineStore('layer', () => {
    */
   const token = useRuntimeConfig().public.token
   const selectedLayerId = ref<string>('knaw-huc')
-  const proxyUrl = ''
+  const proxyUrl = 'https://www.goudatijdmachine.nl/omeka/map-proxy/?url='
 
   // Mock data
   const layers = ref<Item[]>([
@@ -71,7 +71,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '1572',
       layerConfig: {
         type: 'wms',
-        url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms`,
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms?`,
         layers: 'Jacob_van_Deventer',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -86,7 +86,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '1585',
       layerConfig: {
         type: 'wms',
-        url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms`,
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms?`,
         layers: 'braun_hogenberg',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -116,7 +116,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '1649',
       layerConfig: {
         type: 'wms',
-        url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms`,
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms?`,
         layers: 'StadsplattegrondBlaeu1649',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -158,7 +158,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '1832',
       layerConfig: {
         type: 'wms',
-        url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms`,
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms?`,
         layers: 'Kadastrale_kaart_1832',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -225,7 +225,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '1977',
       layerConfig: {
         type: 'wms',
-        url: `${proxyUrl}https://gis.gouda.nl/geoserver/RASTER/wms`,
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/RASTER/wms?`,
         layers: 'Lufo_1977_Binnenstad',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -240,7 +240,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '1987',
       layerConfig: {
         type: 'wms',
-        url: `${proxyUrl}https://gis.gouda.nl/geoserver/RASTER/wms`,
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/RASTER/wms?`,
         layers: 'Lufo_1987_Binnenstad',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -255,7 +255,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '2005',
       layerConfig: {
         type: 'wms',
-        url: `${proxyUrl}https://gis.gouda.nl/geoserver/Luchtfoto/wms`,
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/Luchtfoto/wms?`,
         layers: 'lufo_2005',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -270,7 +270,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '2010',
       layerConfig: {
         type: 'wms',
-        url: `${proxyUrl}https://gis.gouda.nl/geoserver/Luchtfoto/wms`,
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/Luchtfoto/wms?`,
         layers: 'lufo_2010',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -285,7 +285,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '2015',
       layerConfig: {
         type: 'wms',
-        url: `${proxyUrl}https://gis.gouda.nl/geoserver/Luchtfoto/wms`,
+        url: `${proxyUrl}https://gis.gouda.nl/geoserver/Luchtfoto/wms?`,
         layers: 'lufo_2015',
         transparent: true,
         attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
@@ -300,7 +300,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '2021',
       layerConfig: {
         type: 'wms',
-        url: 'https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0',
+        url: 'https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0?',
         layers: '2021_orthoHR',
         attribution: '<a href="https://www.pdok.nl/">PDOK</a>',
       },
@@ -342,7 +342,7 @@ export const useLayerStore = defineStore('layer', () => {
       tag: '2024',
       layerConfig: {
         type: 'wms',
-        url: 'https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0',
+        url: 'https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0?',
         layers: '2024_orthoHR',
         attribution: '<a href="https://www.pdok.nl/">PDOK</a>',
       },
