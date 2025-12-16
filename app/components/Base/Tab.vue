@@ -122,6 +122,7 @@ onMounted(async () => {
   overflow-y: auto;
   max-height: 100%;
   gap: var(--space-2);
+  scrollbar-width: thin;
 
   .no-results {
     @include text-sm;
