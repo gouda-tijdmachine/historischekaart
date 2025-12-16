@@ -106,24 +106,4 @@ watch(selectedId, async () => {
   padding: var(--space-4);
   overflow-y: auto;
 }
-
-.property-row {
-  display: flex;
-  margin-bottom: var(--space-2);
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.property-key {
-  font-weight: var(--font-weight-medium);
-  color: var(--grey);
-  min-width: 100px;
-  margin-right: var(--space-2);
-}
-
-.property-value {
-  word-break: break-word;
-}
 </style>
