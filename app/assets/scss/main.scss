@@ -24,7 +24,7 @@
 
   /* Spacing */
   @for $i from 0 through 50 {
-    --space-#{$i}: #{if($i == 0, 0, ($i * 0.25rem))};
+    --space-#{$i}: #{ if(sass($i == 0): 0; else: ($i * 0.25rem)) };
   }
 
   /* border */
