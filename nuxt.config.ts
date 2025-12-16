@@ -57,7 +57,7 @@ export default defineNuxtConfig({
 
   googleFonts: {
     families: {
-      'Source Sans 3': true,
+      'Source Sans 3': '100..900',
     },
   },
 })

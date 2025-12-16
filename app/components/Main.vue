@@ -31,6 +31,7 @@
           <BaseButton
             icon="lucide:circle-question-mark"
             class="icon-lg"
+            @click="lightboxStore.open('About')"
           />
         </div>
       </div>
@@ -56,6 +57,7 @@
 /**
  * Store Dependencies
  */
+const lightboxStore = useLightboxStore()
 const { currentYear, currentHistoricalPeriod } = storeToRefs(useFilterStore())
 const { selectedLayerId, layers } = storeToRefs(useLayerStore())
 

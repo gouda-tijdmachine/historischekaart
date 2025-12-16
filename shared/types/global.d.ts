@@ -3,6 +3,7 @@ export {}
 declare global {
   type tabType = 'property' | 'person' | 'image'
   type ItemType = 'group' | 'layer' | 'item' | 'label'
+  type LightboxType = 'Gallery' | 'About'
 
   interface EndpointType {
     icon: string
@@ -21,6 +22,7 @@ declare global {
     title: string
     type: ItemType
     subtitle?: string
+    description?: string
     icon?: string
     tag?: string
     layerConfig?: {
@@ -191,6 +193,7 @@ declare global {
   interface ImageDetailResponse {
     identifier: string
     titel: string
+    image: string
     thumbnail: string
     iiif_info_json: string
     vervaardiger: string
@@ -202,7 +205,11 @@ declare global {
       identifier: string
       naam: string
     }[]
-    pandidentifiers: string[]
+    panden: {
+      identifier: string
+      naam: string
+      straten: string[]
+    }[]
     fotos_dichtbij: ImageResponse[]
   }
 }

@@ -2,13 +2,13 @@
   <PopupSection>
     <div class="thumbnail-area">
       <img
-        :src="data.thumbnail"
+        :src="data.image"
         class="thumbnail"
       >
       <BaseButton
         title="Vergroot"
         icon="lucide:eye"
-        @click="open"
+        @click="lightboxStore.open('Gallery', data)"
       />
     </div>
     <PopupProperties
@@ -26,7 +26,7 @@
   </PopupSection>
 
   <PopupSection title="Gerelateerde Panden">
-    <PopupRelatedList :items="panden">
+    <PopupRelatedList :items="data.panden">
       <template #item="item">
         <PopupItemsProperty :item="item" />
       </template>
@@ -38,6 +38,7 @@
 /**
  * State & Props
  */
+const lightboxStore = useLightboxStore()
 const props = defineProps<{
   data: ImageDetailResponse
 }>()
@@ -52,22 +53,6 @@ const supportedProperties = computed<string[]>(() => {
 const streets = computed(() => {
   return props.data.straten
 })
-
-const panden = computed(() => {
-  return props.data.pandidentifiers.map((id: string, index: number) => {
-    return {
-      identifier: id,
-      naam: `Pand #${index + 1}`,
-    }
-  })
-})
-
-/**
- * Methods
- */
-const open = () => {
-  useLightboxStore().data = props.data
-}
 </script>
 
 <style lang="scss" scoped>
