@@ -136,7 +136,6 @@ const step = ref<number>(10)
 
 .bottom-area {
   grid-area: bottom;
-  margin-inline: var(--space-3);
 }
 
 .label-wrapper {
