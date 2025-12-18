@@ -64,6 +64,10 @@ withDefaults(defineProps<{
     background-color: var(--gray-1);
   }
 
+  &.active .icon {
+    color: var(--blue);
+  }
+
   &:hover:not(.placeholder) {
     background-color: var(--gray-1);
   }

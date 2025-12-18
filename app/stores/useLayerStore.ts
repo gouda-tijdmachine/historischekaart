@@ -64,7 +64,7 @@ export const useLayerStore = defineStore('layer', () => {
     },
     {
       id: 'jacob-van-deventer-1572',
-      title: 'Jacob van Deventer 1572',
+      title: 'Jacob van Deventer',
       type: 'layer',
       subtitle: 'Vroegste stadsplattegrond',
       icon: 'lucide:building',
@@ -79,7 +79,7 @@ export const useLayerStore = defineStore('layer', () => {
     },
     {
       id: 'braun-hogenberg-1585',
-      title: 'Braun en Hogenberg 1585',
+      title: 'Braun en Hogenberg',
       type: 'layer',
       subtitle: 'Historische stadsafbeelding',
       icon: 'lucide:building',
@@ -109,7 +109,7 @@ export const useLayerStore = defineStore('layer', () => {
     // },
     {
       id: 'blaeu-1649',
-      title: 'Blaeu 1649',
+      title: 'Blaeu',
       type: 'layer',
       subtitle: 'Historische stadsplattegrond',
       icon: 'lucide:building',
@@ -151,7 +151,7 @@ export const useLayerStore = defineStore('layer', () => {
     },
     {
       id: 'kadastrale-kaart-1832',
-      title: 'Kadastrale kaart 1832',
+      title: 'Kadastrale kaart',
       type: 'layer',
       subtitle: 'Eerste kadastrale opname',
       icon: 'lucide:calendar',
@@ -218,9 +218,9 @@ export const useLayerStore = defineStore('layer', () => {
     },
     {
       id: 'lufo-1977',
-      title: 'Luchtfoto 1977',
+      title: 'Luchtfoto',
       type: 'layer',
-      subtitle: 'Vroegste beschikbare luchtfoto',
+      subtitle: '',
       icon: 'lucide:camera',
       tag: '1977',
       layerConfig: {
@@ -233,9 +233,9 @@ export const useLayerStore = defineStore('layer', () => {
     },
     {
       id: 'lufo-1987',
-      title: 'Luchtfoto 1987',
+      title: 'Luchtfoto',
       type: 'layer',
-      subtitle: 'Luchtopname jaren 80',
+      subtitle: '',
       icon: 'lucide:camera',
       tag: '1987',
       layerConfig: {
@@ -248,9 +248,9 @@ export const useLayerStore = defineStore('layer', () => {
     },
     {
       id: 'lufo-2005',
-      title: 'Luchtfoto 2005',
+      title: 'Luchtfoto',
       type: 'layer',
-      subtitle: 'Luchtopname begin 21e eeuw',
+      subtitle: '',
       icon: 'lucide:camera',
       tag: '2005',
       layerConfig: {
@@ -263,9 +263,9 @@ export const useLayerStore = defineStore('layer', () => {
     },
     {
       id: 'lufo-2010',
-      title: 'Luchtfoto 2010',
+      title: 'Luchtfoto',
       type: 'layer',
-      subtitle: 'Luchtopname 2010',
+      subtitle: '',
       icon: 'lucide:camera',
       tag: '2010',
       layerConfig: {
@@ -278,9 +278,9 @@ export const useLayerStore = defineStore('layer', () => {
     },
     {
       id: 'lufo-2015',
-      title: 'Luchtfoto 2015',
+      title: 'Luchtfoto',
       type: 'layer',
-      subtitle: 'Luchtopname 2015',
+      subtitle: '',
       icon: 'lucide:camera',
       tag: '2015',
       layerConfig: {
@@ -293,9 +293,9 @@ export const useLayerStore = defineStore('layer', () => {
     },
     {
       id: 'lufo-2021',
-      title: 'Luchtfoto 2021',
+      title: 'Luchtfoto',
       type: 'layer',
-      subtitle: 'PDOK luchtfoto 2021',
+      subtitle: '',
       icon: 'lucide:camera',
       tag: '2021',
       layerConfig: {
@@ -335,9 +335,9 @@ export const useLayerStore = defineStore('layer', () => {
     // },
     {
       id: 'lufo-2024',
-      title: 'Luchtfoto 2024',
+      title: 'Luchtfoto',
       type: 'layer',
-      subtitle: 'PDOK luchtfoto 2024',
+      subtitle: '',
       icon: 'lucide:camera',
       tag: '2024',
       layerConfig: {
