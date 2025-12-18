@@ -138,11 +138,11 @@ export const useLayerStore = defineStore('layer', () => {
     // },
     {
       id: 'knaw-huc',
-      title: 'KNAW / HUC',
+      title: 'Minuutplans',
       type: 'layer',
-      subtitle: '',
+      subtitle: 'HISGIS',
       icon: 'lucide:map',
-      tag: '1850',
+      tag: '1832',
       layerConfig: {
         type: 'tile',
         url: `https://tileserver.huc.knaw.nl/{z}/{x}/{y}`,

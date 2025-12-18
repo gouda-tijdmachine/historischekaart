@@ -8,7 +8,7 @@
           </TextTitle>
           <div class="label-wrapper">
             <TextLabel>
-              Periode en Jaartal:
+              Periode en jaartal:
             </TextLabel>
             <Tag
               :value="currentHistoricalPeriod"
@@ -26,7 +26,7 @@
             @update:selected-value="selectedLayerId = $event"
           />
           <TextLabel>
-            Attribution: © Gouda Tijdmachine, OpenStreetMap
+            Bronvermelding: Gouda Tijdmachine, OpenStreetMap
           </TextLabel>
           <BaseButton
             icon="lucide:circle-question-mark"

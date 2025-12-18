@@ -1,5 +1,5 @@
 <template>
-  <PopupSection title="Adres Vermeldingen">
+  <PopupSection title="Adres vermeldingen">
     <PopupRelatedList :items="data.adressen">
       <template #item="item">
         <PopupItemsAddress :item="item" />

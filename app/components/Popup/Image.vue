@@ -25,7 +25,7 @@
     </PopupRelatedList>
   </PopupSection>
 
-  <PopupSection title="Gerelateerde Panden">
+  <PopupSection title="Gerelateerde panden">
     <PopupRelatedList :items="data.panden">
       <template #item="item">
         <PopupItemsProperty :item="item" />

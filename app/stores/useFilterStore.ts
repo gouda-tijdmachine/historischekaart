@@ -57,7 +57,7 @@ export const useFilterStore = defineStore('filter', () => {
       const streetOptions = [{
         type: 'item',
         id: 'all',
-        title: 'Alle Straten',
+        title: 'Alle straten',
       } as Item]
 
       streetOptions.push(...streetData.map((street: StreetResponse) => {
@@ -78,7 +78,7 @@ export const useFilterStore = defineStore('filter', () => {
       const periodOptions = [{
         type: 'item',
         id: 'all',
-        title: 'Alle Perioden',
+        title: 'Alle perioden',
       } as Item]
 
       periodOptions.push(...data.map((period: PeriodResponse) => {
