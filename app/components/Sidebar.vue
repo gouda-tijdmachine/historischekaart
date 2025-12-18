@@ -4,12 +4,16 @@
     :class="{ 'is-open': isOpen }"
   >
     <div class="sidebar-content">
-      <TextTitle
-        class="title"
-        icon-name="lucide:database"
-      >
-        Zoeken in de Gouda Tijdmachine
-      </TextTitle>
+      <div class="title">
+        <img
+          src="/logo.svg"
+          alt="Beeldmerk Gouda Tijdmachine"
+          class="logo"
+        >
+        <span class="value">
+          Zoeken in de Gouda Tijdmachine
+        </span>
+      </div>
       <Tabs
         class="tabs"
         :tabs="tabConfig"
@@ -44,7 +48,7 @@ const isOpen = ref(true)
 
 const tabConfig: Tab[] = [
   { id: 'property', label: 'Panden', icon: 'lucide:home' },
-  { id: 'person', label: 'Personen', icon: 'lucide:users' },
+  { id: 'person', label: 'Personen', icon: 'lucide:user' },
   { id: 'image', label: 'Foto\'s', icon: 'lucide:image' },
 ]
 </script>
@@ -90,6 +94,20 @@ const tabConfig: Tab[] = [
   grid-area: title;
   white-space: nowrap;
   overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--space-4);
+
+  .logo {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .value {
+    white-space: break-spaces;
+  }
 }
 
 .tabs {

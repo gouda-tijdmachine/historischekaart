@@ -88,4 +88,8 @@ onMounted(() => {
 .tab-header.active {
   background: var(--white);
 }
+
+.tab-header.active .icon{
+  color: var(--blue);
+}
 </style>
