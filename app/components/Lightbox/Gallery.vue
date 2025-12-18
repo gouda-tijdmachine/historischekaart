@@ -36,7 +36,7 @@
     class="viewer"
   />
   <div class="notion">
-    <span v-if="data?.informatie_auteursrechten">Auteurs Rechten: {{ data?.informatie_auteursrechten }}</span>
+    <span v-if="data?.informatie_auteursrechten">Auteursrechten: {{ data?.informatie_auteursrechten }}</span>
     <span v-if="data?.bronbronorganisatie">
       Bron:
       <template v-if="data?.url">
