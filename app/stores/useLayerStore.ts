@@ -13,14 +13,14 @@ export const useLayerStore = defineStore('layer', () => {
     // Base maps
     {
       id: 'base-maps',
-      title: 'Basiskaarten',
+      title: 'Hedendaagse kaarten',
       type: 'group',
     },
     {
       id: 'openstreetmap',
-      title: 'Open Streetmap',
+      title: 'Gekleurde kaartweergave',
       type: 'layer',
-      subtitle: 'Open-source kaart',
+      subtitle: 'Open Streetmap',
       icon: 'lucide:map',
       tag: '2024',
       layerConfig: {
@@ -31,9 +31,9 @@ export const useLayerStore = defineStore('layer', () => {
     },
     {
       id: 'mapbox-light',
-      title: 'Mapbox Light',
+      title: 'Lichte kaartweergave',
       type: 'layer',
-      subtitle: 'Lichte kaartweergave',
+      subtitle: 'Monochrome grijze kaart (Mapbox)',
       icon: 'lucide:map',
       tag: '2024',
       layerConfig: {
@@ -44,9 +44,9 @@ export const useLayerStore = defineStore('layer', () => {
     },
     {
       id: 'mapbox-monochrome',
-      title: 'Mapbox MonochromeLightBlue',
+      title: 'Blauwe kaartweergave',
       type: 'layer',
-      subtitle: 'Monochrome blauwe kaart',
+      subtitle: 'Monochrome blauwe kaart (Mapbox)',
       icon: 'lucide:map',
       tag: '2024',
       layerConfig: {
