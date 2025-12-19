@@ -53,8 +53,9 @@ const handleInput = (event: Event) => {
   -webkit-appearance: none;
   appearance: none;
   width: var(--space-4);
-  height: var(--space-4);
-  border-radius: var(--radius-full);
+  height: 2em;
+  margin-top:1em;
+  border-radius: 4px;
   background: var(--red);
   cursor: pointer;
 
@@ -65,7 +66,8 @@ const handleInput = (event: Event) => {
 
 .slider::-moz-range-thumb {
   width: var(--space-4);
-  height: var(--space-4);
+  height: 2em;
+  margin-top:1em;
   border-radius: var(--radius-2);
   background: var(--red);
   cursor: pointer;

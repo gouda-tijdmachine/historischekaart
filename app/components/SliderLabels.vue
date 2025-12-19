@@ -42,14 +42,14 @@ const maxValue = computed<number>(() => {
 const leftMargin = computed<number | string>(() => {
   const stepPerPercentage = (props.maxYear - props.minYear) / 100
   const diff = minValue.value - props.minYear
-  const value = diff / stepPerPercentage
+  const value = 0.88 * diff / stepPerPercentage
   return diff > 0 ? `${value}%` : 0
 })
 
 const rightMargin = computed<number | string>(() => {
   const stepPerPercentage = (props.maxYear - props.minYear) / 100
   const diff = props.maxYear - maxValue.value
-  const value = diff / stepPerPercentage
+  const value = 0.88 * diff / stepPerPercentage
   return diff > 0 ? `${value}%` : 0
 })
 
