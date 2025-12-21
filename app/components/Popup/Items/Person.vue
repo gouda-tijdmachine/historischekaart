@@ -4,13 +4,18 @@
       :name="filterStore.iconName('person')"
       class="icon"
     />
-    <button
-      class="link"
-      @click="handleClick"
-    >
-      {{ item.naam }}
-    </button>
-    <span class="details">({{ item.datering }}{{ item.beroep ? `, ${item.beroep}` : '' }})</span>
+    <div class="title-area">
+      <span class="name"><span><a
+        class="link"
+        @click="handleClick"
+      >
+        {{ item.naam }}
+      </a>{{ item.beroep ? `, ${item.beroep}` : '' }}</span></span>
+      <Tag
+        :value="item.datering"
+        class="red"
+      />
+    </div>
   </li>
 </template>
 
@@ -29,10 +34,19 @@ const handleClick = () => {
 .user-item {
   display: grid;
   gap: var(--space-2);
-  grid-template-columns: var(--space-4) auto auto;
+  grid-template-columns: var(--space-4) auto;
+  grid-template-areas: "icon title";
+  align-items: self-start;
 
-  .details {
-    text-align: end;
+  .icon {
+    grid-area: icon;
+  }
+
+  .title-area {
+    grid-area: title;
+    display: flex;
+    justify-content: space-between;
+    align-items: self-start;
   }
 }
 </style>

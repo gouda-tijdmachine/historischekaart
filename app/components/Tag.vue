@@ -18,12 +18,13 @@ defineProps<{
   height: var(--space-5);
   padding-inline: var(--space-2);
   border: var(--border-width) solid var(--border-color);
+  white-space: nowrap;
 }
 
 .red {
-  background-color: var(--red);
-  border-color: var(--red);
-  color: var(--white);
+  background-color: var(--gray-2);
+  border-color: var(--border-color);
+  color: var(--red-dark);
 }
 
 .green {

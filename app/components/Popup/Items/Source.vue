@@ -10,11 +10,14 @@
         target="_blank"
         rel="noopener noreferrer"
         class="link"
-        :alt="item.naam"
+        :title="item.naam_kort"
       >
         {{ name }}
       </a>
-      <Tag :value="item.datering" />
+      <Tag
+        :value="item.datering"
+        class="red"
+      />
     </div>
   </li>
 </template>
@@ -25,7 +28,7 @@ const props = defineProps<{
 }>()
 
 const name = computed<string>(() => {
-  return props.item.naam_kort || props.item.naam || 'Onbekende naam'
+  return props.item.naam || props.item.naam_kort || 'Onbekende naam'
 })
 </script>
 
@@ -37,7 +40,7 @@ const name = computed<string>(() => {
   grid-template-rows: 1fr;
   grid-template-areas:
     "icon title";
-  align-items: center;
+  align-items: self-start;
 
   .icon {
     grid-area: icon;
@@ -46,7 +49,7 @@ const name = computed<string>(() => {
   .title-area {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: self-start;
   }
 }
 </style>

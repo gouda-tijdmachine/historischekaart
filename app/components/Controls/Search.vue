@@ -6,6 +6,7 @@
         class="search-input"
         :placeholder="placeholder"
         :value="searchTerm"
+        @keyup.enter="$emit('search', { searchTerm, streetId, periodId })"
         @input="searchTerm = ($event.target as HTMLInputElement)?.value ?? ''"
       >
     </div>

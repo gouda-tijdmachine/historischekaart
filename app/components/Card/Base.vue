@@ -21,9 +21,9 @@
       v-if="selected"
       class="selected-area"
     >
-      <TextLabel class="selected">
+      <!-- <TextLabel class="selected">
         Geselecteerd
-      </TextLabel>
+      </TextLabel> -->
     </div>
     <div class="meta-area">
       <slot name="meta-content" />
@@ -44,7 +44,7 @@ defineProps<{
   border: var(--border-width) solid var(--border-color);
   padding: var(--space-3);
   cursor: pointer;
-
+  height: 4.4em;
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr var(--space-2) auto;
@@ -53,7 +53,7 @@ defineProps<{
    "icon subtitle selected"
    "icon meta meta";
   column-gap: var(--space-3);
-  row-gap: var(--space-1);
+  /* row-gap: var(--space-1); */
 
   &:hover {
     background: var(--gray-1);

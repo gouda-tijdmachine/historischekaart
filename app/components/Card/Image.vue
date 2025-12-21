@@ -15,7 +15,7 @@
       />
       <Tag
         :value="card.year"
-        class="badge"
+        class="red"
       />
     </div>
     <TextClampedTitle
@@ -28,12 +28,12 @@
       <CardSubtitle>{{ streets.join(', ') }}</CardSubtitle>
     </div>
     <div class="selected-area">
-      <TextLabel
+      <!-- <TextLabel
         v-if="selected"
         class="selected"
       >
         Geselecteerd
-      </TextLabel>
+      </TextLabel> -->
     </div>
   </div>
 </template>

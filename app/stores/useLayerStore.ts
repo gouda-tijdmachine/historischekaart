@@ -4,8 +4,9 @@ export const useLayerStore = defineStore('layer', () => {
   /**
    * State
    */
-  const token = useRuntimeConfig().public.token
-  const selectedLayerId = ref<string>('knaw-huc')
+  const token1 = useRuntimeConfig().public.token1
+  const token2 = useRuntimeConfig().public.token2
+  const selectedLayerId = ref<string>('mapbox-color')
   const proxyUrl = 'https://www.goudatijdmachine.nl/omeka/map-proxy/?url='
 
   // Mock data
@@ -17,41 +18,54 @@ export const useLayerStore = defineStore('layer', () => {
       type: 'group',
     },
     {
-      id: 'openstreetmap',
+      id: 'mapbox-color',
       title: 'Gekleurde kaartweergave',
       type: 'layer',
-      subtitle: 'Open Streetmap',
+      subtitle: '',
       icon: 'lucide:map',
-      tag: '2024',
+      tag: '2025',
       layerConfig: {
         type: 'tile',
-        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      },
-    },
-    {
-      id: 'mapbox-light',
-      title: 'Lichte kaartweergave',
-      type: 'layer',
-      subtitle: 'Monochrome grijze kaart (Mapbox)',
-      icon: 'lucide:map',
-      tag: '2024',
-      layerConfig: {
-        type: 'tile',
-        url: `https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/{z}/{x}/{y}?access_token=${token}`,
+        url: `https://api.mapbox.com/styles/v1/goudatijdmachine/cmjeyi1ep004d01sde7qh8cac/tiles/{z}/{x}/{y}?access_token=${token2}`,
         attribution: '&copy; <a href="https://www.mapbox.com/feedback/">Mapbox</a>',
       },
     },
+    // {
+    //  id: 'openstreetmap',
+    //  title: 'Gekleurde kaartweergave',
+    //  type: 'layer',
+    //  subtitle: 'Open Streetmap',
+    //  icon: 'lucide:map',
+    //  tag: '2024',
+    //  layerConfig: {
+    //    type: 'tile',
+    //    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    //    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    //  },
+    // },
+    // {
+    //  id: 'mapbox-light',
+    //  title: 'Lichte kaartweergave',
+    //  type: 'layer',
+    //  subtitle: 'Monochrome grijze kaart (Mapbox)',
+    //  icon: 'lucide:map',
+    //  tag: '2024',
+    //  layerConfig: {
+    //    type: 'tile',
+    //    url: `https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/{z}/{x}/{y}?access_token=${token1}`,
+    //    attribution: '&copy; <a href="https://www.mapbox.com/feedback/">Mapbox</a>',
+    // },
+    // },
     {
       id: 'mapbox-monochrome',
-      title: 'Blauwe kaartweergave',
+      title: 'Eenkleurige kaartweergave',
       type: 'layer',
-      subtitle: 'Monochrome blauwe kaart (Mapbox)',
+      subtitle: '',
       icon: 'lucide:map',
-      tag: '2024',
+      tag: '2025',
       layerConfig: {
         type: 'tile',
-        url: `https://api.mapbox.com/styles/v1/goudatijdmachine/ckxeio7ei0yr414mxuznqj3hw/tiles/{z}/{x}/{y}?access_token=${token}`,
+        url: `https://api.mapbox.com/styles/v1/goudatijdmachine/ckxeio7ei0yr414mxuznqj3hw/tiles/{z}/{x}/{y}?access_token=${token1}`,
         attribution: '&copy; <a href="https://www.mapbox.com/feedback/">Mapbox</a>',
       },
     },
@@ -66,7 +80,7 @@ export const useLayerStore = defineStore('layer', () => {
       id: 'jacob-van-deventer-1572',
       title: 'Jacob van Deventer',
       type: 'layer',
-      subtitle: 'Vroegste stadsplattegrond',
+      subtitle: '',
       icon: 'lucide:building',
       tag: '1572',
       layerConfig: {
@@ -81,7 +95,7 @@ export const useLayerStore = defineStore('layer', () => {
       id: 'braun-hogenberg-1585',
       title: 'Braun en Hogenberg',
       type: 'layer',
-      subtitle: 'Historische stadsafbeelding',
+      subtitle: '',
       icon: 'lucide:building',
       tag: '1585',
       layerConfig: {
@@ -111,7 +125,7 @@ export const useLayerStore = defineStore('layer', () => {
       id: 'blaeu-1649',
       title: 'Blaeu',
       type: 'layer',
-      subtitle: 'Historische stadsplattegrond',
+      subtitle: '',
       icon: 'lucide:building',
       tag: '1649',
       layerConfig: {
@@ -138,32 +152,32 @@ export const useLayerStore = defineStore('layer', () => {
     // },
     {
       id: 'knaw-huc',
-      title: 'Minuutplans',
+      title: 'Kadastrale kaart',
       type: 'layer',
-      subtitle: 'HISGIS',
+      subtitle: '',
       icon: 'lucide:map',
       tag: '1832',
       layerConfig: {
         type: 'tile',
         url: `https://tileserver.huc.knaw.nl/{z}/{x}/{y}`,
-        attribution: 'KNAW / HUC',
+        attribution: 'HISGIS (KNAW/HUC)',
       },
     },
-    {
-      id: 'kadastrale-kaart-1832',
-      title: 'Kadastrale kaart',
-      type: 'layer',
-      subtitle: 'Eerste kadastrale opname',
-      icon: 'lucide:calendar',
-      tag: '1832',
-      layerConfig: {
-        type: 'wms',
-        url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms?`,
-        layers: 'Kadastrale_kaart_1832',
-        transparent: true,
-        attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
-      },
-    },
+    // {
+    //  id: 'kadastrale-kaart-1832',
+    //  title: 'Kadastrale kaart',
+    //  type: 'layer',
+    //  subtitle: 'Eerste kadastrale opname',
+    //  icon: 'lucide:calendar',
+    //  tag: '1832',
+    //  layerConfig: {
+    //    type: 'wms',
+    //    url: `${proxyUrl}https://gis.gouda.nl/geoserver/CHRASTER/wms?`,
+    //    layers: 'Kadastrale_kaart_1832',
+    //    transparent: true,
+    //    attribution: '<a href="https://gis.gouda.nl">Gemeente Gouda</a>',
+    //  },
+    // },
     // {
     //   id: 'tmk-kleur-1850',
     //   title: 'Topografische Kaart 1850 (TMK Kleur)',

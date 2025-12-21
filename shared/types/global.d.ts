@@ -158,6 +158,7 @@ declare global {
       identifier: string
       thumbnail: string
       titel: string
+      datering: string
     }[]
     identifier: string
     naam: string

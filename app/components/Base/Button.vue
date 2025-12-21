@@ -25,7 +25,8 @@ defineEmits<{
 
 <style lang="scss" scoped>
 .btn {
-  @include flex-center;
+  align-items: center;
+  justify-content: center;
   display: flex;
   flex-wrap: nowrap;
   gap: var(--space-4);

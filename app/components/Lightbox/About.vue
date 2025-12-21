@@ -108,7 +108,7 @@ const searchOptions = [
   },
   {
     id: 'photos',
-    title: 'Foto\'s',
+    title: 'Plaatjes',
     description: 'verken historische beelden van straten en gebeurtenissen',
     type: 'item',
   },

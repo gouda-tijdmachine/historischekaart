@@ -7,7 +7,7 @@
   </PopupSection>
   <PopupSection
     v-if="sources.length"
-    title="Brongegevens"
+    title="Bronnen"
   >
     <PopupRelatedList :items="sources">
       <template #item="item">
@@ -15,7 +15,7 @@
       </template>
     </PopupRelatedList>
   </PopupSection>
-  <PopupSection title="Gerelateerde panden">
+  <PopupSection title="Eigenaar/bewoner van">
     <PopupRelatedList :items="data.panden">
       <template #item="item">
         <PopupItemsProperty :item="item" />

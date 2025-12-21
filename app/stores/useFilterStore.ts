@@ -78,7 +78,7 @@ export const useFilterStore = defineStore('filter', () => {
       const periodOptions = [{
         type: 'item',
         id: 'all',
-        title: 'Alle perioden',
+        title: 'Alle tijdvakken',
       } as Item]
 
       periodOptions.push(...data.map((period: PeriodResponse) => {

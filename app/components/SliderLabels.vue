@@ -42,14 +42,14 @@ const maxValue = computed<number>(() => {
 const leftMargin = computed<number | string>(() => {
   const stepPerPercentage = (props.maxYear - props.minYear) / 100
   const diff = minValue.value - props.minYear
-  const value = 0.88 * diff / stepPerPercentage
+  const value = 0.8 * diff / stepPerPercentage
   return diff > 0 ? `${value}%` : 0
 })
 
 const rightMargin = computed<number | string>(() => {
   const stepPerPercentage = (props.maxYear - props.minYear) / 100
   const diff = props.maxYear - maxValue.value
-  const value = 0.88 * diff / stepPerPercentage
+  const value = 0.8 * diff / stepPerPercentage
   return diff > 0 ? `${value}%` : 0
 })
 
@@ -81,7 +81,7 @@ const activeRangeIndex = computed(() => {
   margin-right: v-bind(rightMargin);
 
   .label {
-    @include text-xs;
+    @include text-sm;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -99,7 +99,7 @@ const activeRangeIndex = computed(() => {
     }
 
     &.active {
-      color: var(--red);
+      color: var(--red-dark);
 
       &:before {
         background-color: var(--red);

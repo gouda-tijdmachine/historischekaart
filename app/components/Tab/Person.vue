@@ -1,7 +1,7 @@
 <template>
   <BaseTab
     search-type="person"
-    placeholder="Zoek op naam of adres..."
+    placeholder="Typ (deel van) naam in en klik op Zoeken..."
     :transform-function="transform"
   >
     <template #card="{ card, selected, onSelect }">

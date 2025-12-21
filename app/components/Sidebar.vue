@@ -5,11 +5,14 @@
   >
     <div class="sidebar-content">
       <div class="title">
-        <img
+        <a
+          href="https://www.goudatijdmachine.nl/"
+          target="gtm"
+        ><img
           src="/logo.svg"
           alt="Beeldmerk Gouda Tijdmachine"
           class="logo"
-        >
+        ></a>
         <span class="value">
           Zoeken in de Gouda Tijdmachine
         </span>
@@ -49,7 +52,7 @@ const isOpen = ref(true)
 const tabConfig: Tab[] = [
   { id: 'property', label: 'Panden', icon: 'lucide:home' },
   { id: 'person', label: 'Personen', icon: 'lucide:user' },
-  { id: 'image', label: 'Foto\'s', icon: 'lucide:image' },
+  { id: 'image', label: 'Plaatjes', icon: 'lucide:image' },
 ]
 </script>
 
@@ -121,7 +124,7 @@ const tabConfig: Tab[] = [
   right: calc(-1 * var(--space-4));
   width: var(--space-8);
   height: var(--space-8);
-  background-color: var(--blue-light);
+  background-color: var(--blue);
   display: flex;
   justify-content: center;
   align-items: center;

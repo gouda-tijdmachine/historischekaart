@@ -17,7 +17,7 @@
     />
   </PopupSection>
 
-  <PopupSection title="Locaties">
+  <PopupSection title="Straten">
     <PopupRelatedList :items="streets">
       <template #item="item">
         <PopupItemsStreet :item="item" />
@@ -25,7 +25,7 @@
     </PopupRelatedList>
   </PopupSection>
 
-  <PopupSection title="Gerelateerde panden">
+  <PopupSection title=" Panden te zien op deze afbeelding">
     <PopupRelatedList :items="data.panden">
       <template #item="item">
         <PopupItemsProperty :item="item" />

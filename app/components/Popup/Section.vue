@@ -17,14 +17,14 @@ defineProps<{
 .section {
   @include flex-column;
   @include text-sm;
-  color: var(--gray-3);
+  color: var(--off-black);
   gap: var(--space-3);
   padding-bottom: var(--space-3);
   border-bottom: var(--border-width) solid var(--border-color);
   margin-bottom: var(--space-4);
 
   h3 {
-    color: var(--off-black);
+    color: var(--gray-3);
   }
 }
 </style>

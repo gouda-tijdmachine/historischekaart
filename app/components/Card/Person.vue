@@ -11,16 +11,21 @@
     </template>
 
     <template #badges>
-      <Tag :value="card.year" />
+      <Tag
+        :value="card.year"
+        class="red"
+      />
       <div
         v-if="onMap"
         class="map-status"
       >
+        <!-- te verwijderen
         <Icon
           :name="filterStore.iconName('property')"
           class="map-icon"
         />
         <span class="map-text">Op kaart</span>
+        -->
       </div>
     </template>
   </CardBase>

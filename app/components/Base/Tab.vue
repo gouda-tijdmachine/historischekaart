@@ -31,7 +31,7 @@
         class="load-more"
       >
         <BaseButton
-          title="Load more"
+          title="Toon meer resultaten"
           @click="loadMore"
         />
       </li>

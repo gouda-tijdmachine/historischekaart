@@ -7,6 +7,6 @@
 <style lang="scss" scoped>
 .label {
   color: var(--gray-3);
-  @include text-xs;
+  @include text-sm;
 }
 </style>

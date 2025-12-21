@@ -78,7 +78,7 @@ watch(selectedId, async () => {
 
 .header {
   display: flex;
-  align-items: center;
+  align-items: self-start;
   justify-content: space-between;
   padding: var(--space-4);
   border-bottom: var(--border-width) solid var(--border-color);

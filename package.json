@@ -8,8 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint './**/*.{vue,ts}'",
-    "lint:fix": "eslint --fix './**/*.{vue,ts}'",
+    "lint": "eslint ./**/*.{vue,ts}",
+    "lint:fix": "eslint --fix ./**/*.{vue,ts}",
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {

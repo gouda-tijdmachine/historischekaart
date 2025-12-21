@@ -19,6 +19,7 @@
           <Tag
             v-if="item.tag"
             :value="item.tag"
+            class="red"
           />
         </div>
         <TextLabel v-if="item.subtitle && !asPlaceholder">
@@ -87,7 +88,7 @@ withDefaults(defineProps<{
       justify-content: center;
 
       .title {
-        @include text-xs;
+        /*  @include text-xs; */
         display: flex;
         flex-wrap: nowrap;
         gap: var(--space-2);
@@ -124,7 +125,7 @@ withDefaults(defineProps<{
     grid-area: icon;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
     .icon {
       width: var(--space-4);

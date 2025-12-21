@@ -6,7 +6,10 @@
     />
     <div class="title-area">
       <span class="name">{{ item.naam }}</span>
-      <Tag :value="item.datering" />
+      <Tag
+        :value="item.datering"
+        class="red"
+      />
     </div>
     <div class="neighbourhood-area">
       <span

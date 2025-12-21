@@ -7,7 +7,7 @@
       :max-zoom="maxZoom"
       :center="[52.0115, 4.7077]"
       :use-global-leaflet="false"
-      :options="{ zoomSnap: 0, attributionControl: false }"
+      :options="{ zoomSnap: 0 }"
     >
       <LTileLayer
         :key="selectedTileLayer.id"

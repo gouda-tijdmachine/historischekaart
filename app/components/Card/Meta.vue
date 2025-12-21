@@ -5,8 +5,8 @@
 </template>
 
 <style lang="scss" scoped>
-.info::before {
+/* .info::before {
   content: "•";
   margin-right: var(--space-3);
-}
+} */
 </style>

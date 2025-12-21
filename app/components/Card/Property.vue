@@ -5,9 +5,9 @@
     :icon-name="useFilterStore().iconName('property')"
   >
     <template #meta-content>
-      <CardMeta>
+      <!-- <CardMeta>
         Straat: {{ streets.join(', ') }}
-      </CardMeta>
+      </CardMeta> -->
     </template>
   </CardBase>
 </template>
