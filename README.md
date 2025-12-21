@@ -1,4 +1,4 @@
-# Gouda timemachine
+# Gouda Tijdmachine Viewer
 
 ## Setup
 
