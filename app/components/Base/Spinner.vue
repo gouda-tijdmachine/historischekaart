@@ -16,7 +16,7 @@
 
 .spinner {
   animation: spin 1s linear infinite;
-  color: var(--blue-light);
+  color: var(--blue);
 }
 
 @keyframes spin {
