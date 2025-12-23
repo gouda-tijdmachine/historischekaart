@@ -19,8 +19,20 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'nl',
       },
+      meta: [
+        {
+          name: 'description',
+          content:
+            'Zoek en ontdek Gouda\'s verleden op de kaart.',
+          key: 'description',
+        },
+      ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' },
+        { rel: 'dns-prefetch', href: 'https://api-viewer.goudatijdmachine.nl/' },
+        { rel: 'dns-prefetch', href: 'https://api.mapbox.com/' },
+        { rel: 'dns-prefetch', href: 'https://fonts.googleapis.com/' },
+        { rel: 'dns-prefetch', href: 'https://api.iconify.design/' },
       ],
     },
   },
