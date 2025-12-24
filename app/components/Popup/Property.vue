@@ -1,6 +1,11 @@
 <template>
   <template v-if="isEmpty">
     <span class="empty-text">Nog geen informatie</span>
+    <a
+      class="empty-cta"
+      href="https://www.goudatijdmachine.nl/help-je-mee/"
+      target="gtm"
+    >Help je mee?!</a>
   </template>
   <template v-else>
     <PopupSection
@@ -54,8 +59,13 @@ const isEmpty = computed<boolean>(() => {
 
 <style lang="scss" scoped>
   .empty-text {
-    @include text-sm;
-    color: var(--gray-3);
+    color: var(--red);
     text-align: center;
+  }
+  .empty-cta {
+    text-align: center;
+    margin-top: var(--space-4);
+    color: var(--blue);
+    font-weight: var(--font-weight-semibold);
   }
 </style>
