@@ -100,6 +100,7 @@ const handleActiveState = (id: any) => {
 
       // Set the color of the current item
       layer.setStyle({
+        fillOpacity: 1,
         color: 'var(--red)',
       })
     }

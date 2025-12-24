@@ -17,14 +17,6 @@
     <div class="subtitle-area">
       <slot name="subtitle" />
     </div>
-    <div
-      v-if="selected"
-      class="selected-area"
-    >
-      <!-- <TextLabel class="selected">
-        Geselecteerd
-      </TextLabel> -->
-    </div>
     <div class="meta-area">
       <slot name="meta-content" />
     </div>
@@ -41,19 +33,18 @@ defineProps<{
 
 <style lang="scss" scoped>
 .card-base {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 1fr auto auto;
+  grid-template-areas:
+  "icon title badge"
+  "icon subtitle subtitle"
+  "icon meta meta";
+  column-gap: var(--space-3);
+  min-height: var(--space-18);
   border: var(--border-width) solid var(--border-color);
   padding: var(--space-3);
   cursor: pointer;
-  height: 4.4em;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: 1fr var(--space-2) auto;
-  grid-template-areas:
-   "icon title badge"
-   "icon subtitle selected"
-   "icon meta meta";
-  column-gap: var(--space-3);
-  /* row-gap: var(--space-1); */
 
   &:hover {
     background: var(--gray-1);
@@ -87,16 +78,6 @@ defineProps<{
 .subtitle-area {
   grid-area: subtitle;
   min-width: 0;
-}
-
-.selected-area {
-  grid-area: selected;
-  display: flex;
-  justify-content: flex-end;
-
-  .selected {
-    color: var(--blue);
-  }
 }
 
 .meta-area {

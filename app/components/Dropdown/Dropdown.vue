@@ -71,6 +71,5 @@ watch(open, (isOpen) => {
 <style lang="scss" scoped>
 .dropdown-container {
   position: relative;
-  display: inline-block;
 }
 </style>

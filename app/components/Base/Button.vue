@@ -5,7 +5,7 @@
   >
     <Icon
       v-if="icon"
-      class="icon"
+      :class="iconLarge ? 'icon-lg' : 'icon'"
       :name="icon"
     />
     {{ title }}
@@ -16,6 +16,7 @@
 defineProps<{
   title?: string
   icon?: string
+  iconLarge?: boolean
 }>()
 
 defineEmits<{

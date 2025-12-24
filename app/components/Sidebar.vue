@@ -4,18 +4,25 @@
     :class="{ 'is-open': isOpen }"
   >
     <div class="sidebar-content">
-      <div class="title">
+      <div class="header">
         <a
           href="https://www.goudatijdmachine.nl/"
-          target="gtm"
-        ><img
-          src="/logo.svg"
-          alt="Beeldmerk Gouda Tijdmachine"
           class="logo"
-        ></a>
-        <span class="value">
+          target="gtm"
+        >
+          <img
+            src="/logo.svg"
+            alt="Beeldmerk Gouda Tijdmachine"
+          >
+        </a>
+        <TextTitle class="title">
           Zoeken in de Gouda Tijdmachine
-        </span>
+        </TextTitle>
+        <BaseButton
+          icon="ic:baseline-question-mark"
+          class="help"
+          @click="lightboxStore.open('About')"
+        />
       </div>
       <Tabs
         class="tabs"
@@ -34,19 +41,17 @@
         </template>
       </Tabs>
     </div>
-    <div
-      class="btn"
+    <BaseButton
+      icon="lucide:chevron-right"
+      class="slider"
+      icon-large
       @click="isOpen = !isOpen"
-    >
-      <Icon
-        class="icon-lg"
-        name="lucide:chevron-right"
-      />
-    </div>
+    />
   </div>
 </template>
 
 <script setup lang="ts">
+const lightboxStore = useLightboxStore()
 const isOpen = ref(true)
 
 const tabConfig: Tab[] = [
@@ -72,8 +77,8 @@ const tabConfig: Tab[] = [
       opacity: 1;
     }
 
-    .btn {
-      .icon-lg {
+    .slider {
+      :deep(.icon-lg) {
         transform: scaleX(-1);
       }
     }
@@ -86,11 +91,21 @@ const tabConfig: Tab[] = [
   grid-template-columns: calc(var(--max-sidebar-width) - 2 * var(--space-6) - 1px);
   grid-template-rows: auto 1fr;
   grid-template-areas:
-    "title"
+    "header"
     "tabs";
   gap: var(--space-4);
   opacity: 0;
   transition: opacity 300ms ease-in-out;
+}
+
+.header {
+  grid-area: header;
+  display: grid;
+  grid-template-columns: var(--space-6) auto var(--space-8);
+  grid-template-rows: 1fr;
+  grid-template-areas: "logo title help";
+  gap: var(--space-4);
+  align-items: center;
 }
 
 .title {
@@ -101,16 +116,21 @@ const tabConfig: Tab[] = [
   justify-content: flex-start;
   align-items: center;
   gap: var(--space-4);
+}
 
-  .logo {
-    width: 1.5rem;
-    height: 1.5rem;
-    flex-shrink: 0;
-  }
+.logo {
+  grid-area: logo;
+  display: inline-flex;
+  justify-self: flex-start;
+  width: var(--space-6);
+  height: var(--space-6);
+}
 
-  .value {
-    white-space: break-spaces;
-  }
+.help {
+  grid-area: help;
+  justify-self: flex-end;
+  width: var(--space-8);
+  height: var(--space-8);
 }
 
 .tabs {
@@ -118,24 +138,12 @@ const tabConfig: Tab[] = [
   min-height: 0;
 }
 
-.btn {
+.slider {
   position: absolute;
   top: 50%;
   right: calc(-1 * var(--space-4));
   width: var(--space-8);
   height: var(--space-8);
-  background-color: var(--blue);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 401; // Higher than leaflet map
-
-  .icon-lg {
-    color: var(--white);
-  }
-
-  &:hover {
-    background-color: var(--red);
-  }
 }
 </style>

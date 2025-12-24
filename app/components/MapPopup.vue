@@ -73,7 +73,7 @@ watch(selectedId, async () => {
   box-shadow: var(--shadow-1);
   z-index: 1000;
   overflow-y: auto;
-  max-width: 50%;
+  width: 50%;
 }
 
 .header {

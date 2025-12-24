@@ -1,41 +1,7 @@
 <template>
   <div class="main-area">
     <div class="controls-area">
-      <div class="top-area">
-        <div class="title-area">
-          <TextTitle icon-name="lucide:map">
-            Interactieve historische kaart
-          </TextTitle>
-          <div class="label-wrapper">
-            <TextLabel>
-              Periode en jaartal:
-            </TextLabel>
-            <Tag
-              :value="currentHistoricalPeriod"
-              class="red"
-            />
-            <TextLabel>
-              {{ currentYear }}
-            </TextLabel>
-          </div>
-        </div>
-        <div class="dropdown-area">
-          <Dropdown
-            :items="layers"
-            :selected-value="selectedLayerId"
-            @update:selected-value="selectedLayerId = $event"
-          />
-          <TextLabel>
-            Bronvermelding: Gouda Tijdmachine, OpenStreetMap
-          </TextLabel>
-          <BaseButton
-            icon="lucide:circle-question-mark"
-            class="icon-lg"
-            @click="lightboxStore.open('About')"
-          />
-        </div>
-      </div>
-      <div class="bottom-area">
+      <div class="slider-area">
         <Slider
           v-model="currentYear"
           :min="minYear"
@@ -48,6 +14,13 @@
           :max-year="maxYear"
         />
       </div>
+      <div class="dropdown-area">
+        <Dropdown
+          :items="layers"
+          :selected-value="selectedLayerId"
+          @update:selected-value="selectedLayerId = $event"
+        />
+      </div>
     </div>
     <Map class="map-area" />
   </div>
@@ -57,8 +30,8 @@
 /**
  * Store Dependencies
  */
-const lightboxStore = useLightboxStore()
-const { currentYear, currentHistoricalPeriod } = storeToRefs(useFilterStore())
+
+const { currentYear } = storeToRefs(useFilterStore())
 const { selectedLayerId, layers } = storeToRefs(useLayerStore())
 
 /**
@@ -83,65 +56,24 @@ const step = ref<number>(10)
 
 .controls-area {
   grid-area: controls;
-  padding: var(--space-6);
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr;
-  grid-template-areas:
-    "top"
-    "bottom";
-  gap: var(--space-4)
-
+  grid-template-columns: auto 19rem;
+  grid-template-areas: "slider dropdown";
+  gap: var(--space-4);
+  padding: var(--space-6);
 }
 
-.map-area {
-  grid-area: map;
-}
-
-.top-area {
-  grid-area: top;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.title-area {
+.slider-area {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
 .dropdown-area {
-  display: grid;
-  grid-template-columns: minmax(23rem, 1fr) var(--space-8);
-  grid-template-areas:
-    "dropdown icon"
-    "label .";
-    align-items: center;
-  gap: var(--space-1);
-
-  .dropdown-container {
-    grid-area: dropdown;
-  }
-
-  .label {
-    grid-area: label;
-  }
-
-  .btn {
-    grid-area: icon;
-    aspect-ratio: 1;
-  }
+  grid-area: dropdown;
 }
 
-.bottom-area {
-  grid-area: bottom;
-}
-
-.label-wrapper {
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: var(--space-1);
+.map-area {
+  grid-area: map;
 }
 </style>
