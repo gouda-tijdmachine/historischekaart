@@ -1,6 +1,12 @@
 <template>
-  <div class="lightbox-background">
-    <div class="lightbox-container">
+  <div
+    class="lightbox-background"
+    @click="lightboxStore.close"
+  >
+    <div
+      class="lightbox-container"
+      @click.stop
+    >
       <component
         :is="contentComponent"
         :data="data"

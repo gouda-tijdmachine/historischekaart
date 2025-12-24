@@ -80,6 +80,7 @@ withDefaults(defineProps<{
     grid-template-areas: "content checked";
     gap: var(--space-1);
     padding: var(--space-2);
+    align-items: center;
 
     .content-area {
       grid-area: content;

@@ -12,10 +12,17 @@
 
 <script setup lang="ts">
 // Support the lightbox
-const { showModal } = storeToRefs(useLightboxStore())
+const lightboxStore = useLightboxStore()
+const { showModal, hideOnStartup } = storeToRefs(lightboxStore)
 
 // Initialize the store
 await useFilterStore().initializeData()
+
+onMounted(() => {
+  if (!hideOnStartup.value) {
+    lightboxStore.open('About')
+  }
+})
 </script>
 
 <style lang="scss" scoped>

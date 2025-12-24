@@ -9,6 +9,13 @@
     <p class="subtitle">
       Ontdek hoe u de interactieve historische kaart gebruikt om door de tijd te reizen
     </p>
+    <label class="checkbox">
+      <input
+        v-model="hideOnStartup"
+        type="checkbox"
+      >
+      Niet meer laten zien
+    </label>
     <BaseButton
       class="icon-lg"
       icon="lucide:x"
@@ -134,6 +141,9 @@ const tips = [
     type: 'item',
   },
 ] satisfies Item[]
+
+const lightboxStore = useLightboxStore()
+const { hideOnStartup } = storeToRefs(lightboxStore)
 </script>
 
 <style lang="scss" scoped>
@@ -141,10 +151,11 @@ const tips = [
   grid-area: header;
   display: grid;
   grid-template-columns: auto var(--space-8);
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas:
     "title icon"
-    "subtitle subtitle";
+    "subtitle subtitle"
+    "action .";
   align-items: center;
   background-color: var(--white);
   padding: var(--space-4);
@@ -155,6 +166,11 @@ const tips = [
 
   .icon-lg {
     grid-area: icon;
+    aspect-ratio: 1
+  }
+
+  .checkbox {
+    grid-area: action;
   }
 
   .subtitle {

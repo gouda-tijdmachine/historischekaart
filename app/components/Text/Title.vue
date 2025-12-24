@@ -21,7 +21,7 @@ defineProps<{
 .title {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-4);
   white-space: break-spaces;
 
