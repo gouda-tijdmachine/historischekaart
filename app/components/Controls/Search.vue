@@ -6,57 +6,48 @@
         class="search-input"
         :placeholder="placeholder"
         :value="searchTerm"
-        @keyup.enter="$emit('search', { searchTerm, streetId, periodId })"
-        @input="searchTerm = ($event.target as HTMLInputElement)?.value ?? ''"
+        @keyup.enter="$emit('search', true)"
+        @input="$emit('update', 'searchTerm', ($event.target as HTMLInputElement)?.value ?? '')"
       >
     </div>
     <Dropdown
       class="street-area"
       :items="streets"
       :selected-value="streetId"
-      @update:selected-value="streetId = $event"
+      @update:selected-value="$emit('update', 'streetId', $event)"
     />
     <Dropdown
       class="period-area"
       :items="periods"
       :selected-value="periodId"
-      @update:selected-value="periodId = $event"
+      @update:selected-value="$emit('update', 'periodId', $event)"
     />
     <div class="button-area">
       <BaseButton
         title="Zoeken"
         icon="lucide:search"
-        @click="$emit('search', { searchTerm, streetId, periodId })"
+        @click="$emit('search', true)"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-/**
- * Store Dependencies
- */
-const store = useFilterStore()
+const { streets, periods } = storeToRefs(useFilterStore())
 
-const searchTerm = ref<string>('')
-const streetId = ref<string>('all')
-const periodId = ref<string>('all')
-
-/**
- * State
- */
-const { streets, periods } = storeToRefs(store)
-
-// TODO: Define interface for Streets, Periods
 withDefaults(defineProps<{
   type: tabType
   placeholder?: string
+  searchTerm: string
+  streetId: string
+  periodId: string
 }>(), {
   placeholder: 'Zoekterm invoeren...',
 })
 
 defineEmits<{
-  search: [{ searchTerm?: string, streetId?: string, periodId?: string }]
+  (e: 'search', reset: boolean): void
+  (e: 'update', propName: string, value: string): void
 }>()
 </script>
 

@@ -3,7 +3,11 @@
     <ControlsSearch
       :type="searchType"
       :placeholder="placeholder"
+      :street-id="streetId"
+      :period-id="periodId"
+      :search-term="searchTerm"
       @search="loadMore"
+      @update="updateSearchState"
     />
     <ul :class="['results', searchType === 'image' ? 'images' : 'cards']">
       <li
@@ -51,6 +55,11 @@ const isLoading = ref<boolean>(false)
 const hasMore = ref<boolean>(false)
 const noResults = ref<boolean>(false)
 
+// Search terms
+const searchTerm = ref<string>('')
+const streetId = ref<string>('all')
+const periodId = ref<string>('all')
+
 const props = defineProps<{
   searchType: tabType
   placeholder: string
@@ -60,21 +69,23 @@ const props = defineProps<{
 /**
  * Methods
  */
-const loadMore = async (options: Record<string, string | number> = {}) => {
+const loadMore = async (reset: boolean = false) => {
   isLoading.value = true
   noResults.value = false
 
   // If options is filled, reset the items and totalItems
-  if (Object.keys(options).length > 0) {
+  if (reset) {
     items.value = []
     totalItems.value = 0
   }
 
   // Create the params
   const params = {
-    limit: 10,
+    limit: 5,
     offset: unref(items).length || 0,
-    ...options,
+    searchTerm: unref(searchTerm),
+    streetId: unref(streetId),
+    periodId: unref(periodId),
   }
 
   try {
@@ -99,6 +110,17 @@ const loadMore = async (options: Record<string, string | number> = {}) => {
   finally {
     hasMore.value = totalItems.value > (items.value || []).length
     isLoading.value = false
+  }
+}
+
+const updateSearchState = (propName: string, value: string) => {
+  const map: Record<string, Ref<string>> = {
+    searchTerm,
+    streetId,
+    periodId,
+  }
+  if (map[propName]) {
+    map[propName].value = value
   }
 }
 
