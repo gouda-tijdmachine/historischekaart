@@ -38,8 +38,8 @@ defineProps<{
   grid-template-rows: 1fr auto auto;
   grid-template-areas:
   "icon title badge"
-  "icon subtitle subtitle"
-  "icon meta meta";
+  "   . subtitle subtitle"
+  "   . meta meta";
   column-gap: var(--space-3);
   min-height: var(--space-18);
   border: var(--border-width) solid var(--border-color);

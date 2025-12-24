@@ -81,7 +81,7 @@ const loadMore = async (reset: boolean = false) => {
 
   // Create the params
   const params = {
-    limit: 5,
+    limit: 10,
     offset: unref(items).length || 0,
     searchTerm: unref(searchTerm),
     streetId: unref(streetId),

@@ -49,7 +49,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .tabs-container {
   display: flex;
   flex-direction: column;
@@ -77,8 +77,7 @@ onMounted(() => {
 
 .tab-header {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-center;
   gap: var(--space-2);
   border: none;
   cursor: pointer;

@@ -13,8 +13,7 @@ defineProps<{
 <style lang="scss" scoped>
 .tag {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-center;
   height: var(--space-5);
   padding-inline: var(--space-2);
   border: var(--border-width) solid var(--border-color);

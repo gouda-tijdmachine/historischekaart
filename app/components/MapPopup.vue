@@ -89,8 +89,7 @@ watch(selectedId, async () => {
 
   .close-button {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-center;
     width: var(--space-8);
     height: var(--space-8);
 

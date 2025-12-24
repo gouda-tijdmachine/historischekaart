@@ -40,7 +40,7 @@ const name = computed<string>(() => {
   grid-template-rows: 1fr;
   grid-template-areas:
     "icon title";
-  align-items: self-start;
+  align-items: center;
 
   .icon {
     grid-area: icon;
@@ -49,7 +49,7 @@ const name = computed<string>(() => {
   .title-area {
     display: flex;
     justify-content: space-between;
-    align-items: self-start;
+    align-items: center;
   }
 }
 </style>

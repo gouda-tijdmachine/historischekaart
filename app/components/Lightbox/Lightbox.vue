@@ -42,8 +42,7 @@ const contentComponent = computed(() => {
   z-index: 1000;
   background-color: rgb(from var(--off-black) r g b / 0.8);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-center;
   pointer-events: auto;
 }
 
