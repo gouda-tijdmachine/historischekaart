@@ -87,7 +87,9 @@ const geojsonOptions = {
  */
 const handleActiveState = (id: any) => {
   const leaflet = geojson.value?.leafletObject
-  if (leaflet) {
+  const mapInstance = map.value?.leafletObject
+
+  if (leaflet && mapInstance) {
     // Reset any other styling
     leaflet.resetStyle()
 
@@ -97,6 +99,9 @@ const handleActiveState = (id: any) => {
     if (layer) {
       // Store the crrent item
       filterStore.updateSelected('property', id, layer.feature.properties.naam)
+
+      // Move the map to show the active item
+      mapInstance.fitBounds(layer.getBounds(), { maxZoom: maxZoom.value, paddingTopLeft: [700, 0] })
 
       // Set the color of the current item
       layer.setStyle({
@@ -116,6 +121,14 @@ watch(currentYear, async (newValue) => {
 
 watch(selectedId, (newValue) => {
   handleActiveState(newValue)
+})
+
+// Re-apply highlight after geoJsonData reloads
+watch(geoJsonData, () => {
+  if (selectedId.value) {
+    // Wait for next tick to ensure layers are rendered
+    nextTick(() => handleActiveState(selectedId.value))
+  }
 })
 </script>
 
