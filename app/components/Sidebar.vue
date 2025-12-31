@@ -26,7 +26,7 @@
       </div>
       <Tabs
         class="tabs"
-        :tabs="tabConfig"
+        :tabs="filterStore.tabConfig"
       >
         <template #property>
           <TabProperty />
@@ -52,13 +52,8 @@
 
 <script setup lang="ts">
 const lightboxStore = useLightboxStore()
+const filterStore = useFilterStore()
 const isOpen = ref(true)
-
-const tabConfig: Tab[] = [
-  { id: 'property', label: 'Panden', icon: 'lucide:home' },
-  { id: 'person', label: 'Personen', icon: 'lucide:user' },
-  { id: 'image', label: 'Plaatjes', icon: 'lucide:image' },
-]
 </script>
 
 <style lang="scss" scoped>

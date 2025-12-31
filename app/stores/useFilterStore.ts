@@ -9,16 +9,19 @@ export const useFilterStore = defineStore('filter', () => {
       icon: 'lucide:house',
       details: 'pand',
       search: 'panden',
+      label: 'Panden',
     },
     person: {
       icon: 'lucide:user',
       details: 'persoon',
       search: 'personen',
+      label: 'Personen',
     },
     image: {
       icon: 'lucide:image',
       details: 'foto',
       search: 'fotos',
+      label: 'Plaatjes',
     },
   }
 
@@ -45,6 +48,14 @@ export const useFilterStore = defineStore('filter', () => {
         && currentYear.value <= period.end_year,
       )
     return activePeriod ? activePeriod.title : ''
+  })
+
+  const tabConfig = computed<Tab[]>(() => {
+    return Object.entries(endpoints).map(([key, value]) => ({
+      id: key as tabType,
+      label: value.label,
+      icon: value.icon,
+    }))
   })
 
   /**
@@ -165,6 +176,7 @@ export const useFilterStore = defineStore('filter', () => {
     selectedId,
     selectedTitle,
     selectedType,
+    tabConfig,
 
     // Data
     periods,

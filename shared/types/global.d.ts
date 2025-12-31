@@ -9,6 +9,7 @@ declare global {
     icon: string
     details: string
     search: string
+    label: string
   }
 
   interface Tab {

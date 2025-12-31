@@ -9,12 +9,17 @@
       @search="loadMore"
       @update="updateSearchState"
     />
-    <ul :class="['results', searchType === 'image' ? 'images' : 'cards']">
+    <ul :class="['results', searchType === 'image' ? 'images' : 'cards', noResults ? 'no-results' : '']">
       <li
         v-if="noResults"
-        class="no-results"
+        class="empty-message"
       >
-        Geen resultaten gevonden
+        <Icon
+          :name="filterStore.iconName(searchType)"
+          class="icon"
+        />
+        <span class="message">Nog geen zoekresultaten</span>
+        <span class="hint">Gebruik de zoekbalk of filters om te beginnen</span>
       </li>
       <li
         v-for="(card, index) in items"
@@ -53,7 +58,7 @@ const items = shallowRef<TCard[]>([])
 const totalItems = ref<number>(0)
 const isLoading = ref<boolean>(false)
 const hasMore = ref<boolean>(false)
-const noResults = ref<boolean>(false)
+const noResults = ref<boolean>(true)
 
 // Search terms
 const searchTerm = ref<string>('')
@@ -123,13 +128,6 @@ const updateSearchState = (propName: string, value: string) => {
     map[propName].value = value
   }
 }
-
-/**
- * Lifecycle
- */
-onMounted(async () => {
-  await loadMore()
-})
 </script>
 
 <style lang="scss" scoped>
@@ -146,14 +144,35 @@ onMounted(async () => {
   gap: var(--space-2);
   scrollbar-width: thin;
 
-  .no-results {
-    @include text-sm;
-    color: var(--gray-3);
-    text-align: center;
+  .empty-message {
+    @include flex-column;
+    @include flex-center;
+    color: var(--gray-4);
+    gap: var(--space-4);
+
+    .icon {
+      width: var(--space-12);
+      height: var(--space-12);
+    }
+
+    .message {
+      @include text-lg;
+      font-weight: var(--font-weight-medium);
+    }
+
+    .hint {
+      @include text-sm;
+    }
   }
 
   .load-more {
     margin-top: auto;
+  }
+
+  &.no-results {
+    @include flex-column;
+    align-items: center;
+    justify-content: center;
   }
 
   &.cards {
@@ -171,6 +190,10 @@ onMounted(async () => {
 
     li:has(.spinner-container) {
       grid-column: span 2;
+    }
+
+    &.no-results {
+      grid-template-columns: 1fr;
     }
   }
 }
