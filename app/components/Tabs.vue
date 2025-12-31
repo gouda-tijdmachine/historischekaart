@@ -62,12 +62,14 @@ onMounted(() => {
   display: grid;
   width: 100%;
   height: var(--space-12);
-  padding: var(--space-1);
+  padding-top: var(--space-1);
+  padding-inline: var(--space-1);
   grid-template-rows: 1fr;
   grid-template-columns: repeat(v-bind('props.tabs.length'), minmax(0, 1fr));
+  gap: var(--space-1);
   border-radius: var(--radius-1);
-  background-color: var(--gray-2);
   flex-shrink: 0;
+  border-bottom: var(--border-width) solid var(--border-color);
 }
 
 .tab-content {
@@ -79,13 +81,17 @@ onMounted(() => {
   display: flex;
   @include flex-center;
   gap: var(--space-2);
-  border: none;
   cursor: pointer;
   transition: all 0.2s ease;
+  background-color: var(--gray-2);
+  border: var(--border-width) solid transparent;
+  border-bottom: none;
 }
 
 .tab-header.active {
-  background: var(--white);
+  background-color: var(--white);
+  border-color: var(--border-color);
+  margin-bottom: calc(-1 * var(--border-width));
 }
 
 .tab-header.active .icon{
