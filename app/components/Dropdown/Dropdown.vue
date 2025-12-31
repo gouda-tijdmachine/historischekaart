@@ -14,6 +14,8 @@
       ref="popupRef"
       :model-value="selectedValue"
       :items="items"
+      :has-filter="hasFilter"
+      :filter-placeholder="filterPlaceholder"
       @update:model-value="$emit('update:selectedValue', $event)"
       @close="close"
     />
@@ -31,6 +33,8 @@ const popupRef = ref<any>(null)
 const props = defineProps<{
   selectedValue?: string
   items: Item[]
+  hasFilter?: boolean
+  filterPlaceholder?: string
 }>()
 
 defineEmits<{

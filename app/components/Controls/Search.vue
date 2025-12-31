@@ -13,6 +13,7 @@
     <Dropdown
       class="street-area"
       :items="streets"
+      has-filter
       :selected-value="streetId"
       @update:selected-value="$emit('update', 'streetId', $event)"
     />
@@ -54,7 +55,7 @@ defineEmits<{
 <style lang="scss" scoped>
 .controls-search {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 50% 50%;
   grid-template-rows: repeat(3, 1fr);
   grid-template-areas:
   "input input"

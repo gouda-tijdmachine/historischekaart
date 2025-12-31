@@ -87,9 +87,9 @@ withDefaults(defineProps<{
       display: flex;
       flex-direction: column;
       justify-content: center;
+      @include text-ellipsis;
 
       .title {
-        /*  @include text-xs; */
         display: flex;
         flex-wrap: nowrap;
         gap: var(--space-2);
