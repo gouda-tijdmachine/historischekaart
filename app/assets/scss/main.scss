@@ -71,6 +71,11 @@ body {
   font-size: var(--font-size-base);
   background-color: var(--white);
   color: var(--off-black);
+
+  &:has(:popover-open) {
+    pointer-events: none;
+    overflow: hidden;
+  }
 }
 
 ul {

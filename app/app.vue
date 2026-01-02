@@ -1,26 +1,20 @@
 <template>
-  <div
-    class="grid"
-    :inert="showModal"
-  >
+  <div class="grid">
     <Sidebar class="sidebar" />
     <Main class="main" />
   </div>
-
-  <Lightbox v-if="showModal" />
+  <PopoverAbout />
 </template>
 
 <script setup lang="ts">
-// Support the lightbox
-const lightboxStore = useLightboxStore()
-const { showModal, hideOnStartup } = storeToRefs(lightboxStore)
+const config = useRuntimeConfig()
 
-// Initialize the store
 await useFilterStore().initializeData()
 
 onMounted(() => {
-  if (!hideOnStartup.value) {
-    lightboxStore.open('About')
+  if (localStorage.getItem(config.public.hideAboutKey) !== 'true') {
+    const popoverElement = document.getElementById('about-popover')
+    popoverElement?.showPopover?.()
   }
 })
 </script>

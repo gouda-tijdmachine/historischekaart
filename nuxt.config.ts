@@ -47,6 +47,7 @@ export default defineNuxtConfig({
       baseUrl: 'https://api-viewer.goudatijdmachine.nl',
       token1: 'sk.eyJ1IjoidG90YWxhY3RpdmVtZWRpYSIsImEiOiJjbWdrbHI1N2kwbHpjMm5va2tuM3Fhdm5kIn0.9EwQAsbzCK8PrQnORKhxoA',
       token2: 'pk.eyJ1IjoiZ291ZGF0aWpkbWFjaGluZSIsImEiOiJja3Q2N2Fqb24wZm9sMm9wZThzMW1tYzF1In0.F9nmw4f4wDkIJnsbVqmzJQ',
+      hideAboutKey: 'gouda-tijdmachine-hide-about',
     },
   },
 

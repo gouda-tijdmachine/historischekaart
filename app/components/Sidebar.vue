@@ -21,7 +21,8 @@
         <BaseButton
           icon="ic:baseline-question-mark"
           class="help"
-          @click="lightboxStore.open('About')"
+          popovertarget="about-popover"
+          popovertargetaction="toggle"
         />
       </div>
       <Tabs
@@ -51,7 +52,6 @@
 </template>
 
 <script setup lang="ts">
-const lightboxStore = useLightboxStore()
 const filterStore = useFilterStore()
 const isOpen = ref(true)
 </script>
