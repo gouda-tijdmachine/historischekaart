@@ -6,6 +6,11 @@
         class="icon"
       />
       <span class="message">Nog geen informatie</span>
+      <a
+        class="empty-cta"
+        href="https://www.goudatijdmachine.nl/help-je-mee/"
+        target="gtm"
+      >Help je mee?!</a>
     </div>
   </template>
   <template v-else>
@@ -100,6 +105,13 @@ defineExpose({
     .message {
       @include text-lg;
       font-weight: var(--font-weight-medium);
+    }
+
+    .empty-cta {
+      text-align: center;
+      margin-top: var(--space-4);
+      color: var(--blue);
+      font-weight: var(--font-weight-semibold);
     }
   }
 </style>
