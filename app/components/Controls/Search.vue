@@ -71,7 +71,7 @@ defineEmits<{
     display: flex;
     align-items: center;
     align-self: stretch;
-    height: var(--space-9);
+    height: var(--space-11);
     width: 100%;
     padding: var(--space-1) var(--space-3);
     border: var(--border-width) solid var(--border-color);

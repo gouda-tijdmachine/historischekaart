@@ -53,7 +53,7 @@ onMounted(() => {
 .tabs-container {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-4);
   width: 100%;
   height: 100%;
 }
@@ -63,13 +63,13 @@ onMounted(() => {
   width: 100%;
   height: var(--space-12);
   padding-top: var(--space-1);
-  padding-inline: var(--space-1);
+  padding-inline: var(--space-3);
   grid-template-rows: 1fr;
   grid-template-columns: repeat(v-bind('props.tabs.length'), minmax(0, 1fr));
-  gap: var(--space-1);
+  gap: var(--space-3);
   border-radius: var(--radius-1);
   flex-shrink: 0;
-  border-bottom: var(--border-width) solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--blue);
 }
 
 .tab-content {
@@ -90,7 +90,7 @@ onMounted(() => {
 
 .tab-header.active {
   background-color: var(--white);
-  border-color: var(--border-color);
+  border-color: var(--blue);
   margin-bottom: calc(-1 * var(--border-width));
 }
 
