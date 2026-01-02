@@ -61,6 +61,12 @@ const geojson = ref()
 
 // GeoJSON styling options
 const geojsonOptions = {
+  style: (feature: any) => ({
+    color: 'var(--blue)',
+    fillColor: 'var(--blue)',
+    fillOpacity: 0.2,
+    weight: 2,
+  }),
   onEachFeature: (feature: Feature, layer: any) => {
     layer.on('click', (_: any) => {
       handleActiveState(feature.properties.identifier)
@@ -69,6 +75,7 @@ const geojsonOptions = {
     layer.on('mouseout', (_: any) => {
       if (feature.properties.identifier !== selectedId.value) {
         layer.setStyle({
+          color: 'var(--blue)',
           fillOpacity: 0.2,
         })
       }
