@@ -27,14 +27,6 @@
     <div class="subtitle-area">
       <CardSubtitle>{{ streets.join(', ') }}</CardSubtitle>
     </div>
-    <div class="selected-area">
-      <!-- <TextLabel
-        v-if="selected"
-        class="selected"
-      >
-        Geselecteerd
-      </TextLabel> -->
-    </div>
   </div>
 </template>
 
@@ -58,13 +50,12 @@ const streets = computed<string[]>(() => {
 
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: min-content var(--space-5) auto var(--space-4) var(--space-2);
+  grid-template-rows: min-content var(--space-5) auto var(--space-4);
   grid-template-areas:
    "thumbnail"
    "icons"
    "title"
-   "subtitle"
-   "selected";
+   "subtitle";
   row-gap: var(--space-1);
   height: 20rem;
 
@@ -111,15 +102,5 @@ const streets = computed<string[]>(() => {
 .subtitle-area {
   grid-area: subtitle;
   min-width: 0;
-}
-
-.selected-area {
-  grid-area: selected;
-  display: flex;
-  justify-content: flex-end;
-
-  .selected {
-    color: var(--blue);
-  }
 }
 </style>
