@@ -49,7 +49,7 @@ const props = defineProps<{
  * Computed properties
  */
 const supportedProperties = computed<string[]>(() => {
-  return ['datering', 'vervaardiger']
+  return ['datering', 'vervaardiger', 'bronbronorganisatie', 'informatie_auteursrechten']
 })
 
 const streets = computed(() => {

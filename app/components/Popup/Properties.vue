@@ -7,7 +7,7 @@
       v-if="data[property]"
       class="property"
     >
-      <span>{{ capitalize(property) }}:</span>
+      <span>{{ labelFor(property) }}:</span>
       <a
         v-if="isUrl(data[property])"
         :href="data[property]"
@@ -17,6 +17,12 @@
       >
         {{ data[property] }}
       </a>
+      <Tag
+        v-else-if="isYear(property)"
+
+        :value="data.datering"
+        class="red"
+      />
       <span v-else>{{ data[property] }}</span>
     </div>
   </template>
@@ -28,10 +34,6 @@ defineProps<{
   properties: string[]
 }>()
 
-const capitalize = (str: string): string => {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
-
 const isUrl = (value: string): boolean => {
   try {
     new URL(value)
@@ -40,6 +42,16 @@ const isUrl = (value: string): boolean => {
   catch {
     return false
   }
+}
+
+const isYear = (property: string) => {
+  return ['datering'].includes(property)
+}
+
+const labelFor = (label: string): string => {
+  const config = useRuntimeConfig()
+  const str = (config.public.labelExceptions as Record<string, string>)?.[label]
+  return str ? str : label.charAt(0).toUpperCase() + label.slice(1)
 }
 </script>
 
