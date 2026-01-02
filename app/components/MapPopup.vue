@@ -15,11 +15,17 @@
       </button>
     </div>
 
+    <PopupAnchorBar
+      v-if="!isLoading && anchorSections.length"
+      :sections="anchorSections"
+    />
+
     <div class="content">
       <BaseSpinner v-if="isLoading" />
       <component
         :is="contentComponent"
         v-else
+        ref="contentRef"
         :data="data"
       />
     </div>
@@ -31,10 +37,15 @@ const filterStore = useFilterStore()
 const { selectedId } = storeToRefs(filterStore)
 const data = ref()
 const isLoading = ref<boolean>(true)
+const contentRef = ref()
 
 defineEmits<{
   (e: 'close'): void
 }>()
+
+const anchorSections = computed(() => {
+  return contentRef.value?.anchorSections || []
+})
 
 const contentComponent = computed(() => {
   switch (filterStore.selectedType) {

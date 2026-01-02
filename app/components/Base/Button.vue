@@ -43,5 +43,11 @@ defineEmits<{
   &:active {
     background-color: var(--red-dark);
   }
+
+  &.btn--small {
+    @include text-sm;
+    padding: var(--space-1) var(--space-4);
+    width: min-content;
+  }
 }
 </style>

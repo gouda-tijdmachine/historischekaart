@@ -1,5 +1,8 @@
 <template>
-  <div class="section">
+  <div
+    :id="anchorId"
+    class="section"
+  >
     <h3 v-if="title">
       {{ title }}
     </h3>
@@ -8,9 +11,14 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   title?: string
+  anchor?: string
 }>()
+
+const anchorId = computed(() => {
+  return props.anchor ? `section-${props.anchor}` : undefined
+})
 </script>
 
 <style lang="scss" scoped>
@@ -22,6 +30,7 @@ defineProps<{
   padding-bottom: var(--space-3);
   border-bottom: var(--border-width) solid var(--border-color);
   margin-bottom: var(--space-4);
+  scroll-margin-top: var(--space-1);
 
   h3 {
     color: var(--gray-3);

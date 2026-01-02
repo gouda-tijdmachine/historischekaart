@@ -1,5 +1,5 @@
 <template>
-  <PopupSection>
+  <PopupSection anchor="details">
     <div class="thumbnail-area">
       <img
         :src="data.image"
@@ -18,7 +18,10 @@
     />
   </PopupSection>
 
-  <PopupSection title="Straten">
+  <PopupSection
+    title="Straten"
+    anchor="straten"
+  >
     <PopupRelatedList :items="streets">
       <template #item="item">
         <PopupItemsStreet :item="item" />
@@ -26,7 +29,10 @@
     </PopupRelatedList>
   </PopupSection>
 
-  <PopupSection title=" Panden te zien op deze afbeelding">
+  <PopupSection
+    title="Panden te zien op deze afbeelding"
+    anchor="panden"
+  >
     <PopupRelatedList :items="data.panden">
       <template #item="item">
         <PopupItemsProperty :item="item" />
@@ -54,6 +60,18 @@ const supportedProperties = computed<string[]>(() => {
 
 const streets = computed(() => {
   return props.data.straten
+})
+
+const anchorSections = computed(() => {
+  return [
+    { id: 'details', label: 'Details' },
+    { id: 'straten', label: 'Straten' },
+    { id: 'panden', label: 'Panden' },
+  ]
+})
+
+defineExpose({
+  anchorSections,
 })
 </script>
 

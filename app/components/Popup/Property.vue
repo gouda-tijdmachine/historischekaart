@@ -12,6 +12,7 @@
     <PopupSection
       v-if="data.adressen?.length"
       title="Adressen door de tijd heen"
+      anchor="adressen"
     >
       <PopupRelatedList
         :items="data.adressen"
@@ -24,6 +25,7 @@
     <PopupSection
       v-if="data.personen?.length"
       title="Bewoners/eigenaars van dit pand"
+      anchor="personen"
     >
       <PopupRelatedList :items="data.personen">
         <template #item="item">
@@ -34,6 +36,7 @@
     <PopupSection
       v-if="data.fotos?.length"
       title="Historische plaatjes"
+      anchor="fotos"
     >
       <PopupRelatedList :items="data.fotos">
         <template #item="item">
@@ -56,6 +59,28 @@ const isEmpty = computed<boolean>(() => {
     + (props.data.fotos?.length || 0)
 
   return total === 0
+})
+
+const anchorSections = computed(() => {
+  const sections = []
+
+  if (props.data.adressen?.length) {
+    sections.push({ id: 'adressen', label: 'Adressen' })
+  }
+
+  if (props.data.personen?.length) {
+    sections.push({ id: 'personen', label: 'Bewoners/Eigenaars' })
+  }
+
+  if (props.data.fotos?.length) {
+    sections.push({ id: 'fotos', label: 'Plaatjes' })
+  }
+
+  return sections
+})
+
+defineExpose({
+  anchorSections,
 })
 </script>
 
