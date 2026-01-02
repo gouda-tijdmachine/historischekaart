@@ -3,7 +3,6 @@ export {}
 declare global {
   type tabType = 'property' | 'person' | 'image'
   type ItemType = 'group' | 'layer' | 'item' | 'label'
-  type LightboxType = 'Gallery' | 'About'
 
   interface EndpointType {
     icon: string
