@@ -5,7 +5,7 @@
         :name="filterStore.iconName('property')"
         class="icon"
       />
-      <span class="message">Nog geen zoekresultaten</span>
+      <span class="message">Nog geen informatie</span>
     </div>
   </template>
   <template v-else>
