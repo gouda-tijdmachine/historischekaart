@@ -74,7 +74,7 @@ const anchorSections = computed(() => {
   }
 
   if (props.data.personen?.length) {
-    sections.push({ id: 'personen', label: 'Bewoners/Eigenaars' })
+    sections.push({ id: 'personen', label: 'Bewoners/eigenaars' })
   }
 
   if (props.data.fotos?.length) {
