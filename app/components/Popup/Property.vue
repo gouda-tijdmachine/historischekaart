@@ -1,6 +1,12 @@
 <template>
   <template v-if="isEmpty">
-    <span class="empty-text">Nog geen informatie</span>
+    <div class="empty-message">
+      <Icon
+        :name="filterStore.iconName('property')"
+        class="icon"
+      />
+      <span class="message">Nog geen zoekresultaten</span>
+    </div>
   </template>
   <template v-else>
     <PopupSection
@@ -39,6 +45,7 @@
 </template>
 
 <script setup lang="ts">
+const filterStore = useFilterStore()
 const props = defineProps<{
   data: PropertyDetailResponse
 }>()
@@ -53,9 +60,21 @@ const isEmpty = computed<boolean>(() => {
 </script>
 
 <style lang="scss" scoped>
-  .empty-text {
-    @include text-sm;
-    color: var(--gray-3);
-    text-align: center;
+  .empty-message {
+    @include flex-column;
+    @include flex-center;
+    height: 100%;
+    color: var(--gray-4);
+    gap: var(--space-4);
+
+    .icon {
+      width: var(--space-12);
+      height: var(--space-12);
+    }
+
+    .message {
+      @include text-lg;
+      font-weight: var(--font-weight-medium);
+    }
   }
 </style>
