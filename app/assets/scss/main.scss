@@ -73,7 +73,6 @@ body {
   color: var(--off-black);
 
   &:has(:popover-open) {
-    pointer-events: none;
     overflow: hidden;
   }
 }
