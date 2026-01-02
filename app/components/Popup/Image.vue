@@ -8,7 +8,8 @@
       <BaseButton
         title="Vergroot"
         icon="lucide:eye"
-        @click="lightboxStore.open('Gallery', data)"
+        popovertarget="osd-popover"
+        popovertargetaction="toggle"
       />
     </div>
     <PopupProperties
@@ -32,13 +33,14 @@
       </template>
     </PopupRelatedList>
   </PopupSection>
+
+  <PopoverImageViewer :data="data" />
 </template>
 
 <script setup lang="ts">
 /**
  * State & Props
  */
-const lightboxStore = useLightboxStore()
 const props = defineProps<{
   data: ImageDetailResponse
 }>()
