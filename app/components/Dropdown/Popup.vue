@@ -166,6 +166,7 @@ onMounted(() => {
   outline: none;
   background: var(--white);
   box-shadow: var(--shadow-1);
+  font-size: var(--font-size-sm);
 
   &:focus-visible {
     border-color: var(--blue);

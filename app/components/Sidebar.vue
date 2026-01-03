@@ -96,7 +96,7 @@ const isOpen = ref(true)
 .header {
   grid-area: header;
   display: grid;
-  grid-template-columns: var(--space-6) auto var(--space-8);
+  grid-template-columns: var(--space-8) auto var(--space-8);
   grid-template-rows: 1fr;
   grid-template-areas: "logo title help";
   gap: var(--space-4);
@@ -108,17 +108,19 @@ const isOpen = ref(true)
   white-space: nowrap;
   overflow: hidden;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
   gap: var(--space-4);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
 }
 
 .logo {
   grid-area: logo;
   display: inline-flex;
   justify-self: flex-start;
-  width: var(--space-6);
-  height: var(--space-6);
+  width: var(--space-10);
+  height: var(--space-10);
 }
 
 .help {

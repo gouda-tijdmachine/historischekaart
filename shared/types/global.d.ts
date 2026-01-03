@@ -128,6 +128,7 @@ declare global {
 
   interface PeriodResponse extends Response {
     naam: string
+    naam_alt: string
     omschrijving?: string
     jaar_start: string
     jaar_einde: string
