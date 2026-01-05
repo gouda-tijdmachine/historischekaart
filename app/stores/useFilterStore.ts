@@ -97,6 +97,7 @@ export const useFilterStore = defineStore('filter', () => {
           type: 'item',
           id: period.identifier,
           title: period.naam,
+          tag: period.naam_alt,
           begin_year: parseInt(period.jaar_start, 10),
           end_year: parseInt(period.jaar_einde, 10),
         } as Item
