@@ -62,15 +62,6 @@ declare global {
   }
 
   /**
-   * Reusable interfaces
-   */
-  interface ImageResponse {
-    identifier: string
-    thumbnail: string
-    titel: string
-  }
-
-  /**
    * Cards
    */
   interface Card {
@@ -144,6 +135,12 @@ declare global {
     pandidentifiers: string[]
   }
 
+  interface CloseByImageResponse extends Reponse {
+    iiif_info_json: string
+    thumbnail: string
+    titel: string
+  }
+
   /**
    * Detail Responses
    */
@@ -212,6 +209,6 @@ declare global {
       naam: string
       straten: string[]
     }[]
-    fotos_dichtbij: ImageResponse[]
+    fotos_dichtbij: CloseByImageResponse[]
   }
 }

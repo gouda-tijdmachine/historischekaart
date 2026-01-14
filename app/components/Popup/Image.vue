@@ -10,6 +10,7 @@
         icon="lucide:eye"
         popovertarget="osd-popover"
         popovertargetaction="toggle"
+        @click="setPopoverData"
       />
     </div>
     <PopupProperties
@@ -40,7 +41,28 @@
     </PopupRelatedList>
   </PopupSection>
 
-  <PopoverImageViewer :data="data" />
+  <PopupSection
+    v-if="data.fotos_dichtbij?.length"
+    title="Foto's dichtbij"
+    anchor="fotos"
+  >
+    <PopupRelatedList
+      :items="data.fotos_dichtbij"
+      use-div
+      class="image-grid"
+    >
+      <template #item="item">
+        <BaseImageButton
+          v-if="item.thumbnail"
+          :image="item.thumbnail"
+          popovertarget="osd-popover"
+          popovertargetaction="toggle"
+          @click="setPopoverData(item)"
+        />
+      </template>
+    </PopupRelatedList>
+  </PopupSection>
+  <PopoverImageViewer :data="imageData" />
 </template>
 
 <script setup lang="ts">
@@ -50,6 +72,8 @@
 const props = defineProps<{
   data: ImageDetailResponse
 }>()
+
+const imageData = ref<ImageDetailResponse>()
 
 /**
  * Computed properties
@@ -73,6 +97,10 @@ const anchorSections = computed(() => {
 defineExpose({
   anchorSections,
 })
+
+const setPopoverData = (item?: CloseByImageResponse) => {
+  imageData.value = (item ?? props.data) as ImageDetailResponse
+}
 </script>
 
 <style lang="scss" scoped>
@@ -94,6 +122,14 @@ defineExpose({
     width: unset;
     padding: var(--space-1) var(--space-2);
     gap: var(--space-2);
+  }
+}
+
+.image-grid {
+  :deep(.items) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
   }
 }
 </style>

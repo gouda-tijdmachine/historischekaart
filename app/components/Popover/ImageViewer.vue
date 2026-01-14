@@ -52,21 +52,21 @@ const minZoomed = ref<boolean>(false)
 const maxZoomed = ref<boolean>(false)
 
 const props = defineProps<{
-  data: ImageDetailResponse
+  data?: ImageDetailResponse
 }>()
 
 /**
  * Computed properties
  */
 const IIIFEndpoint = computed<string>(() => {
-  return props.data.iiif_info_json
+  return props.data!.iiif_info_json
 })
 
 const infoFooterText = computed<string>(() => {
   return [
-    props.data.titel,
-    props.data.vervaardiger,
-    props.data.datering,
+    props.data?.titel,
+    props.data?.vervaardiger,
+    props.data?.datering,
   ]
     .filter(Boolean)
     .join(', ')
