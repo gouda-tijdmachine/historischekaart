@@ -8,8 +8,18 @@
 
 <script setup lang="ts">
 const config = useRuntimeConfig()
+const filterStore = useFilterStore()
+const route = useRoute()
 
-await useFilterStore().initializeData()
+await filterStore.initializeData()
+
+watch(
+  () => route.fullPath,
+  (_path) => {
+    filterStore.handleRouteUpdate()
+  },
+  { immediate: true },
+)
 
 onMounted(() => {
   if (localStorage.getItem(config.public.hideAboutKey) !== 'true') {

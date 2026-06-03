@@ -20,5 +20,5 @@
   "[vue]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
-  "typescript.preferences.includePackageJsonAutoImports": "on"
+  "js/ts.preferences.includePackageJsonAutoImports": "on"
 }

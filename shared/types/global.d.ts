@@ -211,4 +211,10 @@ declare global {
     }[]
     fotos_dichtbij: CloseByImageResponse[]
   }
+
+  interface Breadcrumb {
+    id: string
+    value: string
+    type: tabType
+  }
 }

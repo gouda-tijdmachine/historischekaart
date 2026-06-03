@@ -33,8 +33,10 @@ export const useFilterStore = defineStore('filter', () => {
   const streets = ref<Item[]>([])
   const periods = ref<Item[]>([])
   const selectedId = ref<string>()
-  const selectedType = ref<tabType>()
-  const selectedTitle = ref<string>()
+  const selectedType = ref<tabType>('property')
+  const parentEntry = ref<{ type: tabType, id: string }>()
+  const additionalHighlights = ref<any[]>([])
+  const route = useRoute()
 
   /**
    * Computed Properties
@@ -117,16 +119,21 @@ export const useFilterStore = defineStore('filter', () => {
       })
   }
 
-  const updateSelected = (type: tabType, id: string, title: string) => {
-    selectedId.value = id
-    selectedType.value = type
-    selectedTitle.value = title
+  const updateSelected = async (type: tabType, id: string) => {
+    // Store the previous value in the parent Entry
+    if (selectedId.value && selectedType.value) {
+      parentEntry.value = { type: selectedType.value, id: selectedId.value }
+    }
+
+    await navigateTo({ path: '/', query: {
+      type,
+    }, hash: `#${id}` })
   }
 
   const resetSelected = () => {
-    selectedId.value = undefined
-    selectedType.value = undefined
-    selectedTitle.value = undefined
+    parentEntry.value = undefined
+    additionalHighlights.value = []
+    navigateTo('/')
   }
 
   const fetchGeoJson = async (year: number) => {
@@ -154,9 +161,9 @@ export const useFilterStore = defineStore('filter', () => {
     return await useCallApi(url)
   }
 
-  const fetchDetails = async () => {
-    const id = unref(selectedId)
-    const type = unref(selectedType)
+  const fetchDetails = async (type?: tabType, id?: string) => {
+    id = id ?? unref(selectedId)
+    type = type ?? unref(selectedType)
 
     if (id && type) {
       const endpoint = endpoints[type].details
@@ -169,21 +176,28 @@ export const useFilterStore = defineStore('filter', () => {
     return endpoints[type].icon
   }
 
+  const handleRouteUpdate = () => {
+    selectedType.value = typeof route.query.type === 'string' ? route.query.type as tabType : 'property'
+    selectedId.value = (route.hash ?? '').replace('#', '')
+  }
+
   return {
     // State
     currentHistoricalPeriod,
     currentYear,
     geoJsonData,
     selectedId,
-    selectedTitle,
     selectedType,
     tabConfig,
 
     // Data
     periods,
     streets,
+    parentEntry,
+    additionalHighlights,
 
     // Methods
+    handleRouteUpdate,
     fetchDetails,
     fetchGeoJson,
     fetchSearch,

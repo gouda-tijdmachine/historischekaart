@@ -26,7 +26,7 @@ const props = defineProps<{
 }>()
 
 const handleClick = () => {
-  filterStore.updateSelected('image', props.item.identifier, props.item.titel)
+  filterStore.updateSelected('image', props.item.identifier)
 }
 </script>
 

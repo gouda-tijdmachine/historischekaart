@@ -36,6 +36,7 @@
         ref="geojson"
         :geojson="geoJsonData"
         :options="geojsonOptions"
+        @ready="onGeoJsonReady"
       />
     </LMap>
 
@@ -51,17 +52,18 @@
 const layerStore = useLayerStore()
 const filterStore = useFilterStore()
 const { selectedTileLayer, selectedWmsLayer } = storeToRefs(layerStore)
-const { currentYear, geoJsonData, selectedId } = storeToRefs(filterStore)
+const { currentYear, geoJsonData, selectedId, additionalHighlights } = storeToRefs(filterStore)
 
 const zoom = ref(16)
 const minZoom = ref(16)
 const maxZoom = ref(19)
 const map = ref()
 const geojson = ref()
+const geoJsonLayer = ref()
 
 // GeoJSON styling options
 const geojsonOptions = {
-  style: (feature: any) => ({
+  style: (_feature: any) => ({
     color: 'var(--blue)',
     fillColor: 'var(--blue)',
     fillOpacity: 0.2,
@@ -69,7 +71,7 @@ const geojsonOptions = {
   }),
   onEachFeature: (feature: Feature, layer: any) => {
     layer.on('click', (_: any) => {
-      handleActiveState(feature.properties.identifier)
+      filterStore.updateSelected('property', feature.properties.identifier)
     })
 
     layer.on('mouseout', (_: any) => {
@@ -90,8 +92,19 @@ const geojsonOptions = {
 }
 
 /**
+ * Computed Properties
+ */
+const mapLayerReady = computed(() => {
+  return !!map.value?.leafletObject && !!geoJsonLayer.value
+})
+
+/**
  * Methods
  */
+const onGeoJsonReady = (layer: any) => {
+  geoJsonLayer.value = layer
+}
+
 const handleActiveState = (id: any) => {
   const leaflet = geojson.value?.leafletObject
   const mapInstance = map.value?.leafletObject
@@ -100,20 +113,24 @@ const handleActiveState = (id: any) => {
     // Reset any other styling
     leaflet.resetStyle()
 
-    // Iterate over object entries and break early
-    const layer: any = Object.values(leaflet._layers).find((layer: any) => layer.feature?.properties.identifier === id)
+    // Get the identifiers from any additional layers we need to highlight
+    const ids = additionalHighlights.value?.map((highlight: { identifier: string }) => highlight.identifier)
 
-    if (layer) {
-      // Store the crrent item
-      filterStore.updateSelected('property', id, layer.feature.properties.naam)
+    // Find the layers we need to activate
+    const layers: any = Object.values(leaflet._layers).filter((layer: any) => [id, ...ids].includes(layer.feature?.properties.identifier))
 
-      // Move the map to show the active item
-      mapInstance.fitBounds(layer.getBounds(), { maxZoom: maxZoom.value, paddingTopLeft: [700, 0] })
+    if (Array.isArray(layers) && layers.length) {
+      layers.forEach((layer: any) => {
+        if (layer.feature?.properties.identifier === id) {
+          // Move the map to show the active selected item
+          mapInstance.fitBounds(layer.getBounds(), { maxZoom: maxZoom.value, paddingTopLeft: [700, 0] })
+        }
 
-      // Set the color of the current item
-      layer.setStyle({
-        fillOpacity: 1,
-        color: 'var(--red)',
+        // Set the color of the current item
+        layer.setStyle({
+          fillOpacity: 1,
+          color: 'var(--red)',
+        })
       })
     }
   }
@@ -126,17 +143,14 @@ watch(currentYear, async (newValue) => {
   filterStore.fetchGeoJson(newValue)
 }, { immediate: true })
 
-watch(selectedId, (newValue) => {
-  handleActiveState(newValue)
-})
-
-// Re-apply highlight after geoJsonData reloads
-watch(geoJsonData, () => {
-  if (selectedId.value) {
-    // Wait for next tick to ensure layers are rendered
-    nextTick(() => handleActiveState(selectedId.value))
-  }
-})
+watch(
+  [selectedId, mapLayerReady, additionalHighlights],
+  async ([selectedId, newLayer]) => {
+    if (selectedId && newLayer) {
+      handleActiveState(selectedId)
+    }
+  },
+)
 </script>
 
 <style lang="scss" scoped>

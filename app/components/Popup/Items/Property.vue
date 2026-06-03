@@ -24,7 +24,7 @@ const name = computed<string>(() => {
 })
 
 const handleClick = () => {
-  filterStore.updateSelected('property', props.item.identifier, unref(name))
+  filterStore.updateSelected('property', props.item.identifier)
 }
 </script>
 

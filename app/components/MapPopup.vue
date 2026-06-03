@@ -1,11 +1,15 @@
 <template>
   <div class="map-popup">
+    <PopupBreadcrumbs
+      v-if="parentCrumb"
+      :parent="parentCrumb"
+    />
     <div class="header">
       <TextTitle
         :icon-name="filterStore.iconName(filterStore.selectedType!)"
         class="title"
       >
-        {{ filterStore.selectedTitle }}
+        {{ title }}
       </TextTitle>
       <button
         class="close-button"
@@ -34,21 +38,27 @@
 
 <script setup lang="ts">
 const filterStore = useFilterStore()
-const { selectedId } = storeToRefs(filterStore)
+const { selectedId, selectedType, parentEntry } = storeToRefs(filterStore)
 const data = ref()
+const title = ref<string>('')
 const isLoading = ref<boolean>(true)
 const contentRef = ref()
+const parentCrumb = ref<Breadcrumb>()
 
 defineEmits<{
   (e: 'close'): void
 }>()
+
+/**
+ * Computed Properties
+ */
 
 const anchorSections = computed(() => {
   return contentRef.value?.anchorSections || []
 })
 
 const contentComponent = computed(() => {
-  switch (filterStore.selectedType) {
+  switch (selectedType.value) {
     case 'property':
       return resolveComponent('PopupProperty')
     case 'image':
@@ -60,10 +70,25 @@ const contentComponent = computed(() => {
   }
 })
 
+/**
+ * Watchers
+ */
 watch(selectedId, async () => {
   try {
     isLoading.value = true
+    title.value = ''
     data.value = await filterStore.fetchDetails()
+    title.value = data.value?.titel ? data.value?.titel : data.value?.naam ?? ''
+    filterStore.additionalHighlights = selectedType.value === 'property' ? [] : data.value.panden
+
+    if (parentEntry.value) {
+      const parent = await filterStore.fetchDetails(parentEntry.value.type, parentEntry.value.id)
+      parentCrumb.value = {
+        id: parent.identifier,
+        value: parent.titel ? parent.titel : parent.naam ?? '',
+        type: parentEntry.value.type,
+      }
+    }
   }
   finally {
     isLoading.value = false

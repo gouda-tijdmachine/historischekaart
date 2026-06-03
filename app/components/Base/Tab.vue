@@ -29,7 +29,7 @@
           name="card"
           :card="card"
           :selected="selectedId === card.id"
-          :on-select="() => filterStore.updateSelected(searchType, card.id, card.title)"
+          :on-select="() => filterStore.updateSelected(searchType, card.id)"
         />
       </li>
       <li v-if="isLoading">
