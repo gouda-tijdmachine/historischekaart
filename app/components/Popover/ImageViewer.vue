@@ -62,6 +62,16 @@ const IIIFEndpoint = computed<string>(() => {
   return props.data!.iiif_info_json
 })
 
+// Bounding box van een krantenknipsel (W3C media fragment: xywh=[pixel:|percent:]x,y,w,h).
+// Gewone foto's hebben geen region, dan is dit null en wordt er niet ingezoomd.
+const regionRect = computed(() => {
+  const m = props.data?.region?.match(/xywh=(?:(pixel|percent):)?([\d.]+),([\d.]+),([\d.]+),([\d.]+)/)
+  if (!m) {
+    return null
+  }
+  return { unit: m[1] ?? 'pixel', x: +m[2]!, y: +m[3]!, w: +m[4]!, h: +m[5]! }
+})
+
 const infoFooterText = computed<string>(() => {
   return [
     props.data?.titel,
@@ -128,6 +138,29 @@ const initializeOSD = async () => {
     showFullPageControl: false,
     showHomeControl: false,
     showRotationControl: false,
+  })
+
+  // Krantenknipsel: zoom bij het openen in op de bounding box binnen de pagina.
+  // Gewone foto's (geen region) openen ongewijzigd op 'home' (hele afbeelding).
+  client.addHandler('open', () => {
+    const region = regionRect.value
+    if (!region) {
+      return
+    }
+    const viewport = client.viewport
+    const size = client.world.getItemAt(0).getContentSize()
+    let { x, y, w, h } = region
+    if (region.unit === 'percent') {
+      x = (x / 100) * size.x
+      y = (y / 100) * size.y
+      w = (w / 100) * size.x
+      h = (h / 100) * size.y
+    }
+    // Verruim de max-zoom zodat de box het scherm kan vullen; uitzoomen naar de
+    // hele pagina (minZoomLevel 0.5) blijft mogelijk.
+    viewport.maxZoomLevel = Math.max(3, (size.x / w) * 1.25, (size.y / h) * 1.25)
+    viewport.fitBounds(viewport.imageToViewportRectangle(new OpenSeadragon.Rect(x, y, w, h)), true)
+    updateZoomConstraints()
   })
 
   // Keep the button constraints in sync. Use the 'zoom' event, not

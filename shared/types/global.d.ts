@@ -195,6 +195,9 @@ declare global {
     image: string
     thumbnail: string
     iiif_info_json: string
+    // Alleen bij krantenknipsels: bounding box binnen de pagina, als W3C media
+    // fragment (xywh=pixel:x,y,w,h). Afwezig bij gewone foto's.
+    region?: string
     vervaardiger: string
     informatie_auteursrechten: string
     url: string
