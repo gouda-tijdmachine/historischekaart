@@ -42,6 +42,8 @@ const scrollToSection = (sectionId: string) => {
   padding: var(--space-3);
   background-color: var(--white);
   border-bottom: var(--border-width) solid var(--border-color);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
 }
 </style>

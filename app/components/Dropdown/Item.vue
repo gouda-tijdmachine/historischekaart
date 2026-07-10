@@ -76,7 +76,7 @@ withDefaults(defineProps<{
   .item-content {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas: "content checked";
     gap: var(--space-1);
     padding: var(--space-2);
@@ -87,13 +87,15 @@ withDefaults(defineProps<{
       display: flex;
       flex-direction: column;
       justify-content: center;
+      min-width: 0;
       @include text-ellipsis;
 
       .title {
         display: flex;
         flex-wrap: nowrap;
         gap: var(--space-2);
-        white-space: nowrap;
+        min-width: 0;
+        @include text-ellipsis;
       }
     }
 

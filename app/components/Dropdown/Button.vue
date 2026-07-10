@@ -46,6 +46,7 @@ defineExpose({
 <style lang="scss" scoped>
 .dropdown {
   width: 100%;
+  min-width: 0;
   display: flex;
   padding-inline: var(--space-3);
   justify-content: space-between;
@@ -72,9 +73,15 @@ defineExpose({
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  min-width: 0;
+
+  .item {
+    min-width: 0;
+  }
 
   .icon {
     background-color: var(--blue);
+    flex-shrink: 0;
   }
 }
 </style>

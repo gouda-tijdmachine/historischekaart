@@ -37,9 +37,15 @@ onMounted(() => {
   width: 100%;
 
   display: grid;
-  grid-template-columns: auto minmax(35rem, 1fr);
+  grid-template-columns: auto minmax(0, 1fr);
   grid-template-rows: 100dvh;
   grid-template-areas: "sidebar main";
+
+  @include mobile {
+    // De sidebar wordt een overlay en valt uit de grid-flow
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "main";
+  }
 }
 
 .sidebar {

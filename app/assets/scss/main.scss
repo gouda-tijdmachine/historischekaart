@@ -42,6 +42,7 @@
   /* specific widths */
   --max-container-width: 150rem;
   --max-sidebar-width: 30rem;
+  --sidebar-padding: var(--space-6);
   --image-card-size: 12.75rem;
 
   /* Typography */
@@ -72,6 +73,19 @@
 
   /* Thmbnail size */
   --thumbnail-height-close-by: 8rem;
+}
+
+@include mobile {
+  :root {
+    /* Het zoekpaneel vult het scherm op een strook kaart na. Die strook is
+       precies zo breed als de chevron-knop, zodat die er altijd in past. */
+    --max-sidebar-width: calc(100dvw - var(--space-11));
+    --sidebar-padding: var(--space-4);
+
+    --font-size-sm: 0.9375rem;
+    --font-size-base: 1.0625rem;
+    --font-size-lg: 1.25rem;
+  }
 }
 
 /* Global styling */

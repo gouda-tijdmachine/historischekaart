@@ -110,6 +110,17 @@ watch(selectedId, async () => {
   z-index: 1000;
   overflow-y: auto;
   width: 50%;
+
+  @include mobile {
+    // Fixed, niet absolute: absolute zou het paneel tot de kaartcontainer
+    // beperken en de bovenbalk eronder laten uitsteken.
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    border: none;
+    overscroll-behavior: contain;
+    z-index: 1020; // boven het uitgeklapte zoekpaneel (1010)
+  }
 }
 
 .header {
@@ -128,6 +139,11 @@ watch(selectedId, async () => {
     @include flex-center;
     width: var(--space-8);
     height: var(--space-8);
+
+    @include mobile {
+      width: var(--space-11);
+      height: var(--space-11);
+    }
 
     &:hover {
       background-color: var(--gray-1);

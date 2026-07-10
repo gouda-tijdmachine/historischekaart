@@ -182,14 +182,14 @@ const updateSearchState = (propName: string, value: string) => {
   &.images {
     display: grid;
     grid-auto-rows: 1fr;
-    grid-template-columns: repeat(auto-fill, var(--image-card-size));
+    grid-template-columns: repeat(auto-fill, minmax(min(var(--image-card-size), 100%), 1fr));
 
     .load-more {
-      grid-column: span 2;
+      grid-column: 1 / -1;
     }
 
     li:has(.spinner-container) {
-      grid-column: span 2;
+      grid-column: 1 / -1;
     }
 
     &.no-results {

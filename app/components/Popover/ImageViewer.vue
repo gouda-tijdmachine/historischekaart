@@ -163,8 +163,8 @@ onMounted(() => {
 .osd-popover {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100dvh;
   border: none;
   padding: 0;
   margin: 0;
@@ -185,7 +185,7 @@ onMounted(() => {
 .close-btn {
   position: absolute;
   top: var(--space-3);
-  right: 0;
+  right: var(--space-3);
   z-index: 10000;
   width: fit-content;
   padding: var(--space-2) var(--space-3);

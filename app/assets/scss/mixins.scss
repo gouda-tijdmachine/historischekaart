@@ -1,3 +1,13 @@
+// Dit bestand wordt in elk scoped style-block geïnjecteerd (nuxt.config.ts,
+// vite.css.preprocessorOptions.scss.additionalData) en mag dus geen CSS produceren.
+$breakpoint-mobile: 48rem;
+
+@mixin mobile {
+  @media (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
 @mixin text-xs {
   font-size: var(--font-size-xs);
   line-height: var(--line-height-base);

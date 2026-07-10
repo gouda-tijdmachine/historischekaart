@@ -61,12 +61,22 @@ const step = ref<number>(10)
   grid-template-areas: "slider dropdown";
   gap: var(--space-4);
   padding: var(--space-6);
+
+  @include mobile {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "dropdown";
+    padding: var(--space-3);
+  }
 }
 
 .slider-area {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  @include mobile {
+    display: none;
+  }
 }
 
 .dropdown-area {

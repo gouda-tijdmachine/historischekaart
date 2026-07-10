@@ -185,6 +185,17 @@ const tips = [
   &:not(:popover-open) {
     display: none;
   }
+
+  @include mobile {
+    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    transform: none;
+    border-radius: 0;
+  }
 }
 
 .header {

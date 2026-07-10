@@ -53,7 +53,17 @@
 
 <script setup lang="ts">
 const filterStore = useFilterStore()
-const isOpen = ref(true)
+const isMobile = useIsMobile()
+const isOpen = ref(!isMobile.value)
+
+watch(isMobile, mobile => isOpen.value = !mobile)
+
+// Op mobiel bedekt het zoekpaneel de kaart, dus ruim het op zodra er iets gekozen is
+watch(() => filterStore.selectedId, (id) => {
+  if (id && isMobile.value) {
+    isOpen.value = false
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -63,7 +73,7 @@ const isOpen = ref(true)
   min-width: 0;
   transition: width 300ms ease-in-out;
   border-right: 1px solid var(--border-color);
-  padding: var(--space-6);
+  padding: var(--sidebar-padding);
 
   &.is-open {
     width: var(--max-sidebar-width);
@@ -78,12 +88,39 @@ const isOpen = ref(true)
       }
     }
   }
+
+  // De content is breder dan de dichtgeklapte sidebar en steekt eroverheen.
+  // opacity: 0 vangt nog steeds kliks, dus die moeten hier expliciet uit.
+  &:not(.is-open) .sidebar-content {
+    pointer-events: none;
+  }
+
+  // Op mobiel schuift de sidebar als overlay over de kaart. Schuiven met `left`
+  // en niet met `transform`, anders wordt deze sidebar het containing block van
+  // de chevron-knop en kan die niet meer buiten de sidebar uitsteken.
+  @include mobile {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: calc(-1 * var(--max-sidebar-width));
+    width: var(--max-sidebar-width);
+    // Boven de leaflet-controls (.leaflet-top is 1000), onder .map-popup
+    z-index: 1010;
+    border-right: none;
+    background-color: var(--white);
+    transition: left 300ms ease-in-out;
+
+    &.is-open {
+      left: 0;
+      box-shadow: var(--shadow-1);
+    }
+  }
 }
 
 .sidebar-content {
   height: 100%;
   display: grid;
-  grid-template-columns: calc(var(--max-sidebar-width) - 2 * var(--space-6) - 1px);
+  grid-template-columns: calc(var(--max-sidebar-width) - 2 * var(--sidebar-padding) - 1px);
   grid-template-rows: auto 1fr;
   grid-template-areas:
     "header"
@@ -91,6 +128,11 @@ const isOpen = ref(true)
   gap: var(--space-4);
   opacity: 0;
   transition: opacity 300ms ease-in-out;
+
+  @include mobile {
+    // Zichtbaarheid komt van de left-slide, niet van opacity
+    opacity: 1;
+  }
 }
 
 .header {
@@ -101,6 +143,11 @@ const isOpen = ref(true)
   grid-template-areas: "logo title help";
   gap: var(--space-4);
   align-items: center;
+
+  @include mobile {
+    grid-template-columns: var(--space-10) minmax(0, 1fr) var(--space-11);
+    gap: var(--space-2);
+  }
 }
 
 .title {
@@ -113,6 +160,12 @@ const isOpen = ref(true)
   gap: var(--space-4);
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
+
+  @include mobile {
+    // Laat de titel afbreken in plaats van hem af te kappen
+    white-space: normal;
+    justify-content: flex-start;
+  }
 }
 
 .logo {
@@ -128,6 +181,11 @@ const isOpen = ref(true)
   justify-self: flex-end;
   width: var(--space-8);
   height: var(--space-8);
+
+  @include mobile {
+    width: var(--space-11);
+    height: var(--space-11);
+  }
 }
 
 .tabs {
@@ -142,5 +200,15 @@ const isOpen = ref(true)
   width: var(--space-8);
   height: var(--space-8);
   z-index: 401; // Higher than leaflet map
+
+  @include mobile {
+    // Rijdt mee met de sidebar: dichtgeklapt steekt de knop aan de linker
+    // schermrand uit, uitgeklapt staat hij op de strook kaart rechts. De
+    // offset is gelijk aan de breedte, anders valt hij deels buiten beeld.
+    right: calc(-1 * var(--space-11));
+    width: var(--space-11);
+    height: var(--space-11);
+    z-index: 1011;
+  }
 }
 </style>

@@ -177,5 +177,12 @@ onMounted(() => {
     overflow-y: auto;
     overflow-x: hidden;
   }
+
+  @include mobile {
+    // iOS zoomt in op inputs kleiner dan 16px en verschuift dan de layout
+    :deep(input) {
+      font-size: var(--font-size-base);
+    }
+  }
 }
 </style>

@@ -55,7 +55,7 @@ defineEmits<{
 <style lang="scss" scoped>
 .controls-search {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(3, 1fr);
   grid-template-areas:
   "input input"

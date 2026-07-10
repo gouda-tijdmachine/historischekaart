@@ -35,13 +35,14 @@ const handleClick = () => {
 .user-item {
   display: grid;
   gap: var(--space-2);
-  grid-template-columns: var(--space-4) auto min-content;
+  grid-template-columns: var(--space-4) minmax(0, 1fr) min-content;
   grid-template-areas: "icon title tag";
   align-items: center;
 
   .details {
     grid-area: title;
     display: flex;
+    min-width: 0;
   }
 
   .icon {

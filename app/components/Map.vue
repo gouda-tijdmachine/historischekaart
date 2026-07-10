@@ -53,6 +53,7 @@ const layerStore = useLayerStore()
 const filterStore = useFilterStore()
 const { selectedTileLayer, selectedWmsLayer } = storeToRefs(layerStore)
 const { currentYear, geoJsonData, selectedId, additionalHighlights } = storeToRefs(filterStore)
+const isMobile = useIsMobile()
 
 const zoom = ref(16)
 const minZoom = ref(16)
@@ -120,10 +121,17 @@ const handleActiveState = (id: any) => {
     const layers: any = Object.values(leaflet._layers).filter((layer: any) => [id, ...ids].includes(layer.feature?.properties.identifier))
 
     if (Array.isArray(layers) && layers.length) {
+      // Reserve room for the popup panel on the left. On mobile it covers the
+      // whole map, so there is nothing to move the item out from under.
+      const containerWidth = mapInstance.getContainer().clientWidth
+      const padLeft = isMobile.value
+        ? 0
+        : Math.min(containerWidth * 0.5 + 32, containerWidth * 0.6)
+
       layers.forEach((layer: any) => {
         if (layer.feature?.properties.identifier === id) {
           // Move the map to show the active selected item
-          mapInstance.fitBounds(layer.getBounds(), { maxZoom: maxZoom.value, paddingTopLeft: [700, 0] })
+          mapInstance.fitBounds(layer.getBounds(), { maxZoom: maxZoom.value, paddingTopLeft: [padLeft, 0] })
         }
 
         // Set the color of the current item
