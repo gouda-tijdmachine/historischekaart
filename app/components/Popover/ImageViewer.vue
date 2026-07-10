@@ -83,12 +83,16 @@ const updateZoomConstraints = () => {
     return
   }
 
-  // Fetch the current zoom level and update constraints
-  const currentZoom = client.viewport.getZoom()
+  // Compare the settled zoom against the viewport's own bounds (getZoom is in
+  // viewport-zoom units, same scale as min/maxZoomLevel). An epsilon absorbs
+  // float rounding and the zoom spring not landing exactly on the bound.
+  const viewport = client.viewport
+  const currentZoom = viewport.getZoom(false)
+  const epsilon = 1e-3
 
   // Disable zoom buttons if we reach min/max zoom levels
-  minZoomed.value = currentZoom <= 0.5
-  maxZoomed.value = currentZoom >= 3.0
+  minZoomed.value = currentZoom <= viewport.getMinZoom() + epsilon
+  maxZoomed.value = currentZoom >= viewport.getMaxZoom() - epsilon
 }
 
 const initializeOSD = async () => {
@@ -102,7 +106,7 @@ const initializeOSD = async () => {
     sequenceMode: false,
     tileSources: IIIFEndpoint.value,
     gestureSettingsTouch: {
-      pinchToZoom: false,
+      pinchToZoom: true,
       flickEnabled: true,
     },
     gestureSettingsMouse: {
@@ -126,8 +130,11 @@ const initializeOSD = async () => {
     showRotationControl: false,
   })
 
-  // Add the zoom handler and update the viewer
-  client.addHandler('animation-finish', updateZoomConstraints)
+  // Keep the button constraints in sync. Use the 'zoom' event, not
+  // 'animation-finish': a pinch gesture updates the zoom directly and never
+  // fires 'animation-finish', whereas 'zoom' fires for pinch, wheel, the
+  // buttons and programmatic zoom alike.
+  client.addHandler('zoom', updateZoomConstraints)
   viewer.value = client
 }
 
