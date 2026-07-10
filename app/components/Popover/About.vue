@@ -226,6 +226,7 @@ const tips = [
 
   .checkbox {
     grid-area: action;
+    accent-color: var(--blue);
   }
 
   .subtitle {
