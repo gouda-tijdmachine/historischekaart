@@ -82,6 +82,11 @@ const loadMore = async (reset: boolean = false) => {
   if (reset) {
     items.value = []
     totalItems.value = 0
+
+    // een nieuwe zoekopdracht sluit een eventueel openstaande popup
+    if (selectedId.value) {
+      filterStore.resetSelected()
+    }
   }
 
   // Create the params
