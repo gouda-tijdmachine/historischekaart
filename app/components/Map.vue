@@ -140,6 +140,16 @@ const handleActiveState = (id: any) => {
           color: 'var(--red)',
         })
       })
+
+      // Bij een persoon- of plaatje-selectie is de selectie zelf geen
+      // kaartlaag: zoom dan naar de gezamenlijke bounds van de
+      // gerelateerde panden (de highlights)
+      const zelf = layers.some((layer: any) => layer.feature?.properties.identifier === id)
+      if (!zelf) {
+        const bounds = layers[0].getBounds()
+        layers.slice(1).forEach((layer: any) => bounds.extend(layer.getBounds()))
+        mapInstance.fitBounds(bounds, { maxZoom: maxZoom.value, paddingTopLeft: [padLeft, 0] })
+      }
     }
   }
 }
