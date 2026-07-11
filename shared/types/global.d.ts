@@ -76,7 +76,7 @@ declare global {
 
   interface PersonCard extends Card {
     address?: string
-    year: number
+    year: string
     buildingId?: string
     relation?: string
     source?: string

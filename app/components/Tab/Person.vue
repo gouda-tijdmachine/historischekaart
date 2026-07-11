@@ -20,7 +20,9 @@ const transform = (person: PersonResponse): PersonCard => {
     id: person.identifier,
     title: person.naam,
     profession: person.beroep,
-    year: parseInt(person.datering, 10),
+    // datering is een bereik ("1842–1907") of een los jaar; niet parsen,
+    // want parseInt zou het bereik afkappen tot het eerste jaartal
+    year: person.datering,
     propertyIds: person.pandidentifiers,
   }
 }
