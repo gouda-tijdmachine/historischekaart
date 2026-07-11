@@ -156,10 +156,22 @@ const initializeOSD = async () => {
       w = (w / 100) * size.x
       h = (h / 100) * size.y
     }
+    const vpRect = viewport.imageToViewportRectangle(new OpenSeadragon.Rect(x, y, w, h))
+
+    // Teken de bounding box als overlay in GTM-blauw. Een OSD-overlay met een
+    // Rect-locatie schaalt en verplaatst automatisch mee met de zoom.
+    const box = document.createElement('div')
+    box.className = 'osd-region-box'
+    box.style.border = '0.125rem solid var(--blue)'
+    box.style.backgroundColor = 'var(--blue-10)'
+    box.style.boxSizing = 'border-box'
+    box.style.pointerEvents = 'none'
+    client.addOverlay({ element: box, location: vpRect })
+
     // Verruim de max-zoom zodat de box het scherm kan vullen; uitzoomen naar de
     // hele pagina (minZoomLevel 0.5) blijft mogelijk.
     viewport.maxZoomLevel = Math.max(3, (size.x / w) * 1.25, (size.y / h) * 1.25)
-    viewport.fitBounds(viewport.imageToViewportRectangle(new OpenSeadragon.Rect(x, y, w, h)), true)
+    viewport.fitBounds(vpRect, true)
     updateZoomConstraints()
   })
 
