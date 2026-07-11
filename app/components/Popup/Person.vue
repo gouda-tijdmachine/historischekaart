@@ -6,6 +6,16 @@
     />
   </PopupSection>
   <PopupSection
+    title="Eigenaar/bewoner van"
+    anchor="panden"
+  >
+    <PopupRelatedList :items="data.panden">
+      <template #item="item">
+        <PopupItemsProperty :item="item" />
+      </template>
+    </PopupRelatedList>
+  </PopupSection>
+  <PopupSection
     v-if="sources.length"
     title="Bronnen"
     anchor="bronnen"
@@ -13,16 +23,6 @@
     <PopupRelatedList :items="sources">
       <template #item="item">
         <PopupItemsSource :item="item" />
-      </template>
-    </PopupRelatedList>
-  </PopupSection>
-  <PopupSection
-    title="Eigenaar/bewoner van"
-    anchor="panden"
-  >
-    <PopupRelatedList :items="data.panden">
-      <template #item="item">
-        <PopupItemsProperty :item="item" />
       </template>
     </PopupRelatedList>
   </PopupSection>
@@ -48,11 +48,11 @@ const anchorSections = computed(() => {
     { id: 'details', label: 'Details' },
   ]
 
+  sections.push({ id: 'panden', label: 'Panden' })
+
   if (sources.value.length) {
     sections.push({ id: 'bronnen', label: 'Bronnen' })
   }
-
-  sections.push({ id: 'panden', label: 'Panden' })
 
   return sections
 })
