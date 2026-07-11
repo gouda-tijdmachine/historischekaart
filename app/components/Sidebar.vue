@@ -54,7 +54,10 @@
 <script setup lang="ts">
 const filterStore = useFilterStore()
 const isMobile = useIsMobile()
-const isOpen = ref(!isMobile.value)
+// bij een deeplink (elke URL met een hash: person/pand/plaatje) start het
+// zoekpaneel ingeklapt, zodat de popup en de kaart direct zichtbaar zijn
+const heeftDeeplink = Boolean(useRoute().hash)
+const isOpen = ref(!isMobile.value && !heeftDeeplink)
 
 watch(isMobile, mobile => isOpen.value = !mobile)
 
