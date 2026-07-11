@@ -9,7 +9,16 @@
     >
       <span>{{ labelFor(property) }}:</span>
       <a
-        v-if="isUrl(data[property])"
+        v-if="links?.[property] && data[links[property]]"
+        :href="data[links[property]]"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link"
+      >
+        {{ data[property] }}
+      </a>
+      <a
+        v-else-if="isUrl(data[property])"
         :href="data[property]"
         target="_blank"
         rel="noopener noreferrer"
@@ -32,6 +41,9 @@
 defineProps<{
   data: any
   properties: string[]
+  // eigenschap -> veldnaam met de URL waar de waarde heen moet linken
+  // (bv. { bronbronorganisatie: 'url' }: toon "SAMH", link naar data.url)
+  links?: Record<string, string>
 }>()
 
 const isUrl = (value: string): boolean => {

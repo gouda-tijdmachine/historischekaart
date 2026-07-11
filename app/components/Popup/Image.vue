@@ -16,6 +16,7 @@
     <PopupProperties
       :data="data"
       :properties="supportedProperties"
+      :links="{ bronbronorganisatie: 'url' }"
     />
   </PopupSection>
 
