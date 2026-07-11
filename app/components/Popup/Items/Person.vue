@@ -14,7 +14,8 @@
       {{ item.beroep ? `, ${item.beroep}` : '' }}
     </div>
     <Tag
-      :value="item.datering"
+      v-if="datering"
+      :value="datering"
       class="red"
     />
   </li>
@@ -25,6 +26,21 @@ const filterStore = useFilterStore()
 const props = defineProps<{
   item: any
 }>()
+
+// de datering van een persoonsreconstructie kan een reeks vermeldingsjaren
+// zijn ("1880, 1895, 1896, 1897"); compact weergeven als "1880–1897"
+const datering = computed(() => {
+  const jaren = [...new Set(
+    String(props.item.datering ?? '')
+      .split(', ')
+      .map(d => d.replace(/^(\d{4})-\d{2}(-\d{2})?$/, '$1'))
+      .filter(Boolean),
+  )]
+  if (jaren.length > 1) {
+    return `${jaren[0]}–${jaren[jaren.length - 1]}`
+  }
+  return jaren[0] ?? ''
+})
 
 const handleClick = () => {
   filterStore.updateSelected('person', props.item.identifier)
