@@ -154,9 +154,40 @@ const handleActiveState = (id: any) => {
   }
 }
 
+// Leaflet merkt zelf alleen window-resizes op, niet het smaller/breder worden
+// van de container door het in-/uitklappen van het zoekpaneel; zonder dit
+// drijft een gefit pand uit het zichtbare kaartdeel. Debounce wacht de
+// 300ms-sidebar-transitie af.
+let resizeTimer: ReturnType<typeof setTimeout> | undefined
+const resizeObserver = new ResizeObserver(() => {
+  clearTimeout(resizeTimer)
+  resizeTimer = setTimeout(() => {
+    const mapInstance = map.value?.leafletObject
+    if (!mapInstance) {
+      return
+    }
+    mapInstance.invalidateSize()
+    if (selectedId.value) {
+      handleActiveState(selectedId.value)
+    }
+  }, 150)
+})
+
+onBeforeUnmount(() => {
+  clearTimeout(resizeTimer)
+  resizeObserver.disconnect()
+})
+
 /**
  * Watchers
  */
+watch(mapLayerReady, (ready) => {
+  if (ready) {
+    resizeObserver.disconnect()
+    resizeObserver.observe(map.value.leafletObject.getContainer())
+  }
+})
+
 watch(currentYear, async (newValue) => {
   filterStore.fetchGeoJson(newValue)
 }, { immediate: true })
