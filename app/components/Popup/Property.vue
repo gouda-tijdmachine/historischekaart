@@ -14,6 +14,9 @@
     </div>
   </template>
   <template v-else>
+    <PopupSection v-if="data.geometrie">
+      <PopupMiniMap :geometry="data.geometrie" />
+    </PopupSection>
     <PopupSection
       v-if="data.adressen?.length"
       title="Adressen door de tijd heen"

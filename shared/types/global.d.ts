@@ -158,6 +158,7 @@ declare global {
       titel: string
       datering: string
     }[]
+    geometrie?: Feature['geometry']
     identifier: string
     naam: string
     personen: {
