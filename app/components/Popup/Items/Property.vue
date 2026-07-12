@@ -33,6 +33,6 @@ const handleClick = () => {
   display: grid;
   gap: var(--space-2);
   grid-template-columns: var(--space-4) auto;
-  align-items: center;
+  align-items: self-start;
 }
 </style>

@@ -49,7 +49,7 @@ const name = computed<string>(() => {
   .title-area {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: self-start;
   }
 }
 </style>
