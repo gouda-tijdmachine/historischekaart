@@ -4,14 +4,17 @@
       :name="filterStore.iconName('person')"
       class="icon"
     />
+    <!-- naam en beroep aaneengesloten (v-text, geen witruimte) zodat ze
+         samen één normaal afbrekende tekstregel vormen -->
     <div class="details">
       <button
         class="link"
         @click="handleClick"
-      >
-        {{ item.naam }}
-      </button>
-      {{ item.beroep ? `, ${item.beroep}` : '' }}
+        v-text="item.naam"
+      /><span
+        v-if="item.beroep"
+        v-text="`, ${item.beroep}`"
+      />
     </div>
     <Tag
       v-if="datering"
@@ -57,8 +60,12 @@ const handleClick = () => {
 
   .details {
     grid-area: title;
-    display: flex;
     min-width: 0;
+
+    // naam + beroep als één doorlopende tekstregel laten afbreken
+    .link {
+      display: inline;
+    }
   }
 
   .icon {
