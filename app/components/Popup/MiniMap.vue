@@ -3,7 +3,7 @@
     <LMap
       class="mini-map"
       :center="center"
-      :zoom="20"
+      :zoom="19"
       :max-zoom="20"
       :use-global-leaflet="false"
       :options="mapOptions"
