@@ -3,8 +3,8 @@
     <LMap
       class="mini-map"
       :center="center"
-      :zoom="18"
-      :max-zoom="19"
+      :zoom="20"
+      :max-zoom="20"
       :use-global-leaflet="false"
       :options="mapOptions"
       @ready="onReady"
@@ -12,7 +12,7 @@
       <LTileLayer
         layer-type="base"
         url="https://tileserver.huc.knaw.nl/{z}/{x}/{y}"
-        :max-zoom="19"
+        :max-zoom="20"
       />
       <LCircleMarker
         :lat-lng="center"
