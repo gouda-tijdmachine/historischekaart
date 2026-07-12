@@ -53,7 +53,7 @@ const handleClick = () => {
   gap: var(--space-2);
   grid-template-columns: var(--space-4) minmax(0, 1fr) min-content;
   grid-template-areas: "icon title tag";
-  align-items: center;
+  align-items: self-start;
 
   .details {
     grid-area: title;
