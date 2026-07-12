@@ -28,6 +28,7 @@ defineProps<{
 
   .icon {
     color: var(--blue);
+    flex-shrink: 0;
   }
 }
 

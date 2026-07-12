@@ -27,6 +27,7 @@ defineProps<{
 
   .icon-lg {
     color: var(--blue);
+    flex-shrink: 0;
   }
 }
 </style>
